@@ -7,6 +7,6 @@
         "php": ">=4.3.0"
     },
     "autoload": {
-        "files": ["whois.main.php"]
+        "files": ["whois.main.php", "whois.utils.php"]
     }
 }
