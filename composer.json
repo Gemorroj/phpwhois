@@ -10,5 +10,6 @@
     },
     "autoload": {
         "files": ["whois.main.php"]
-    }
+    },
+    "target-dir": "Gemprrpj/phpwhois"
 }
