@@ -41,8 +41,8 @@ if (isSet($_GET['query'])) {
     else
         $output = '';
 
-    include_once('whois.main.php');
-    include_once('whois.utils.php');
+    require __DIR__ . '/../src/whois.main.php';
+    require __DIR__ . '/../src/whois.utils.php';
 
     $whois = new Whois();
 
@@ -66,7 +66,7 @@ if (isSet($_GET['query'])) {
     switch ($output) {
         case 'object':
             if ($whois->Query['status'] < 0) {
-                $winfo = implode($whois->Query['errstr'], "\n<br></br>");
+                $winfo = implode($whois->Query['errstr'], "\n<br/>");
             } else {
                 $utils = new utils;
                 $winfo = $utils->showObject($result);
@@ -79,7 +79,7 @@ if (isSet($_GET['query'])) {
                 $winfo = $utils->showHTML($result);
             } else {
                 if (isset($whois->Query['errstr']))
-                    $winfo = implode($whois->Query['errstr'], "\n<br></br>");
+                    $winfo = implode($whois->Query['errstr'], "\n<br/>");
                 else
                     $winfo = 'Unexpected error';
             }
@@ -93,7 +93,7 @@ if (isSet($_GET['query'])) {
             if (!empty($result['rawdata'])) {
                 $winfo .= '<pre>' . implode($result['rawdata'], "\n") . '</pre>';
             } else {
-                $winfo = implode($whois->Query['errstr'], "\n<br></br>");
+                $winfo = implode($whois->Query['errstr'], "\n<br/>");
             }
     }
 

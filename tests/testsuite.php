@@ -72,7 +72,8 @@ if (!empty($argv[1]) && isset($domains[$argv[1]])) {
 
 // Test domains
 
-include('whois.main.php');
+require __DIR__ . '/../src/whois.main.php';
+require __DIR__ . '/../src/whois.utils.php';
 
 $whois = new Whois();
 
