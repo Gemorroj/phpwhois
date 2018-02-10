@@ -42,7 +42,7 @@ function generic_parser_a($rawdata, $translate, $contacts, $main = 'domain', $da
     $r = $blocks['main'];
     $ret['registered'] = 'yes';
 
-    while (list($key, $val) = each($contacts))
+    foreach ($contacts as $key => $val) {
         if (isset($r[$key])) {
             if (is_array($r[$key]))
                 $blk = $r[$key][count($r[$key]) - 1];
@@ -53,6 +53,7 @@ function generic_parser_a($rawdata, $translate, $contacts, $main = 'domain', $da
             if (isset($blocks[$blk])) $ret[$val] = $blocks[$blk];
             unset($r[$key]);
         }
+    }
 
     if ($main) $ret[$main] = $r;
 
@@ -72,7 +73,7 @@ function generic_parser_a_blocks($rawdata, $translate, &$disclaimer)
     $gkey = 'main';
     $dend = false;
 
-    while (list($key, $val) = each($rawdata)) {
+    foreach ($rawdata as $val) {
         $val = trim($val);
 
         if ($val != '' && ($val[0] == '%' || $val[0] == '#')) {
@@ -329,7 +330,7 @@ function generic_parser_b($rawdata, $items = false, $dateformat = 'mdy', $hasreg
     $r = array();
     $disok = true;
 
-    while (list($key, $val) = each($rawdata)) {
+    foreach ($rawdata as $val) {
         if (trim($val) != '') {
             if (($val[0] == '%' || $val[0] == '#') && $disok) {
                 $r['disclaimer'][] = trim(substr($val, 1));
@@ -338,9 +339,8 @@ function generic_parser_b($rawdata, $items = false, $dateformat = 'mdy', $hasreg
             }
 
             $disok = false;
-            reset($items);
 
-            while (list($match, $field) = each($items)) {
+            foreach ($items as $match => $field) {
                 $pos = strpos($val, $match);
 
                 if ($pos !== false) {
@@ -572,14 +572,13 @@ function get_contact($array, $extra_items = '', $has_org = false)
         $items = $extra_items;
     }
 
-    while (list($key, $val) = each($array)) {
+    foreach ($array as $key => $val) {
         $ok = true;
 
         while ($ok) {
-            reset($items);
             $ok = false;
 
-            while (list($match, $field) = each($items)) {
+            foreach ($items as $match => $field) {
                 $pos = strpos(strtolower($val), $match);
 
                 if ($pos === false) continue;
@@ -721,7 +720,7 @@ function get_date($date, $format)
     $date = str_replace("\t", ' ', $date);
 
     $parts = explode(' ', $date);
-    $res = false;
+    $res = array();
 
     if ((strlen($parts[0]) == 8 || count($parts) == 1) && is_numeric($parts[0])) {
         $val = $parts[0];
@@ -753,10 +752,9 @@ function get_date($date, $format)
     $ok = false;
 
     while (!$ok) {
-        reset($res);
         $ok = true;
 
-        while (list($key, $val) = each($res)) {
+        foreach ($res as $key => $val) {
             if ($val == '' || $key == '') continue;
 
             if (!is_numeric($val) && isset($months[substr(strtolower($val), 0, 3)])) {

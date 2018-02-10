@@ -68,7 +68,7 @@ class apnic_handler
 
             $r['registered'] = 'yes';
 
-            while (list($key, $val) = each($contacts))
+            foreach ($contacts as $key => $val) {
                 if (isset($rb[$key])) {
                     if (is_array($rb[$key]))
                         $blk = $rb[$key][count($rb[$key]) - 1];
@@ -79,6 +79,7 @@ class apnic_handler
                     if (isset($blocks[$blk])) $r[$val] = $blocks[$blk];
                     unset($rb[$key]);
                 }
+            }
 
             $r['network'] = $rb;
             format_dates($r, 'Ymd');

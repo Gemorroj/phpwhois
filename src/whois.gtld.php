@@ -33,6 +33,7 @@ require_once('whois.parser.php');
 class gtld_handler extends WhoisClient
 {
     var $HANDLER_VERSION = '1.1';
+    var $SUBVERSION;
     var $result;
     var $deep_whois;
 

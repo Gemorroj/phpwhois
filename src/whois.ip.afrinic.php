@@ -58,13 +58,14 @@ class afrinic_handler
             unset($r['network']['descr']);
         }
 
-        if (isset($r['owner']['remarks']) && is_array($r['owner']['remarks']))
-            while (list($key, $val) = each($r['owner']['remarks'])) {
+        if (isset($r['owner']['remarks']) && is_array($r['owner']['remarks'])) {
+            foreach ($r['owner']['remarks'] as $val) {
                 $pos = strpos($val, 'rwhois://');
 
                 if ($pos !== false)
                     $r['rwhois'] = strtok(substr($val, $pos), ' ');
             }
+        }
 
         $r = array('regrinfo' => $r);
         $r['regyinfo']['type'] = 'ip';

@@ -88,12 +88,11 @@ class idna_convert {
      * the constructor
      *
      * @param array $options
-     * @return boolean
      * @since 0.5.2
      */
-    public function __construct($options = false)
+    public function __construct($options = null)
     {
-        $this->slast = $this->_sbase + $this->_lcount * $this->_vcount * $this->_tcount;
+        //$this->slast = $this->_sbase + $this->_lcount * $this->_vcount * $this->_tcount;
         // If parameters are given, pass these to the respective method
         if (is_array($options)) {
             $this->set_parameter($options);
@@ -288,6 +287,7 @@ class idna_convert {
                 break;
             case 'ucs4_string':
                 $decoded = $this->_ucs4_string_to_ucs4($decoded);
+                break;
             case 'ucs4_array':
                 break;
             default:
@@ -930,7 +930,7 @@ class idna_convert {
     /**
      * Convert UCS-4 string into UTF-8 string
      * See _utf8_to_ucs4() for details
-     * @param string  $input
+     * @param array  $input
      * @return string
      */
     protected function _ucs4_to_utf8($input)
