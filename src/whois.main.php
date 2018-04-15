@@ -53,7 +53,7 @@ class Whois extends WhoisClient
     {
         parent::__construct();
 
-        if ((substr(php_uname(), 0, 7) == 'Windows'))
+        if ((substr(php_uname(), 0, 7) === 'Windows'))
             $this->windows = true;
         else
             $this->windows = false;
@@ -138,7 +138,7 @@ class Whois extends WhoisClient
             // AS Prepare to do lookup via the 'ip' handler
             $ip = @gethostbyname($query);
             $this->Query['server'] = 'whois.arin.net';
-            if (strtolower(substr($ip, 0, 2)) == 'as')
+            if (strtolower(substr($ip, 0, 2)) === 'as')
                 $as = substr($ip, 2);
             else
                 $as = $ip;
@@ -215,7 +215,7 @@ class Whois extends WhoisClient
                 }
 
                 // Regular handler exists for the tld ?
-                if (($fp = @fopen('whois.' . $htld . '.php', 'r', 1)) and fclose($fp)) {
+                if (($fp = @fopen('whois.' . $htld . '.php', 'r', 1)) && fclose($fp)) {
                     $handler = $htld;
                     break;
                 }
@@ -256,7 +256,7 @@ class Whois extends WhoisClient
     /* Get nameservers if missing */
     protected function Checkdns(&$result)
     {
-        if ($this->deep_whois && empty($result['regrinfo']['domain']['nserver']) && function_exists('dns_get_record')) {
+        if ($this->deep_whois && empty($result['regrinfo']['domain']['nserver'])) {
             $ns = @dns_get_record($this->Query['query'], DNS_NS);
             if (!is_array($ns)) return;
             $nserver = array();
@@ -277,7 +277,7 @@ class Whois extends WhoisClient
         // Check if nameservers exist
 
         if (!isset($result['regrinfo']['registered'])) {
-            if (function_exists('checkdnsrr') && checkdnsrr($domain, 'NS'))
+            if (checkdnsrr($domain, 'NS'))
                 $result['regrinfo']['registered'] = 'yes';
             else
                 $result['regrinfo']['registered'] = 'unknown';

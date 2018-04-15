@@ -29,10 +29,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 require __DIR__ . '/../src/whois.main.php';
 require __DIR__ . '/../src/whois.utils.php';
 
-if (isset($argv[1]))
+if (isset($argv[1])) {
     $domain = $argv[1];
-else
+} else {
     $domain = 'example.com';
+}
 
 $whois = new Whois();
 $result = $whois->Lookup($domain);

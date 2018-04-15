@@ -1,6 +1,3 @@
-
-$Id: README,v 1.22 2010/08/26 10:23:39 sparc Exp $
-
 Introduction
 ------------
 
@@ -53,22 +50,20 @@ problems or security risks.
 
 Example usage
 -------------
-
-(see example.php)
-
-include('whois.main.php');
+```php
+<?php
 
 $whois = new Whois();
-$query = 'example.com';
-$result = $whois->Lookup($query,false);
-echo "<pre>";
+$result = $whois->Lookup('example.com', false);
 print_r($result);
-echo "</pre>";
+```
 
 If you provide the domain name to query in UTF8, then you
 must use:
-
-$result = $whois->Lookup($query);
+```php
+<?php
+$result = $whois->Lookup('example.com');
+```
 
 If the query string is not in UTF8 then it must be in
 ISO-8859-1 or IDNA support will not work.
@@ -79,7 +74,8 @@ What you can query
 You can use phpWhois to query domain names, ip addresses and
 other information like AS, i.e, both of the following examples
 work:
-
+```php
+<?php
 $whois = new Whois();
 $result = $whois->Lookup('example.com');
 
@@ -88,6 +84,7 @@ $result = $whois->Lookup('62.97.102.115');
 
 $whois = new Whois();
 $result = $whois->Lookup('AS220');
+```
 
 Using special whois server
 --------------------------
@@ -102,20 +99,24 @@ The currently known whois services that offer special acccess are:
   that allow to pass the real client ip address. This feature is only
   available to registered gateways. If you are registered you can use
   this service when querying ripe ip addresses that way:
-  
+  ```php
+  <?php
   $whois = new Whois();
-  $whois->UseServer('uk','whois.ripe.net?-V{version},{ip} {query}');
+  $whois->UseServer('uk', 'whois.ripe.net?-V{version},{ip} {query}');
   $result = $whois->Lookup('62.97.102.115');
+  ```
 
 - whois.isoc.org.il
 
   This server is also using the new ripe whois server software and
   thus works the same way. If you are registered you can use this service
   when querying .il domains that way:
-
+  ```php
+  <?php
   $whois = new Whois();
-  $whois->UseServer('uk','whois.isoc.org.il?-V{version},{ip} {query}');
+  $whois->UseServer('uk', 'whois.isoc.org.il?-V{version},{ip} {query}');
   $result = $whois->Lookup('example.co.uk');
+  ```
 
 - whois.nic.uk
 
@@ -123,10 +124,12 @@ The currently known whois services that offer special acccess are:
   to registered users (usually Nominet members) with a higher amount of
   permited queries by hour. If you are registered you can use this service
   when querying .uk domains that way:
-
+  ```php
+  <?php
   $whois = new Whois();
-  $whois->UseServer('uk','whois.nic.uk:1043?{hname} {ip} {query}');
+  $whois->UseServer('uk', 'whois.nic.uk:1043?{hname} {ip} {query}');
   $result = $whois->Lookup('example.co.uk');
+  ```
 
 This new feature also allows you to use a different whois server than
 the preconfigured or discovered one by just calling whois->UseServer
@@ -135,20 +138,24 @@ For example you could use another whois server for .au domains that
 does not limit the number of requests (but provides no owner 
 information) using this:
 
-  $whois = new Whois();
-  $whois->UseServer('au','whois-check.ausregistry.net.au');
-
-or:
-
-  $whois = new Whois();
-  $whois->UseServer('be','whois.tucows.com');
+```php
+<?php
+$whois = new Whois();
+$whois->UseServer('au', 'whois-check.ausregistry.net.au');
+// or
+$whois = new Whois();
+$whois->UseServer('be', 'whois.tucows.com');
+```
 
 to avoid the restrictions imposed by the .be whois server
 
 or:
 
-  $whois = new Whois();
-  $whois->UseServer('ip','whois.apnic.net');
+```php
+<?php
+$whois = new Whois();
+$whois->UseServer('ip', 'whois.apnic.net');
+```
 
 to lookup an ip address at specific whois server (but loosing the
 ability to get the results parsed by the appropiate handler)
@@ -163,8 +170,10 @@ Getting results faster
 
 If you just want to know if a domain is registered or not but do not
 care about getting the real owner information you can set:
-
+```php
+<?php
 $whois->deep_whois = false;
+```
 
 this will tell phpWhois to just query one whois server. For .com, .net
 and .tv domains and ip addresses this will prevent phpWhois to ask more

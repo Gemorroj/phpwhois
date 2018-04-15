@@ -6,6 +6,9 @@
     "require": {
         "php": ">=5.3.3"
     },
+    "require-dev": {
+        "phpstan/phpstan": "^0.9"
+    },
     "autoload": {
         "files": [
             "src/whois.main.php",
