@@ -395,7 +395,7 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
     $r = array();
     $endtag = '';
 
-    while (list($key, $val) = @each($rawdata)) {
+    while (list($key, $val) = @each($rawdata)) { // FIXME: remove each
         $val = trim($val);
         if ($val == '') continue;
 
@@ -438,7 +438,7 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
 
         // Block found, get data ...
 
-        while (list($key, $val) = @each($rawdata)) {
+        while (list($key, $val) = @each($rawdata)) { // FIXME: remove each
             $val = trim($val);
 
             if ($val == '' || $val == str_repeat($val[0], strlen($val))) continue;
