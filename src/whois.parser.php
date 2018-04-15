@@ -76,7 +76,7 @@ function generic_parser_a_blocks($rawdata, $translate, &$disclaimer)
     foreach ($rawdata as $val) {
         $val = trim($val);
 
-        if ($val != '' && ($val[0] == '%' || $val[0] == '#')) {
+        if ($val != '' && ($val[0] === '%' || $val[0] === '#')) {
             if (!$dend) $disclaimer[] = trim(substr($val, 1));
             continue;
         }
@@ -109,7 +109,7 @@ function generic_parser_a_blocks($rawdata, $translate, &$disclaimer)
             $k = strtolower($k);
         }
 
-        if ($k == 'handle') {
+        if ($k === 'handle') {
             $v = strtok($v, ' ');
             $gkey = strtoupper($v);
         }
@@ -334,7 +334,7 @@ function generic_parser_b($rawdata, $items = false, $dateformat = 'mdy', $hasreg
 
     foreach ($rawdata as $val) {
         if (trim($val) != '') {
-            if (($val[0] == '%' || $val[0] == '#') && $disok) {
+            if (($val[0] === '%' || $val[0] === '#') && $disok) {
                 $r['disclaimer'][] = trim(substr($val, 1));
                 $disok = true;
                 continue;
@@ -395,7 +395,7 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
     $r = array();
     $endtag = '';
 
-    while (list($key, $val) = each($rawdata)) {
+    while (list($key, $val) = @each($rawdata)) {
         $val = trim($val);
         if ($val == '') continue;
 
@@ -438,7 +438,7 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
 
         // Block found, get data ...
 
-        while (list($key, $val) = each($rawdata)) {
+        while (list($key, $val) = @each($rawdata)) {
             $val = trim($val);
 
             if ($val == '' || $val == str_repeat($val[0], strlen($val))) continue;
@@ -484,7 +484,7 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
 
             if ($pos !== false) {
                 $var = getvarname(strtok($field, '#'));
-                if ($var != '[]') {
+                if ($var !== '[]') {
                     ${'r' . $var} = $block;
                 }
             }
@@ -770,7 +770,7 @@ function get_date($date, $format)
                 break;
             }
 
-            if ($key != 'y' && $key != 'Y' && $val > 1900) {
+            if ($key !== 'y' && $key !== 'Y' && $val > 1900) {
                 $res[$key] = $res['y'];
                 $res['y'] = $val;
                 $ok = false;
