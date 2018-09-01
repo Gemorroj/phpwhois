@@ -30,8 +30,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
    - o punnycode deveria fazer parte dos resultados fazer parte dos resultados!
 */
 
-if (!defined('__PT_HANDLER__'))
-    define('__PT_HANDLER__', 1);
+if (!\defined('__PT_HANDLER__'))
+    \define('__PT_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -55,7 +55,7 @@ class pt_handler
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
         if (empty($r['regrinfo']['domain']['name'])) {
-            print_r($r['regrinfo']);
+            \print_r($r['regrinfo']);
             $r['regrinfo']['registered'] = 'no';
             return $r;
         }

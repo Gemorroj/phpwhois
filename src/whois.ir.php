@@ -19,8 +19,8 @@
  */
 
 // Define the handler flag.
-if (!defined('__IR_HANDLER__'))
-    define('__IR_HANDLER__', 1);
+if (!\defined('__IR_HANDLER__'))
+    \define('__IR_HANDLER__', 1);
 
 // Loadup the parser.
 require_once('whois.parser.php');

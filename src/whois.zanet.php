@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__ZANET_HANDLER__'))
-    define('__ZANET_HANDLER__', 1);
+if (!\defined('__ZANET_HANDLER__'))
+    \define('__ZANET_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -52,12 +52,12 @@ class zanet_handler
         $rawdata = array();
 
         foreach ($data_str['rawdata'] as $line) {
-            if (strpos($line, ' Contact ') !== false) {
-                $pos = strpos($line, ':');
+            if (\strpos($line, ' Contact ') !== false) {
+                $pos = \strpos($line, ':');
 
                 if ($pos !== false) {
-                    $rawdata[] = substr($line, 0, $pos + 1);
-                    $rawdata[] = trim(substr($line, $pos + 1));
+                    $rawdata[] = \substr($line, 0, $pos + 1);
+                    $rawdata[] = \trim(\substr($line, $pos + 1));
                     continue;
                 }
             }

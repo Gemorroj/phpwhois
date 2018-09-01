@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-if (!defined('__ASIA_HANDLER__')) define('__ASIA_HANDLER__', 1);
+if (!\defined('__ASIA_HANDLER__')) \define('__ASIA_HANDLER__', 1);
 
 require_once('whois.parser.php');
 

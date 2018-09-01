@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!defined('__ORG_ZA_HANDLER__'))
-    define('__ORG_ZA_HANDLER__', 1);
+if (!\defined('__ORG_ZA_HANDLER__'))
+    \define('__ORG_ZA_HANDLER__', 1);
 
 class org_za_handler
 {
@@ -50,7 +50,7 @@ class org_za_handler
 
         if (isset($r['regrinfo']['domain']['status'])) {
             $r['regrinfo']['registered'] = 'yes';
-            $r['regrinfo']['domain']['handler'] = strtok(array_shift($r['regrinfo']['owner']), ' ');
+            $r['regrinfo']['domain']['handler'] = \strtok(\array_shift($r['regrinfo']['owner']), ' ');
             $r['regrinfo'] = get_contacts($r['regrinfo']);
         } else
             $r['regrinfo']['registered'] = 'no';

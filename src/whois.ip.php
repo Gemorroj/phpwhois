@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__IP_HANDLER__'))
-    define('__IP_HANDLER__', 1);
+if (!\defined('__IP_HANDLER__'))
+    \define('__IP_HANDLER__', 1);
 
 require_once('whois.ip.lib.php');
 
@@ -71,7 +71,7 @@ class ip_handler extends WhoisClient
         $result['regyinfo']['registrar'] = 'American Registry for Internet Numbers (ARIN)';
         $result['rawdata'] = array();
 
-        if (strpos($query, '.') === false)
+        if (\strpos($query, '.') === false)
             $result['regyinfo']['type'] = 'AS';
         else
             $result['regyinfo']['type'] = 'ip';
@@ -87,38 +87,37 @@ class ip_handler extends WhoisClient
         if (empty($rawdata)) return $result;
 
         $presults[] = $rawdata;
-        $ip = ip2long($query);
+        $ip = \ip2long($query);
         $done = array();
 
-        while (count($presults) > 0) {
-            $rwdata = array_shift($presults);
+        while (\count($presults) > 0) {
+            $rwdata = \array_shift($presults);
             $found = false;
 
             foreach ($rwdata as $line) {
-                if (!strncmp($line, 'American Registry for Internet Numbers', 38)) continue;
+                if (!\strncmp($line, 'American Registry for Internet Numbers', 38)) continue;
 
-                $p = strpos($line, '(NETBLK-');
+                $p = \strpos($line, '(NETBLK-');
 
-                if ($p === false) $p = strpos($line, '(NET-');
+                if ($p === false) $p = \strpos($line, '(NET-');
 
                 if ($p !== false) {
-                    $net = strtok(substr($line, $p + 1), ') ');
-                    $postNet = substr($line, $p + strlen($net) + 3);
+                    $net = \strtok(\substr($line, $p + 1), ') ');
+                    $postNet = \substr($line, $p + \strlen($net) + 3);
 
                     if ($postNet !== false) {
-                        list($low, $high) = explode('-', str_replace(' ', '', $postNet));
+                        list($low, $high) = \explode('-', \str_replace(' ', '', $postNet));
 
-                        if (!isset($done[$net]) && $ip >= ip2long($low) && $ip <= ip2long($high)) {
-                            $owner = substr($line, 0, $p - 1);
+                        if (!isset($done[$net]) && $ip >= \ip2long($low) && $ip <= \ip2long($high)) {
+                            //$owner = \substr($line, 0, $p - 1);
 
                             if (!empty($this->REGISTRARS['owner'])) {
                                 $this->handle_rwhois($this->REGISTRARS['owner'], $query);
                                 break 2;
-                            } else {
-                                $this->Query['args'] = 'n ' . $net;
-                                $presults[] = $this->GetRawData($net);
-                                $done[$net] = 1;
                             }
+                            $this->Query['args'] = 'n ' . $net;
+                            $presults[] = $this->GetRawData($net);
+                            $done[$net] = 1;
                         }
                     }
                     $found = true;
@@ -134,8 +133,8 @@ class ip_handler extends WhoisClient
 
         unset($this->Query['args']);
 
-        while (count($this->more_data) > 0) {
-            $srv_data = array_shift($this->more_data);
+        while (\count($this->more_data) > 0) {
+            $srv_data = \array_shift($this->more_data);
             $this->Query['server'] = $srv_data['server'];
             unset($this->Query['handler']);
             // Use original query
@@ -161,7 +160,7 @@ class ip_handler extends WhoisClient
         // Normalize nameserver fields
 
         if (isset($result['regrinfo']['network']['nserver'])) {
-            if (!is_array($result['regrinfo']['network']['nserver'])) {
+            if (!\is_array($result['regrinfo']['network']['nserver'])) {
                 unset($result['regrinfo']['network']['nserver']);
             } else
                 $result['regrinfo']['network']['nserver'] = $this->FixNameServer($result['regrinfo']['network']['nserver']);
@@ -176,14 +175,14 @@ class ip_handler extends WhoisClient
     {
         // Avoid querying the same server twice
 
-        $parts = parse_url($server);
+        $parts = \parse_url($server);
 
         if (empty($parts['host']))
             $host = $parts['path'];
         else
             $host = $parts['host'];
 
-        if (array_key_exists($host, $this->done)) return;
+        if (\array_key_exists($host, $this->done)) return;
 
         $q = array(
             'query' => $query,
@@ -192,7 +191,7 @@ class ip_handler extends WhoisClient
 
         if (isset($this->HANDLERS[$host])) {
             $q['handler'] = $this->HANDLERS[$host];
-            $q['file'] = sprintf('whois.ip.%s.php', $q['handler']);
+            $q['file'] = \sprintf('whois.ip.%s.php', $q['handler']);
             $q['reset'] = true;
         } else {
             $q['handler'] = 'rwhois';
@@ -247,7 +246,7 @@ class ip_handler extends WhoisClient
         }
 
         if (!empty($rwres['regyinfo']))
-            $result['regyinfo'] = array_merge($result['regyinfo'], $rwres['regyinfo']);
+            $result['regyinfo'] = \array_merge($result['regyinfo'], $rwres['regyinfo']);
 
         return $result;
     }
@@ -256,7 +255,7 @@ class ip_handler extends WhoisClient
 
     protected function join_result($result, $key, $newres)
     {
-        if (isset($result['regrinfo'][$key]) && !array_key_exists(0, $result['regrinfo'][$key])) {
+        if (isset($result['regrinfo'][$key]) && !\array_key_exists(0, $result['regrinfo'][$key])) {
             $r = $result['regrinfo'][$key];
             $result['regrinfo'][$key] = array($r);
         }

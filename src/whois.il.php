@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__IL_HANDLER__'))
-    define('__IL_HANDLER__', 1);
+if (!\defined('__IL_HANDLER__'))
+    \define('__IL_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -55,8 +55,8 @@ class il_handler
             'zone-c' => 'zone'
         );
 //unset($data_str['rawdata'][19]);
-        array_splice($data_str['rawdata'], 16, 1);
-        array_splice($data_str['rawdata'], 18, 1);
+        \array_splice($data_str['rawdata'], 16, 1);
+        \array_splice($data_str['rawdata'], 18, 1);
 //print_r($data_str['rawdata']);
 //die;
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
@@ -66,20 +66,20 @@ class il_handler
 
         if (isset($reg['domain']['descr:'])) {
             foreach ($reg['domain']['descr:'] as $key => $val) {
-                $v = trim(substr(strstr($val, ':'), 1));
-                if (strstr($val, '[organization]:')) {
+                $v = \trim(\substr(\strstr($val, ':'), 1));
+                if (\strstr($val, '[organization]:')) {
                     $reg['owner']['organization'] = $v;
                     continue;
                 }
-                if (strstr($val, '[phone]:')) {
+                if (\strstr($val, '[phone]:')) {
                     $reg['owner']['phone'] = $v;
                     continue;
                 }
-                if (strstr($val, '[fax-no]:')) {
+                if (\strstr($val, '[fax-no]:')) {
                     $reg['owner']['fax'] = $v;
                     continue;
                 }
-                if (strstr($val, '[e-mail]:')) {
+                if (\strstr($val, '[e-mail]:')) {
                     $reg['owner']['email'] = $v;
                     continue;
                 }

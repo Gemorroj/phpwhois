@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__GTLD_HANDLER__'))
-    define('__GTLD_HANDLER__', 1);
+if (!\defined('__GTLD_HANDLER__'))
+    \define('__GTLD_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -56,8 +56,8 @@ class gtld_handler extends WhoisClient
     public function parse($data, $query)
     {
         $this->Query = array();
-        if (is_array($query) and array_key_exists('handler', $query)) {
-            $this->SUBVERSION = sprintf('%s-%s', $query['handler'], $this->HANDLER_VERSION);
+        if (\is_array($query) and \array_key_exists('handler', $query)) {
+            $this->SUBVERSION = \sprintf('%s-%s', $query['handler'], $this->HANDLER_VERSION);
         }
         $this->result = generic_parser_b($data['rawdata'], $this->REG_FIELDS, 'dmy');
 
@@ -72,7 +72,7 @@ class gtld_handler extends WhoisClient
         if ($this->deep_whois) $this->result = $this->DeepWhois($query, $this->result);
 
         // Next server could fail to return data
-        if (empty($this->result['rawdata']) || count($this->result['rawdata']) < 3)
+        if (empty($this->result['rawdata']) || \count($this->result['rawdata']) < 3)
             $this->result['rawdata'] = $data['rawdata'];
 
         // Domain is registered no matter what next server says

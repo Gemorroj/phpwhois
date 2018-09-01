@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-if (!defined('__JP_HANDLER__'))
-    define('__JP_HANDLER__', 1);
+if (!\defined('__JP_HANDLER__'))
+    \define('__JP_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -81,7 +81,7 @@ class jp_handler extends WhoisClient
         if (!empty($r['regrinfo']['admin']['handle'])) {
             $rwdata = $this->GetRawData('CONTACT ' . $r['regrinfo']['admin']['handle'] . '/e');
             $r['rawdata'][] = '';
-            $r['rawdata'] = array_merge($r['rawdata'], $rwdata);
+            $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
             $r['regrinfo']['admin'] = generic_parser_b($rwdata, $items, 'ymd', false);
             $r = $this->set_whois_info($r);
         }
@@ -95,7 +95,7 @@ class jp_handler extends WhoisClient
                 $this->Query['server'] = 'jp.whois-servers.net';
                 $rwdata = $this->GetRawData('CONTACT ' . $r['regrinfo']['tech']['handle'] . '/e');
                 $r['rawdata'][] = '';
-                $r['rawdata'] = array_merge($r['rawdata'], $rwdata);
+                $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
                 $r['regrinfo']['tech'] = generic_parser_b($rwdata, $items, 'ymd', false);
                 $r = $this->set_whois_info($r);
             }

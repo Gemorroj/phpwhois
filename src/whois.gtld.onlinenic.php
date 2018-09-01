@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__ONLINENIC_HANDLER__'))
-    define('__ONLINENIC_HANDLER__', 1);
+if (!\defined('__ONLINENIC_HANDLER__'))
+    \define('__ONLINENIC_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -69,9 +69,9 @@ class onlinenic_handler
 
         foreach ($r as $key => $part)
             if (isset($part['email'])) {
-                @list($email, $phone) = explode(' ', $part['email']);
-                $email = str_replace('(', '', $email);
-                $email = str_replace(')', '', $email);
+                @list($email, $phone) = \explode(' ', $part['email']);
+                $email = \str_replace('(', '', $email);
+                $email = \str_replace(')', '', $email);
                 $r[$key]['email'] = $email;
                 if ($phone != '') $r[$key]['phone'] = $phone;
             }

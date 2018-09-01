@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__MOBI_HANDLER__'))
-    define('__MOBI_HANDLER__', 1);
+if (!\defined('__MOBI_HANDLER__'))
+    \define('__MOBI_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -37,7 +37,7 @@ class mobi_handler
         $r = array();
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
 
-        if (!strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20))
+        if (!\strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20))
             $r['regrinfo']['registered'] = 'unknown';
 
         $r['regyinfo']['referrer'] = 'http://www.mtld.mobi/';

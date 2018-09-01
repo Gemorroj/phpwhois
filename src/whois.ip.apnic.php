@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!defined('__APNIC_HANDLER__'))
-    define('__APNIC_HANDLER__', 1);
+if (!\defined('__APNIC_HANDLER__'))
+    \define('__APNIC_HANDLER__', 1);
 
 class apnic_handler
 {
@@ -53,9 +53,9 @@ class apnic_handler
 
         $blocks = generic_parser_a_blocks($data_str, $translate, $disclaimer);
 
-        if (isset($disclaimer) && is_array($disclaimer)) $r['disclaimer'] = $disclaimer;
+        if (isset($disclaimer) && \is_array($disclaimer)) $r['disclaimer'] = $disclaimer;
 
-        if (empty($blocks) || !is_array($blocks['main'])) {
+        if (empty($blocks) || !\is_array($blocks['main'])) {
             $r['registered'] = 'no';
         } else {
             if (isset($blocks[$query])) {
@@ -70,8 +70,8 @@ class apnic_handler
 
             foreach ($contacts as $key => $val) {
                 if (isset($rb[$key])) {
-                    if (is_array($rb[$key]))
-                        $blk = $rb[$key][count($rb[$key]) - 1];
+                    if (\is_array($rb[$key]))
+                        $blk = $rb[$key][\count($rb[$key]) - 1];
                     else
                         $blk = $rb[$key];
 
@@ -85,8 +85,8 @@ class apnic_handler
             format_dates($r, 'Ymd');
 
             if (isset($r['network']['desc'])) {
-                if (is_array($r['network']['desc'])) {
-                    $r['owner']['organization'] = array_shift($r['network']['desc']);
+                if (\is_array($r['network']['desc'])) {
+                    $r['owner']['organization'] = \array_shift($r['network']['desc']);
                     $r['owner']['address'] = $r['network']['desc'];
                 } else
                     $r['owner']['organization'] = $r['network']['desc'];

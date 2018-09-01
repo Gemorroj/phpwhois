@@ -33,7 +33,7 @@ function phpwhois_validip($ip)
     if (empty($ip))
         return false;
 
-    if ((ip2long($ip) == -1) or (ip2long($ip) === false))
+    if ((\ip2long($ip) == -1) or (\ip2long($ip) === false))
         return false;
 
     $reserved_ips = array(
@@ -48,9 +48,9 @@ function phpwhois_validip($ip)
     );
 
     foreach ($reserved_ips as $r) {
-        $min = ip2long($r[0]);
-        $max = ip2long($r[1]);
-        if ((ip2long($ip) >= $min) && (ip2long($ip) <= $max)) return false;
+        $min = \ip2long($r[0]);
+        $max = \ip2long($r[1]);
+        if ((\ip2long($ip) >= $min) && (\ip2long($ip) <= $max)) return false;
     }
 
     return true;
@@ -65,8 +65,8 @@ function phpwhois_getclientip()
         return $_SERVER['HTTP_CLIENT_IP'];
 
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-        foreach (explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']) as $ip)
-            if (phpwhois_validip(trim($ip)))
+        foreach (\explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']) as $ip)
+            if (phpwhois_validip(\trim($ip)))
                 return $ip;
 
     if (!empty($_SERVER['HTTP_X_FORWARDED']) && phpwhois_validip($_SERVER['HTTP_X_FORWARDED']))
@@ -89,17 +89,17 @@ function phpwhois_getclientip()
 
 function phpwhois_cidr_conv($net)
 {
-    $start = strtok($net, '/');
-    $n = 3 - substr_count($net, '.');
+    $start = \strtok($net, '/');
+    $n = 3 - \substr_count($net, '.');
 
     if ($n > 0) {
         for ($i = $n; $i > 0; $i--)
             $start .= '.0';
     }
 
-    $bits1 = str_pad(decbin(ip2long($start)), 32, '0', 'STR_PAD_LEFT');
-    $net = pow(2, (32 - substr(strstr($net, '/'), 1))) - 1;
-    $bits2 = str_pad(decbin($net), 32, '0', 'STR_PAD_LEFT');
+    $bits1 = \str_pad(\decbin(\ip2long($start)), 32, '0', 'STR_PAD_LEFT');
+    $net = \pow(2, (32 - \substr(\strstr($net, '/'), 1))) - 1;
+    $bits2 = \str_pad(\decbin($net), 32, '0', 'STR_PAD_LEFT');
     $final = '';
 
     for ($i = 0; $i < 32; $i++) {
@@ -111,5 +111,5 @@ function phpwhois_cidr_conv($net)
             $final .= $bits2[$i];
     }
 
-    return $start . " - " . long2ip(bindec($final));
+    return $start . " - " . \long2ip(\bindec($final));
 }

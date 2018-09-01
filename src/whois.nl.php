@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__NL_HANDLER__'))
-    define('__NL_HANDLER__', 1);
+if (!\defined('__NL_HANDLER__'))
+    \define('__NL_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -76,9 +76,9 @@ class nl_handler
     {
         $r = get_contact($data);
 
-        if (isset($r['name']) && preg_match('/^[A-Z0-9]+-[A-Z0-9]+$/', $r['name'])) {
+        if (isset($r['name']) && \preg_match('/^[A-Z0-9]+-[A-Z0-9]+$/', $r['name'])) {
             $r['handle'] = $r['name'];
-            $r['name'] = array_shift($r['address']);
+            $r['name'] = \array_shift($r['address']);
         }
 
         return $r;

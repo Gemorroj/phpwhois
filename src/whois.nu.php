@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__NU_HANDLER__'))
-    define('__NU_HANDLER__', 1);
+if (!\defined('__NU_HANDLER__'))
+    \define('__NU_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -45,12 +45,12 @@ class nu_handler
         );
 
         foreach ($data_str['rawdata'] as $val) {
-            $val = trim($val);
+            $val = \trim($val);
 
             if ($val != '') {
                 if ($val == 'Domain servers in listed order:') {
                     foreach ($data_str['rawdata'] as $valRawdata) {
-                        $valRawdata = trim($valRawdata);
+                        $valRawdata = \trim($valRawdata);
                         if ($valRawdata == '') break;
                         $r['regrinfo']['domain']['nserver'][] = $valRawdata;
                     }
@@ -58,8 +58,8 @@ class nu_handler
                 }
 
                 foreach ($items as $field => $match) {
-                    if (strstr($val, $match)) {
-                        $r['regrinfo']['domain'][$field] = trim(substr($val, strlen($match)));
+                    if (\strstr($val, $match)) {
+                        $r['regrinfo']['domain'][$field] = \trim(\substr($val, \strlen($match)));
                         break;
                     }
                 }

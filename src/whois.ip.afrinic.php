@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!defined('__AFRINIC_HANDLER__'))
-    define('__AFRINIC_HANDLER__', 1);
+if (!\defined('__AFRINIC_HANDLER__'))
+    \define('__AFRINIC_HANDLER__', 1);
 
 class afrinic_handler
 {
@@ -58,12 +58,12 @@ class afrinic_handler
             unset($r['network']['descr']);
         }
 
-        if (isset($r['owner']['remarks']) && is_array($r['owner']['remarks'])) {
+        if (isset($r['owner']['remarks']) && \is_array($r['owner']['remarks'])) {
             foreach ($r['owner']['remarks'] as $val) {
-                $pos = strpos($val, 'rwhois://');
+                $pos = \strpos($val, 'rwhois://');
 
                 if ($pos !== false)
-                    $r['rwhois'] = strtok(substr($val, $pos), ' ');
+                    $r['rwhois'] = \strtok(\substr($val, $pos), ' ');
             }
         }
 

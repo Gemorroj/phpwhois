@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!defined('__CH_HANDLER__'))
-    define('__CH_HANDLER__', 1);
+if (!\defined('__CH_HANDLER__'))
+    \define('__CH_HANDLER__', 1);
 
 class ch_handler
 {

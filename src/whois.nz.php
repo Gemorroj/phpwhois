@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__NZ_HANDLER__'))
-    define('__NZ_HANDLER__', 1);
+if (!\defined('__NZ_HANDLER__'))
+    \define('__NZ_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -81,7 +81,7 @@ class nz_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status']))
-            $domain_status = substr($r['regrinfo']['domain']['status'], 0, 3);
+            $domain_status = \substr($r['regrinfo']['domain']['status'], 0, 3);
         else
             $domain_status = '';
 
@@ -92,7 +92,7 @@ class nz_handler
         else
             $r['regrinfo']['registered'] = 'unknown';
 
-        if (!strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20))
+        if (!\strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20))
             $r['regrinfo']['registered'] = 'unknown';
 
         $r['regyinfo']['referrer'] = 'http://www.dnc.org.nz';

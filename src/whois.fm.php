@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__FM_HANDLER__'))
-    define('__FM_HANDLER__', 1);
+if (!\defined('__FM_HANDLER__'))
+    \define('__FM_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -60,8 +60,8 @@ class fm_handler
         if (!empty($r['regrinfo']['domain']['created'])) {
             $r['regrinfo'] = get_contacts($r['regrinfo'], $items);
 
-            if (count($r['regrinfo']['billing']['address']) > 4)
-                $r['regrinfo']['billing']['address'] = array_slice($r['regrinfo']['billing']['address'], 0, 4);
+            if (\count($r['regrinfo']['billing']['address']) > 4)
+                $r['regrinfo']['billing']['address'] = \array_slice($r['regrinfo']['billing']['address'], 0, 4);
 
             $r['regrinfo']['registered'] = 'yes';
             format_dates($r['regrinfo']['domain'], 'dmY');

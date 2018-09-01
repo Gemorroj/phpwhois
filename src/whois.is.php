@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__IS_HANDLER__'))
-    define('__IS_HANDLER__', 1);
+if (!\defined('__IS_HANDLER__'))
+    \define('__IS_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -53,7 +53,7 @@ class is_handler
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'mdy');
 
         if (isset($reg['domain']['descr'])) {
-            $reg['owner']['name'] = array_shift($reg['domain']['descr']);
+            $reg['owner']['name'] = \array_shift($reg['domain']['descr']);
             $reg['owner']['address'] = $reg['domain']['descr'];
             unset($reg['domain']['descr']);
         }

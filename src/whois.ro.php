@@ -32,8 +32,8 @@ BUG
 - seems the only role listed is registrant
 */
 
-if (!defined('__RO_HANDLER__'))
-    define('__RO_HANDLER__', 1);
+if (!\defined('__RO_HANDLER__'))
+    \define('__RO_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -76,7 +76,7 @@ class ro_handler
                 if (isset($item['address'])) {
                     $data = $item['address'];
                     unset($reg[$key]['address']);
-                    $reg[$key] = array_merge($reg[$key], get_contact($data, $extra));
+                    $reg[$key] = \array_merge($reg[$key], get_contact($data, $extra));
                 }
             }
 

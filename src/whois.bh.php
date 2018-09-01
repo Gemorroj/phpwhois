@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__BH_HANDLER__'))
-    define('__BH_HANDLER__', 1);
+if (!\defined('__BH_HANDLER__'))
+    \define('__BH_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -44,7 +44,7 @@ class bh_handler
         $i = generic_parser_b($data_str['rawdata'], $items);
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         if (isset($r['regrinfo']['domain'])
-            && is_array($r['regrinfo']['domain']))
+            && \is_array($r['regrinfo']['domain']))
             $r['regrinfo']['domain']['sponsor'] = $i['domain']['sponsor'];
         if (empty($r['regrinfo']['domain']['created']))
             $r['regrinfo']['registered'] = 'no';

@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__MARKMONITOR_HANDLER__'))
-    define('__MARKMONITOR_HANDLER__', 1);
+if (!\defined('__MARKMONITOR_HANDLER__'))
+    \define('__MARKMONITOR_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -48,13 +48,13 @@ class markmonitor_handler
 
         $r = easy_parser($data_str, $items, 'dmy', false, false, true);
 
-        if (isset($r['domain']['sponsor']) && is_array($r['domain']['sponsor']))
+        if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor']))
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];
 
         foreach ($r as $key => $part) {
             if (isset($part['address'])) {
-                $r[$key]['organization'] = array_shift($r[$key]['address']);
-                $r[$key]['address']['country'] = array_pop($r[$key]['address']);
+                $r[$key]['organization'] = \array_shift($r[$key]['address']);
+                $r[$key]['address']['country'] = \array_pop($r[$key]['address']);
             }
         }
         return $r;

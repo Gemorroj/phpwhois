@@ -25,8 +25,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!defined('__DE_HANDLER__'))
-    define('__DE_HANDLER__', 1);
+if (!\defined('__DE_HANDLER__'))
+    \define('__DE_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -67,7 +67,7 @@ class de_handler
         if (!isset($r['regrinfo']['domain']['status']) || $r['regrinfo']['domain']['status'] == "free") {
             $r['regrinfo']['registered'] = 'no';
         } else {
-            $r['regrinfo']['domain']['changed'] = substr($r['regrinfo']['domain']['changed'], 0, 10);
+            $r['regrinfo']['domain']['changed'] = \substr($r['regrinfo']['domain']['changed'], 0, 10);
             $r['regrinfo']['registered'] = 'yes';
         }
         return $r;

@@ -26,8 +26,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
 USA.
  */
 
-if (!defined('__VE_HANDLER__'))
-    define('__VE_HANDLER__', 1);
+if (!\defined('__VE_HANDLER__'))
+    \define('__VE_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
@@ -51,7 +51,7 @@ class ve_handler
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
-        if (!isset($r['regrinfo']['domain']['created']) || is_array($r['regrinfo']['domain']['created'])) {
+        if (!isset($r['regrinfo']['domain']['created']) || \is_array($r['regrinfo']['domain']['created'])) {
             $r['regrinfo'] = array('registered' => 'no');
             return $r;
         }

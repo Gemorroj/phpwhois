@@ -40,10 +40,10 @@ class utils extends Whois
 
     public function debugObject($obj, $indent = 0)
     {
-        if (is_array($obj)) {
+        if (\is_array($obj)) {
             $return = '';
             foreach ($obj as $k => $v) {
-                $return .= str_repeat('&nbsp;', $indent);
+                $return .= \str_repeat('&nbsp;', $indent);
                 $return .= $k . "->$v\n";
                 $return .= $this->debugObject($v, $indent + 1);
             }
@@ -53,7 +53,7 @@ class utils extends Whois
 
     public function ns_rr_defined($query)
     {
-        return checkdnsrr($query, 'NS');
+        return \checkdnsrr($query, 'NS');
     }
 
     // get nice HTML output
@@ -69,22 +69,22 @@ class utils extends Whois
         $lempty = true;
 
         foreach ($result['rawdata'] as $line) {
-            $line = trim($line);
+            $line = \trim($line);
 
             if ($line == '') {
                 if ($lempty) continue;
-                else $lempty = true;
+                 $lempty = true;
             } else
                 $lempty = false;
 
             $out .= $line . "\n";
         }
 
-        if ($lempty) $out = trim($out);
+        if ($lempty) $out = \trim($out);
 
-        $out = strip_tags($out);
-        $out = preg_replace($email_regex, '<a href="mailto:$0">$0</a>', $out);
-        $out = preg_replace_callback($html_regex, 'href_replace', $out);
+        $out = \strip_tags($out);
+        $out = \preg_replace($email_regex, '<a href="mailto:$0">$0</a>', $out);
+        $out = \preg_replace_callback($html_regex, 'href_replace', $out);
 
         if ($link_myself) {
             if ($params[0] == '/')
@@ -92,7 +92,7 @@ class utils extends Whois
             else
                 $link = $_SERVER['PHP_SELF'] . '?' . $params;
 
-            $out = preg_replace($ip_regex, '<a href="' . $link . '">$0</a>', $out);
+            $out = \preg_replace($ip_regex, '<a href="' . $link . '">$0</a>', $out);
 
             if (isset($result['regrinfo']['domain']['nserver'])) {
                 $nserver = $result['regrinfo']['domain']['nserver'];
@@ -103,31 +103,31 @@ class utils extends Whois
                 $nserver = $result['regrinfo']['network']['nserver'];
             }
 
-            if (is_array($nserver)) {
+            if (\is_array($nserver)) {
                 foreach ($nserver as $host => $ip) {
-                    $url = '<a href="' . str_replace('$0', $ip, $link) . "\">$host</a>";
-                    $out = str_replace($host, $url, $out);
-                    $out = str_replace(strtoupper($host), $url, $out);
+                    $url = '<a href="' . \str_replace('$0', $ip, $link) . "\">$host</a>";
+                    $out = \str_replace($host, $url, $out);
+                    $out = \str_replace(\strtoupper($host), $url, $out);
                 }
             }
         }
 
         // Add bold field names
 
-        $out = preg_replace("/(?m)^([-\s\.&;'\w\t\(\)\/]+:\s*)/", '<b>$1</b>', $out);
+        $out = \preg_replace("/(?m)^([-\s\.&;'\w\t\(\)\/]+:\s*)/", '<b>$1</b>', $out);
 
         // Add italics for disclaimer
 
-        $out = preg_replace("/(?m)^(%.*)/", '<i>$0</i>', $out);
+        $out = \preg_replace("/(?m)^(%.*)/", '<i>$0</i>', $out);
 
-        return str_replace("\n", "<br/>\n", $out);
+        return \str_replace("\n", "<br/>\n", $out);
     }
 }
 
 
 function href_replace($matches)
 {
-    if (substr($matches[0], 0, 4) == 'www.') {
+    if (\substr($matches[0], 0, 4) == 'www.') {
         $web = $matches[0];
         $url = 'http://' . $web;
     } else {

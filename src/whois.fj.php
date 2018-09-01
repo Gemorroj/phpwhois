@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!defined('__FJ_HANDLER__'))
-    define('__FJ_HANDLER__', 1);
+if (!\defined('__FJ_HANDLER__'))
+    \define('__FJ_HANDLER__', 1);
 
 class fj_handler
 {
@@ -47,10 +47,10 @@ class fj_handler
         if (!empty($r['regrinfo']['domain']['status'])) {
             $r['regrinfo'] = get_contacts($r['regrinfo']);
 
-            date_default_timezone_set("Pacific/Fiji");
+            \date_default_timezone_set("Pacific/Fiji");
 
             if (isset($r['regrinfo']['domain']['expires']))
-                $r['regrinfo']['domain']['expires'] = strftime("%Y-%m-%d", strtotime($r['regrinfo']['domain']['expires']));
+                $r['regrinfo']['domain']['expires'] = \strftime("%Y-%m-%d", \strtotime($r['regrinfo']['domain']['expires']));
 
             $r['regrinfo']['registered'] = 'yes';
         } else

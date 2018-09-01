@@ -31,8 +31,8 @@ BUG
 - ContactID in address
 */
 
-if (!defined('__IT_HANDLER__'))
-    define('__IT_HANDLER__', 1);
+if (!\defined('__IT_HANDLER__'))
+    \define('__IT_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
