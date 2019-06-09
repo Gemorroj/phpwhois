@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__RE_HANDLER__'))
+if (!\defined('__RE_HANDLER__')) {
     \define('__RE_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class re_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
@@ -50,15 +51,15 @@ class re_handler
             'country' => 'address.country',
             'registrar' => 'sponsor',
             'role' => 'organization'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'zone-c' => 'zone',
             'holder-c' => 'owner',
             'nsl-id' => 'nserver'
-        );
+        ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmY');
 
@@ -68,10 +69,10 @@ class re_handler
         }
 
         $r['regrinfo'] = $reg;
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.fr',
             'registrar' => 'AFNIC'
-        );
+        ];
         return $r;
     }
 }

@@ -26,8 +26,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
 USA.
  */
 
-if (!\defined('__VE_HANDLER__'))
+if (!\defined('__VE_HANDLER__')) {
     \define('__VE_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -35,8 +36,8 @@ class ve_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Titular:',
             'domain.name' => 'Nombre de Dominio:',
             'admin' => 'Contacto Administrativo',
@@ -47,27 +48,29 @@ class ve_handler
             'domain.expires' => 'Fecha de Vencimiento:',
             'domain.status' => 'Estatus del dominio:',
             'domain.nserver' => 'Servidor(es) de Nombres de Dominio'
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
         if (!isset($r['regrinfo']['domain']['created']) || \is_array($r['regrinfo']['domain']['created'])) {
-            $r['regrinfo'] = array('registered' => 'no');
+            $r['regrinfo'] = ['registered' => 'no'];
             return $r;
         }
 
-        $dns = array();
+        $dns = [];
 
         foreach ($r['regrinfo']['domain']['nserver'] as $nserv) {
-            if ($nserv[0] == '-') $dns[] = $nserv;
+            if ($nserv[0] == '-') {
+                $dns[] = $nserv;
+            }
         }
 
         $r['regrinfo']['domain']['nserver'] = $dns;
         $r['regrinfo'] = get_contacts($r['regrinfo']);
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://registro.nic.ve',
             'registrar' => 'NIC-Venezuela - CNTI'
-        );
+        ];
         return $r;
     }
 }

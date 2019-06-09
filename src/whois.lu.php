@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__LU_HANDLER__'))
+if (!\defined('__LU_HANDLER__')) {
     \define('__LU_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class lu_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domainname:' => 'domain.name',
             'domaintype:' => 'domain.status',
             'nserver:' => 'domain.nserver.',
@@ -65,14 +66,14 @@ class lu_handler
             'bil-city:' => 'billing.address.city',
             'bil-country:' => 'billing.address.country',
             'bil-email:' => 'billing.email'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'dmy');
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.dns.lu',
             'registrar' => 'DNS-LU'
-        );
+        ];
         return $r;
     }
 }

@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__ME_HANDLER__'))
+if (!\defined('__ME_HANDLER__')) {
     \define('__ME_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,12 +35,12 @@ class me_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
+        $r = [];
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://domain.me',
             'registrar' => 'doMEn'
-        );
+        ];
         return $r;
     }
 }

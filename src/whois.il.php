@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__IL_HANDLER__'))
+if (!\defined('__IL_HANDLER__')) {
     \define('__IL_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,35 +35,36 @@ class il_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
             'person' => 'name',
             'personname' => 'name',
             'address' => 'address'/*,
-			'address' => 'address.city',
-			'address' => 'address.pcode',
-			'address' => 'address.country'*/
-        );
+            'address' => 'address.city',
+            'address' => 'address.pcode',
+            'address' => 'address.country'*/
+        ];
 
-        $contacts = array(
+        $contacts = [
             'registrant' => 'owner',
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'billing-c' => 'billing',
             'zone-c' => 'zone'
-        );
-//unset($data_str['rawdata'][19]);
+        ];
+        //unset($data_str['rawdata'][19]);
         \array_splice($data_str['rawdata'], 16, 1);
         \array_splice($data_str['rawdata'], 18, 1);
-//print_r($data_str['rawdata']);
-//die;
+        //print_r($data_str['rawdata']);
+        //die;
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
-        if (isset($reg['domain']['remarks']))
+        if (isset($reg['domain']['remarks'])) {
             unset($reg['domain']['remarks']);
+        }
 
         if (isset($reg['domain']['descr:'])) {
             foreach ($reg['domain']['descr:'] as $key => $val) {
@@ -87,14 +89,16 @@ class il_handler
                 $reg['owner']['address'][$key] = $v;
             }
 
-            if (isset($reg['domain']['descr:'])) unset($reg['domain']['descr:']);
+            if (isset($reg['domain']['descr:'])) {
+                unset($reg['domain']['descr:']);
+            }
         }
 
         $r['regrinfo'] = $reg;
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.isoc.org.il/',
             'registrar' => 'ISOC-IL'
-        );
+        ];
         return $r;
     }
 }

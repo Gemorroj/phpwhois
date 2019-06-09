@@ -25,17 +25,18 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__AU_HANDLER__'))
+if (!\defined('__AU_HANDLER__')) {
     \define('__AU_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
 class au_handler
 {
-    public  function parse($data_str, $query)
+    public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'Domain Name:' => 'domain.name',
             'Last Modified:' => 'domain.changed',
             'Registrar Name:' => 'domain.sponsor',
@@ -49,13 +50,13 @@ class au_handler
             'Tech Contact Email:' => 'tech.email',
             'Tech Contact ID:' => 'tech.handle',
             'Name Server:' => 'domain.nserver.'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.aunic.net',
             'registrar' => 'AU-NIC'
-        );
+        ];
         return $r;
     }
 }

@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__RWHOIS_HANDLER__'))
+if (!\defined('__RWHOIS_HANDLER__')) {
     \define('__RWHOIS_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class rwhois_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'network:Organization-Name:' => 'owner.name',
             'network:Organization;I:' => 'owner.organization',
             'network:Organization-City:' => 'owner.address.city',
@@ -48,10 +49,12 @@ class rwhois_handler
             'network:Updated:' => 'network.changed',
             'network:Tech-Contact;I:' => 'tech.email',
             'network:Admin-Contact;I:' => 'admin.email'
-        );
+        ];
 
         $res = generic_parser_b($data_str, $items, 'Ymd', false);
-        if (isset($res['disclaimer'])) unset($res['disclaimer']);
-        return array('regrinfo' => $res);
+        if (isset($res['disclaimer'])) {
+            unset($res['disclaimer']);
+        }
+        return ['regrinfo' => $res];
     }
 }

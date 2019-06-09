@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__CAT_HANDLER__'))
+if (!\defined('__CAT_HANDLER__')) {
     \define('__CAT_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,11 +35,12 @@ class cat_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
+        $r = [];
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
 
-        if (!isset($r['regrinfo']['domain']['name']))
+        if (!isset($r['regrinfo']['domain']['name'])) {
             $r['regrinfo']['registered'] = 'no';
+        }
 
         $r['regyinfo']['referrer'] = 'http://www.domini.cat/';
         $r['regyinfo']['registrar'] = 'Domini punt CAT';

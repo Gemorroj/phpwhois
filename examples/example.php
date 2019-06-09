@@ -25,21 +25,22 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-header('Content-Type: text/html; charset=UTF-8');
+\header('Content-Type: text/html; charset=UTF-8');
 
-$out = file_get_contents('example.html');
+$out = \file_get_contents('example.html');
 
-$out = str_replace('{self}', $_SERVER['PHP_SELF'], $out);
+$out = \str_replace('{self}', $_SERVER['PHP_SELF'], $out);
 
 $resout = extract_block($out, 'results');
 
-if (isSet($_GET['query'])) {
+if (isset($_GET['query'])) {
     $query = $_GET['query'];
 
-    if (!empty($_GET['output']))
+    if (!empty($_GET['output'])) {
         $output = $_GET['output'];
-    else
+    } else {
         $output = '';
+    }
 
     require __DIR__ . '/../src/whois.main.php';
     require __DIR__ . '/../src/whois.utils.php';
@@ -60,13 +61,13 @@ if (isSet($_GET['query'])) {
     $whois->non_icann = true;
 
     $result = $whois->Lookup($query);
-    $resout = str_replace('{query}', $query, $resout);
+    $resout = \str_replace('{query}', $query, $resout);
     $winfo = '';
 
     switch ($output) {
         case 'object':
             if ($whois->Query['status'] < 0) {
-                $winfo = implode($whois->Query['errstr'], "\n<br/>");
+                $winfo = \implode($whois->Query['errstr'], "\n<br/>");
             } else {
                 $utils = new utils;
                 $winfo = $utils->showObject($result);
@@ -78,58 +79,64 @@ if (isSet($_GET['query'])) {
                 $utils = new utils;
                 $winfo = $utils->showHTML($result);
             } else {
-                if (isset($whois->Query['errstr']))
-                    $winfo = implode($whois->Query['errstr'], "\n<br/>");
-                else
+                if (isset($whois->Query['errstr'])) {
+                    $winfo = \implode($whois->Query['errstr'], "\n<br/>");
+                } else {
                     $winfo = 'Unexpected error';
+                }
             }
             break;
 
         case 'proxy':
-            if ($allowproxy)
-                exit(serialize($result));
+            if ($allowproxy) {
+                exit(\serialize($result));
+            }
             break;
 
         default:
             if (!empty($result['rawdata'])) {
-                $winfo .= '<pre>' . implode($result['rawdata'], "\n") . '</pre>';
+                $winfo .= '<pre>' . \implode($result['rawdata'], "\n") . '</pre>';
             } else {
-                $winfo = implode($whois->Query['errstr'], "\n<br/>");
+                $winfo = \implode($whois->Query['errstr'], "\n<br/>");
             }
             break;
     }
 
-    $resout = str_replace('{result}', $winfo, $resout);
+    $resout = \str_replace('{result}', $winfo, $resout);
 } else {
     $resout = '';
 }
 
-$whois = array();
+$whois = [];
 $whois['CODE_VERSION'] = '';
-$out = str_replace('{ver}', $whois['CODE_VERSION'], $out);
-exit(str_replace('{results}', $resout, $out));
+$out = \str_replace('{ver}', $whois['CODE_VERSION'], $out);
+exit(\str_replace('{results}', $resout, $out));
 
 
 //-------------------------------------------------------------------------
 
 function extract_block(&$plantilla, $mark, $retmark = '')
 {
-    $start = strpos($plantilla, '<!--' . $mark . '-->');
-    $final = strpos($plantilla, '<!--/' . $mark . '-->');
+    $start = \strpos($plantilla, '<!--' . $mark . '-->');
+    $final = \strpos($plantilla, '<!--/' . $mark . '-->');
 
-    if ($start === false || $final === false) return;
+    if ($start === false || $final === false) {
+        return;
+    }
 
-    $ini = $start + 7 + strlen($mark);
+    $ini = $start + 7 + \strlen($mark);
 
-    $ret = substr($plantilla, $ini, $final - $ini);
+    $ret = \substr($plantilla, $ini, $final - $ini);
 
-    $final += 8 + strlen($mark);
+    $final += 8 + \strlen($mark);
 
-    if ($retmark === false)
-        $plantilla = substr($plantilla, 0, $start) . substr($plantilla, $final);
-    else {
-        if ($retmark == '') $retmark = $mark;
-        $plantilla = substr($plantilla, 0, $start) . '{' . $retmark . '}' . substr($plantilla, $final);
+    if ($retmark === false) {
+        $plantilla = \substr($plantilla, 0, $start) . \substr($plantilla, $final);
+    } else {
+        if ($retmark == '') {
+            $retmark = $mark;
+        }
+        $plantilla = \substr($plantilla, 0, $start) . '{' . $retmark . '}' . \substr($plantilla, $final);
     }
 
     return $ret;

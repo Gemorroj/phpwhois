@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__CA_HANDLER__'))
+if (!\defined('__CA_HANDLER__')) {
     \define('__CA_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class ca_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrative contact:',
             'tech' => 'Technical contact:',
@@ -45,14 +46,14 @@ class ca_handler
             'domain.created' => 'Creation date:',
             'domain.expires' => 'Expiry date:',
             'domain.changed' => 'Updated date:'
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'postal address:' => 'address.0',
             'job title:' => '',
             'number:' => 'handle',
             'description:' => 'organization'
-        );
+        ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
@@ -61,15 +62,16 @@ class ca_handler
             $r['regrinfo']['domain']['sponsor'] = \trim($reg);
         }
 
-        if (empty($r['regrinfo']['domain']['status']) || $r['regrinfo']['domain']['status'] == 'available')
+        if (empty($r['regrinfo']['domain']['status']) || $r['regrinfo']['domain']['status'] == 'available') {
             $r['regrinfo']['registered'] = 'no';
-        else
+        } else {
             $r['regrinfo']['registered'] = 'yes';
+        }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'registrar' => 'CIRA',
             'referrer' => 'http://www.cira.ca/'
-        );
+        ];
         return $r;
     }
 }

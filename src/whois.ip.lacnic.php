@@ -27,14 +27,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__LACNIC_HANDLER__'))
+if (!\defined('__LACNIC_HANDLER__')) {
     \define('__LACNIC_HANDLER__', 1);
+}
 
 class lacnic_handler
 {
     public function parse($data_str, $query)
     {
-        $translate = array(
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl-br' => 'handle',
@@ -43,14 +44,14 @@ class lacnic_handler
             'netname' => 'name',
             'descr' => 'desc',
             'country' => 'address.country'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'owner-c' => 'owner',
             'tech-c' => 'tech',
             'abuse-c' => 'abuse',
             'admin-c' => 'admin'
-        );
+        ];
 
         $r = generic_parser_a($data_str, $translate, $contacts, 'network');
 
@@ -64,13 +65,15 @@ class lacnic_handler
         
         
 
-        if (!empty($r['network']['aut-num']))
+        if (!empty($r['network']['aut-num'])) {
             $r['network']['handle'] = $r['network']['aut-num'];
+        }
 
-        if (isset($r['network']['nserver']))
+        if (isset($r['network']['nserver'])) {
             $r['network']['nserver'] = \array_unique($r['network']['nserver']);
+        }
 
-        $r = array('regrinfo' => $r);
+        $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';
         $r['regyinfo']['registrar'] = 'Latin American and Caribbean IP address Regional Registry';
         return $r;

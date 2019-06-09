@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__SI_HANDLER__'))
+if (!\defined('__SI_HANDLER__')) {
     \define('__SI_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,22 +35,22 @@ class si_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'nic-hdl' => 'handle',
             'nameserver' => 'nserver'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'registrant' => 'owner',
             'tech-c' => 'tech'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.arnes.si',
             'registrar' => 'ARNES'
-        );
+        ];
         return $r;
     }
 }

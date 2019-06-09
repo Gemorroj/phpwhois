@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__PL_HANDLER__'))
+if (!\defined('__PL_HANDLER__')) {
     \define('__PL_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,21 +35,21 @@ class pl_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.created' => 'created:',
             'domain.changed' => 'last modified:',
             'domain.sponsor' => 'REGISTRAR:',
             '#' => 'WHOIS displays data with a delay not exceeding 15 minutes in relation to the .pl Registry system'
 
-        );
+        ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd');
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.dns.pl/english/index.html',
             'registrar' => 'NASK'
-        );
+        ];
         return $r;
     }
 }

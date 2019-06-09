@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__NAME_HANDLER__'))
+if (!\defined('__NAME_HANDLER__')) {
     \define('__NAME_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class name_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'REGISTRANT CONTACT INFO',
             'admin' => 'ADMINISTRATIVE CONTACT INFO',
             'tech' => 'TECHNICAL CONTACT INFO',
@@ -43,12 +44,12 @@ class name_handler
             'domain.sponsor' => 'Registrar',
             'domain.created' => 'Creation Date:',
             'domain.expires' => 'Expiration Date:'
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'phone:' => 'phone',
             'email address:' => 'email'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
     }

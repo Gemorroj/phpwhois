@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__TVCORP_HANDLER__'))
+if (!\defined('__TVCORP_HANDLER__')) {
     \define('__TVCORP_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class tvcorp_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant',
             'admin' => 'Admin',
             'tech' => 'Technical',
@@ -42,7 +43,7 @@ class tvcorp_handler
             'domain.nserver.' => 'Domain servers:',
             'domain.created' => 'Record created on',
             'domain.expires' => 'Record expires on'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'mdy');
     }

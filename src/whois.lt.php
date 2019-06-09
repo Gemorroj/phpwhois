@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__LT_HANDLER__'))
+if (!\defined('__LT_HANDLER__')) {
     \define('__LT_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,13 +35,13 @@ class lt_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'contact nic-hdl:' => 'handle',
             'contact name:' => 'name'
-        );
+        ];
 
-        $items = array(
+        $items = [
             'admin' => 'Contact type:      Admin',
             'tech' => 'Contact type:      Tech',
             'zone' => 'Contact type:      Zone',
@@ -51,14 +52,14 @@ class lt_handler
             'domain.changed' => 'Last updated:',
             'domain.nserver.' => 'NS:',
             '' => '%'
-        );
+        ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $translate);
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.domreg.lt',
             'registrar' => 'DOMREG.LT'
-        );
+        ];
         return $r;
     }
 }

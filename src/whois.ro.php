@@ -32,8 +32,9 @@ BUG
 - seems the only role listed is registrant
 */
 
-if (!\defined('__RO_HANDLER__'))
+if (!\defined('__RO_HANDLER__')) {
     \define('__RO_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -41,8 +42,8 @@ class ro_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
@@ -53,18 +54,18 @@ class ro_handler
             'registration-date' => 'created',
             'domain-status' => 'status',
             'nameserver' => 'nserver'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-contact' => 'admin',
             'technical-contact' => 'tech',
             'zone-contact' => 'zone',
             'billing-contact' => 'billing'
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'postal code:' => 'address.pcode'
-        );
+        ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
@@ -81,14 +82,15 @@ class ro_handler
             }
 
             $reg['registered'] = 'yes';
-        } else
+        } else {
             $reg['registered'] = 'no';
+        }
 
         $r['regrinfo'] = $reg;
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ro',
             'registrar' => 'nic.ro'
-        );
+        ];
 
         return $r;
     }

@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 $this->DATA_VERSION = '19';
 
-$this->DATA = array(
+$this->DATA = [
     'bz' => 'gtld',
     'com' => 'gtld',
     'jobs' => 'gtld',
@@ -43,11 +43,11 @@ $this->DATA = array(
     'za.net' => 'zanet',
     // Punicode
     'xn--p1ai' => 'ru'
-);
+];
 
 /* Non UTF-8 servers */
 
-$this->NON_UTF8 = array(
+$this->NON_UTF8 = [
     'br.whois-servers.net' => 1,
     'ca.whois-servers.net' => 1,
     'cl.whois-servers.net' => 1,
@@ -58,20 +58,20 @@ $this->NON_UTF8 = array(
     'whois.lacnic.net' => 1,
     'whois.nicline.com' => 1,
     'whois.ripe.net' => 1
-);
+];
 
 /* If whois Server needs any parameters, enter it here */
 
-$this->WHOIS_PARAM = array(
+$this->WHOIS_PARAM = [
     'com.whois-servers.net' => 'domain =$',
     'net.whois-servers.net' => 'domain =$',
     'de.whois-servers.net' => '-T dn,ace $',
     'jp.whois-servers.net' => 'DOM $/e'
-);
+];
 
 /* TLD's that have special whois servers or that can only be reached via HTTP */
 
-$this->WHOIS_SPECIAL = array(
+$this->WHOIS_SPECIAL = [
     'ad' => '',
     'ae' => 'whois.aeda.net.ae',
     'af' => 'whois.nic.af',
@@ -137,11 +137,11 @@ $this->WHOIS_SPECIAL = array(
     'za.org' => 'whois.za.net',
     'co.za' => 'http://co.za/cgi-bin/whois.sh?Domain={domain}.co.za',
     'org.za' => 'http://www.org.za/cgi-bin/rwhois?domain={domain}.org.za&format=full'
-);
+];
 
 /* handled gTLD whois servers */
 
-$this->WHOIS_GTLD_HANDLER = array(
+$this->WHOIS_GTLD_HANDLER = [
     'whois.bulkregister.com' => 'enom',
     'whois.dotregistrar.com' => 'dotster',
     'whois.namesdirect.com' => 'dotster',
@@ -152,11 +152,11 @@ $this->WHOIS_GTLD_HANDLER = array(
     'whois.nominalia.com' => 'genericb',
     'whois.encirca.com' => 'genericb',
     'whois.corenic.net' => 'genericb'
-);
+];
 
 /* Non ICANN TLD's */
 
-$this->WHOIS_NON_ICANN = array(
+$this->WHOIS_NON_ICANN = [
     'agent' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
     'agente' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
     'america' => 'http://www.adns.net/whois.php?txtDOMAIN={domain}.{tld}',
@@ -251,4 +251,4 @@ $this->WHOIS_NON_ICANN = array(
     'video' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
     'voyage' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
     'z' => 'http://www.adns.net/whois.php?txtDOMAIN={domain}.{tld}'
-);
+];

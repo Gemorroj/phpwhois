@@ -19,8 +19,9 @@
  */
 
 // Define the handler flag.
-if (!\defined('__IR_HANDLER__'))
+if (!\defined('__IR_HANDLER__')) {
     \define('__IR_HANDLER__', 1);
+}
 
 // Loadup the parser.
 require_once('whois.parser.php');
@@ -32,29 +33,29 @@ class ir_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'nic-hdl' => 'handle',
             'org' => 'organization',
             'e-mail' => 'email',
             'person' => 'name',
             'fax-no' => 'fax',
             'domain' => 'name'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'holder-c' => 'owner'
-        );
+        ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         $r['regrinfo'] = $reg;
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://whois.nic.ir/',
             'registrar' => 'NIC-IR'
-        );
+        ];
         return $r;
     }
 }

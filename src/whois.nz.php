@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__NZ_HANDLER__'))
+if (!\defined('__NZ_HANDLER__')) {
     \define('__NZ_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class nz_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain_name:' => 'domain.name',
             'query_status:' => 'domain.status',
             'ns_name_01:' => 'domain.nserver.0',
@@ -76,24 +77,27 @@ class nz_handler
             'technical_contact_phone:' => 'tech.phone',
             'technical_contact_fax:' => 'tech.fax',
             'technical_contact_email:' => 'tech.email'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
 
-        if (!empty($r['regrinfo']['domain']['status']))
+        if (!empty($r['regrinfo']['domain']['status'])) {
             $domain_status = \substr($r['regrinfo']['domain']['status'], 0, 3);
-        else
+        } else {
             $domain_status = '';
+        }
 
-        if ($domain_status == '200')
+        if ($domain_status == '200') {
             $r['regrinfo']['registered'] = 'yes';
-        elseif ($domain_status == '220')
+        } elseif ($domain_status == '220') {
             $r['regrinfo']['registered'] = 'no';
-        else
+        } else {
             $r['regrinfo']['registered'] = 'unknown';
+        }
 
-        if (!\strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20))
+        if (!\strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20)) {
             $r['regrinfo']['registered'] = 'unknown';
+        }
 
         $r['regyinfo']['referrer'] = 'http://www.dnc.org.nz';
         $r['regyinfo']['registrar'] = 'New Zealand Domain Name Registry Limited';

@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__INT_HANDLER__'))
+if (!\defined('__INT_HANDLER__')) {
     \define('__INT_HANDLER__', 1);
+}
 
 require_once('whois.gtld.iana.php');
 
@@ -34,7 +35,7 @@ class int_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
+        $r = [];
         $iana = new iana_handler();
         $r['regrinfo'] = $iana->parse($data_str['rawdata'], $query);
         $r['regyinfo']['referrer'] = 'http://www.iana.org/int-dom/int.htm';

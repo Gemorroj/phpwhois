@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__FI_HANDLER__'))
+if (!\defined('__FI_HANDLER__')) {
     \define('__FI_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class fi_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain:' => 'domain.name',
             'created:' => 'domain.created',
             'expires:' => 'domain.expires',
@@ -44,14 +45,14 @@ class fi_handler
             'descr:' => 'owner.name.',
             'address:' => 'owner.address.',
             'phone:' => 'owner.phone',
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'https://domain.ficora.fi/',
             'registrar' => 'Finnish Communications Regulatory Authority'
-        );
+        ];
         return $r;
     }
 }

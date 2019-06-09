@@ -1,6 +1,7 @@
 <?php
-if (!\defined('__AM_HANDLER__'))
+if (!\defined('__AM_HANDLER__')) {
     \define('__AM_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -8,8 +9,8 @@ class am_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Registrant:',
             'domain.name' => 'Domain name:',
             'domain.created' => 'Registered:',
@@ -18,7 +19,7 @@ class am_handler
             'domain.status' => 'Status:',
             'tech' => 'Technical contact:',
             'admin' => 'Administrative contact:',
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
@@ -26,14 +27,14 @@ class am_handler
             $r['regrinfo'] = get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
         } else {
-            $r = array();
+            $r = [];
             $r['regrinfo']['registered'] = 'no';
         }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.isoc.am',
             'registrar' => 'ISOCAM'
-        );
+        ];
 
         return $r;
     }

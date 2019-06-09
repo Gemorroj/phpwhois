@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__DE_HANDLER__'))
+if (!\defined('__DE_HANDLER__')) {
     \define('__DE_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class de_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.name' => 'Domain:',
             'domain.nserver.' => 'Nserver:',
             'domain.nserver.#' => 'Nsentry:',
@@ -46,23 +47,23 @@ class de_handler
             'admin' => '[Admin-C]',
             'tech' => '[Tech-C]',
             'zone' => '[Zone-C]'
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'city:' => 'address.city',
             'postalcode:' => 'address.pcode',
             'countrycode:' => 'address.country',
             'remarks:' => '',
             'sip:' => 'sip',
             'type:' => ''
-        );
+        ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'registrar' => 'DENIC eG',
             'referrer' => 'http://www.denic.de/'
-        );
+        ];
 
         if (!isset($r['regrinfo']['domain']['status']) || $r['regrinfo']['domain']['status'] == "free") {
             $r['regrinfo']['registered'] = 'no';

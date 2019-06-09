@@ -27,15 +27,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__LY_HANDLER__'))
+if (!\defined('__LY_HANDLER__')) {
     \define('__LY_HANDLER__', 1);
+}
 
 class ly_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact:',
             'tech' => 'Technical Contact:',
@@ -45,9 +46,9 @@ class ly_handler
             'domain.changed' => 'Updated:',
             'domain.expires' => 'Expired:',
             'domain.nserver' => 'Domain servers in listed order:'
-        );
+        ];
 
-        $extra = array('zip/postal code:' => 'address.pcode');
+        $extra = ['zip/postal code:' => 'address.pcode'];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
@@ -56,14 +57,14 @@ class ly_handler
             $r['regrinfo']['domain']['name'] = $r['regrinfo']['domain']['name'][0];
             $r['regrinfo']['registered'] = 'yes';
         } else {
-            $r = array();
+            $r = [];
             $r['regrinfo']['registered'] = 'no';
         }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ly',
             'registrar' => 'Libya ccTLD'
-        );
+        ];
         return $r;
     }
 }

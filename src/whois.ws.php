@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__WS_HANDLER__'))
+if (!\defined('__WS_HANDLER__')) {
     \define('__WS_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class ws_handler extends WhoisClient
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'Domain Name:' => 'domain.name',
             'Registrant Name:' => 'owner.organization',
             'Registrant Email:' => 'owner.email',
@@ -46,7 +47,7 @@ class ws_handler extends WhoisClient
             'Administrative Contact Email:' => 'admin.email',
             'Administrative Contact Telephone:' => 'admin.phone',
             'Registrar Whois:' => 'rwhois'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
@@ -64,8 +65,9 @@ class ws_handler extends WhoisClient
 
                 unset($r['regrinfo']['rwhois']);
             }
-        } else
+        } else {
             $r['regrinfo']['registered'] = 'no';
+        }
 
         return $r;
     }

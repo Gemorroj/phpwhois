@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__FM_HANDLER__'))
+if (!\defined('__FM_HANDLER__')) {
     \define('__FM_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class fm_handler
 {
     public function parse($data, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Registrant',
             'admin' => 'Admin',
             'tech' => 'Technical',
@@ -46,27 +47,28 @@ class fm_handler
             'domain.changed' => 'Modified:',
             'domain.status' => 'Status:',
             'domain.sponsor' => 'Registrar Name:'
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
-        $items = array(
+        $items = [
             'phone number:' => 'phone',
             'email address:' => 'email',
             'fax number:' => 'fax',
             'organisation:' => 'organization'
-        );
+        ];
 
         if (!empty($r['regrinfo']['domain']['created'])) {
             $r['regrinfo'] = get_contacts($r['regrinfo'], $items);
 
-            if (\count($r['regrinfo']['billing']['address']) > 4)
+            if (\count($r['regrinfo']['billing']['address']) > 4) {
                 $r['regrinfo']['billing']['address'] = \array_slice($r['regrinfo']['billing']['address'], 0, 4);
+            }
 
             $r['regrinfo']['registered'] = 'yes';
             format_dates($r['regrinfo']['domain'], 'dmY');
         } else {
-            $r = array();
+            $r = [];
             $r['regrinfo']['registered'] = 'no';
         }
 

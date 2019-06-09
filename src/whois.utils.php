@@ -72,32 +72,39 @@ class utils extends Whois
             $line = \trim($line);
 
             if ($line == '') {
-                if ($lempty) continue;
-                 $lempty = true;
-            } else
+                if ($lempty) {
+                    continue;
+                }
+                $lempty = true;
+            } else {
                 $lempty = false;
+            }
 
             $out .= $line . "\n";
         }
 
-        if ($lempty) $out = \trim($out);
+        if ($lempty) {
+            $out = \trim($out);
+        }
 
         $out = \strip_tags($out);
         $out = \preg_replace($email_regex, '<a href="mailto:$0">$0</a>', $out);
         $out = \preg_replace_callback($html_regex, 'href_replace', $out);
 
         if ($link_myself) {
-            if ($params[0] == '/')
+            if ($params[0] == '/') {
                 $link = $params;
-            else
+            } else {
                 $link = $_SERVER['PHP_SELF'] . '?' . $params;
+            }
 
             $out = \preg_replace($ip_regex, '<a href="' . $link . '">$0</a>', $out);
 
             if (isset($result['regrinfo']['domain']['nserver'])) {
                 $nserver = $result['regrinfo']['domain']['nserver'];
-            } else
+            } else {
                 $nserver = false;
+            }
 
             if (isset($result['regrinfo']['network']['nserver'])) {
                 $nserver = $result['regrinfo']['network']['nserver'];

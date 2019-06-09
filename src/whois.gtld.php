@@ -25,19 +25,20 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__GTLD_HANDLER__'))
+if (!\defined('__GTLD_HANDLER__')) {
     \define('__GTLD_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
 class gtld_handler extends WhoisClient
 {
-    var $HANDLER_VERSION = '1.1';
-    var $SUBVERSION;
-    var $result;
-    var $deep_whois;
+    public $HANDLER_VERSION = '1.1';
+    public $SUBVERSION;
+    public $result;
+    public $deep_whois;
 
-    var $REG_FIELDS = array(
+    public $REG_FIELDS = [
         'Domain Name:' => 'regrinfo.domain.name',
         'Registrar:' => 'regyinfo.registrar',
         'Whois Server:' => 'regyinfo.whois',
@@ -51,11 +52,11 @@ class gtld_handler extends WhoisClient
         'Created On:' => 'regrinfo.domain.created',
         'Expiration Date:' => 'regrinfo.domain.expires',
         'No match for ' => 'nodomain'
-    );
+    ];
 
     public function parse($data, $query)
     {
-        $this->Query = array();
+        $this->Query = [];
         if (\is_array($query) and \array_key_exists('handler', $query)) {
             $this->SUBVERSION = \sprintf('%s-%s', $query['handler'], $this->HANDLER_VERSION);
         }
@@ -69,11 +70,14 @@ class gtld_handler extends WhoisClient
             return $this->result;
         }
 
-        if ($this->deep_whois) $this->result = $this->DeepWhois($query, $this->result);
+        if ($this->deep_whois) {
+            $this->result = $this->DeepWhois($query, $this->result);
+        }
 
         // Next server could fail to return data
-        if (empty($this->result['rawdata']) || \count($this->result['rawdata']) < 3)
+        if (empty($this->result['rawdata']) || \count($this->result['rawdata']) < 3) {
             $this->result['rawdata'] = $data['rawdata'];
+        }
 
         // Domain is registered no matter what next server says
         $this->result['regrinfo']['registered'] = 'yes';

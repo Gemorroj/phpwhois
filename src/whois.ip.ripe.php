@@ -27,28 +27,31 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__RIPE_HANDLER__'))
+if (!\defined('__RIPE_HANDLER__')) {
     \define('__RIPE_HANDLER__', 1);
+}
 
 class ripe_handler
 {
     public function parse($data_str, $query)
     {
-        $translate = array(
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
             'person' => 'name',
             'netname' => 'name',
             'descr' => 'desc'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech'
-        );
+        ];
 
-        if (!empty($data_str['rawdata'])) $data_str = $data_str['rawdata'];
+        if (!empty($data_str['rawdata'])) {
+            $data_str = $data_str['rawdata'];
+        }
 
         $r = generic_parser_a($data_str, $translate, $contacts, 'network');
 
@@ -68,12 +71,20 @@ class ripe_handler
         }
 
         // Clean mess
-        if (isset($r['tech']['tech-c'])) unset($r['tech']['tech-c']);
-        if (isset($r['tech']['admin-c'])) unset($r['tech']['admin-c']);
-        if (isset($r['admin']['tech-c'])) unset($r['admin']['tech-c']);
-        if (isset($r['admin']['admin-c'])) unset($r['admin']['admin-c']);
+        if (isset($r['tech']['tech-c'])) {
+            unset($r['tech']['tech-c']);
+        }
+        if (isset($r['tech']['admin-c'])) {
+            unset($r['tech']['admin-c']);
+        }
+        if (isset($r['admin']['tech-c'])) {
+            unset($r['admin']['tech-c']);
+        }
+        if (isset($r['admin']['admin-c'])) {
+            unset($r['admin']['admin-c']);
+        }
 
-        $r = array('regrinfo' => $r);
+        $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';
         $r['regyinfo']['registrar'] = 'RIPE Network Coordination Centre';
         return $r;

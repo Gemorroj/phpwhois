@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__COOP_HANDLER__'))
+if (!\defined('__COOP_HANDLER__')) {
     \define('__COOP_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class coop_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Contact Type:            registrant',
             'admin' => 'Contact Type:            admin',
             'tech' => 'Contact Type:            tech',
@@ -48,9 +49,9 @@ class coop_handler
             'domain.status' => 'Domain Status:',
             'domain.sponsor' => 'Sponsoring registrar:',
             'domain.nserver.' => 'Host Name:'
-        );
+        ];
 
-        $translate = array(
+        $translate = [
             'Contact ID:' => 'handle',
             'Name:' => 'name',
             'Organisation:' => 'organization',
@@ -64,11 +65,11 @@ class coop_handler
             'Voice:' => 'phone',
             'Fax:' => 'fax',
             'Email:' => 'email'
-        );
+        ];
 
         $blocks = get_blocks($data_str['rawdata'], $items);
 
-        $r = array();
+        $r = [];
 
         if (isset($blocks['domain'])) {
             $r['regrinfo']['domain'] = format_dates($blocks['domain'], 'dmy');
@@ -77,24 +78,28 @@ class coop_handler
             if (isset($blocks['owner'])) {
                 $r['regrinfo']['owner'] = generic_parser_b($blocks['owner'], $translate, 'dmy', false);
 
-                if (isset($blocks['tech']))
+                if (isset($blocks['tech'])) {
                     $r['regrinfo']['tech'] = generic_parser_b($blocks['tech'], $translate, 'dmy', false);
+                }
 
-                if (isset($blocks['admin']))
+                if (isset($blocks['admin'])) {
                     $r['regrinfo']['admin'] = generic_parser_b($blocks['admin'], $translate, 'dmy', false);
+                }
 
-                if (isset($blocks['billing']))
+                if (isset($blocks['billing'])) {
                     $r['regrinfo']['billing'] = generic_parser_b($blocks['billing'], $translate, 'dmy', false);
+                }
             } else {
                 $r['regrinfo']['owner'] = generic_parser_b($data_str['rawdata'], $translate, 'dmy', false);
             }
-        } else
+        } else {
             $r['regrinfo']['registered'] = 'no';
+        }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.coop',
             'registrar' => '.coop registry'
-        );
+        ];
         return $r;
     }
 }

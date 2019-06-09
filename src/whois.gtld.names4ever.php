@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__NAMES4EVER_HANDLER__'))
+if (!\defined('__NAMES4EVER_HANDLER__')) {
     \define('__NAMES4EVER_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class names4ever_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact',
             'tech' => 'Technical  Contact',
@@ -46,7 +47,7 @@ class names4ever_handler
             'domain.expires' => 'Record expires on',
             'domain.changed' => 'Record last updated on',
             'domain.status' => 'Domain status:'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'dmy', false, false, true);
     }

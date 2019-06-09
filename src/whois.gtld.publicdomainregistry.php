@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__PUBLICDOMAINREGISTRY_HANDLER__'))
+if (!\defined('__PUBLICDOMAINREGISTRY_HANDLER__')) {
     \define('__PUBLICDOMAINREGISTRY_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class publicdomainregistry_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant:',
             'owner#' => '(Registrant):',
             'admin' => 'Administrative Contact',
@@ -49,7 +50,7 @@ class publicdomainregistry_handler
             'domain.expires' => 'Record expires on',
             'domain.expires#' => 'Expiration Date:',
             'domain.status' => 'Status:'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'mdy', false, true, true);
     }

@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__NICCO_HANDLER__'))
+if (!\defined('__NICCO_HANDLER__')) {
     \define('__NICCO_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,23 +35,23 @@ class nicco_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Holder Contact',
             'admin' => 'Admin Contact',
             'tech' => 'Tech. Contact',
             'domain.nserver.' => 'Nameservers',
             'domain.created' => 'Creation Date:',
             'domain.expires' => 'Expiration Date:'
-        );
+        ];
 
-        $translate = array(
+        $translate = [
             'city:' => 'address.city',
             'org. name:' => 'organization',
             'address1:' => 'address.street.',
             'address2:' => 'address.street.',
             'state:' => 'address.state',
             'postal code:' => 'address.zip'
-        );
+        ];
 
         $r = get_blocks($data_str, $items, true);
         $r['owner'] = get_contact($r['owner'], $translate);

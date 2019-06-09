@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__SCHLUND_HANDLER__'))
+if (!\defined('__SCHLUND_HANDLER__')) {
     \define('__SCHLUND_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class schlund_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'created:' => 'domain.created',
             'last-changed:' => 'domain.changed',
             'status:' => 'domain.status',
@@ -78,7 +79,7 @@ class schlund_handler
             'bill-c-ccode:' => 'billing.address.country',
             'bill-c-phone:' => 'billing.phone',
             'bill-c-email:' => 'billing.email'
-        );
+        ];
 
         return generic_parser_b($data_str, $items);
     }

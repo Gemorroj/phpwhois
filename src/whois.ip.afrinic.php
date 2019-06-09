@@ -27,14 +27,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__AFRINIC_HANDLER__'))
+if (!\defined('__AFRINIC_HANDLER__')) {
     \define('__AFRINIC_HANDLER__', 1);
+}
 
 class afrinic_handler
 {
     public function parse($data_str, $query)
     {
-        $translate = array(
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
@@ -43,13 +44,13 @@ class afrinic_handler
             'organisation' => 'handle',
             'org-name' => 'organization',
             'org-type' => 'type'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'org' => 'owner'
-        );
+        ];
 
         $r = generic_parser_a($data_str, $translate, $contacts, 'network', 'Ymd');
 
@@ -62,12 +63,13 @@ class afrinic_handler
             foreach ($r['owner']['remarks'] as $val) {
                 $pos = \strpos($val, 'rwhois://');
 
-                if ($pos !== false)
+                if ($pos !== false) {
                     $r['rwhois'] = \strtok(\substr($val, $pos), ' ');
+                }
             }
         }
 
-        $r = array('regrinfo' => $r);
+        $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';
         $r['regyinfo']['registrar'] = 'African Network Information Center';
         return $r;

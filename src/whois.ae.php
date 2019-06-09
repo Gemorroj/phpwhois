@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__AE_HANDLER__'))
+if (!\defined('__AE_HANDLER__')) {
     \define('__AE_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class ae_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'Domain Name:' => 'domain.name',
             'Registrar Name:' => 'domain.sponsor',
             'Status:' => 'domain.status',
@@ -44,14 +45,14 @@ class ae_handler
             'Tech Contact Name:' => 'tech.name',
             'Tech Contact ID:' => 'tech.handle',
             'Name Server:' => 'domain.nserver.'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ae',
             'registrar' => 'UAENIC'
-        );
+        ];
 
         return $r;
     }

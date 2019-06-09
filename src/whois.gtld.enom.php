@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__ENOM_HANDLER__'))
+if (!\defined('__ENOM_HANDLER__')) {
     \define('__ENOM_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class enom_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner#0' => 'Registrant Contact',
             'owner#1' => 'REGISTRANT Contact:',
             'admin#0' => 'Administrative Contact',
@@ -54,7 +55,7 @@ class enom_handler
             'domain.expires#1' => 'Expires:',
             'domain.created#2' => 'Start of registration-',
             'domain.expires#2' => 'Registered through-'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'dmy', false, false, true);
     }

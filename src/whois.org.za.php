@@ -27,15 +27,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__ORG_ZA_HANDLER__'))
+if (!\defined('__ORG_ZA_HANDLER__')) {
     \define('__ORG_ZA_HANDLER__', 1);
+}
 
 class org_za_handler
 {
     public function parse($data, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.status' => 'Status:',
             'domain.nserver' => 'Domain name servers in listed order:',
             'domain.changed' => 'Record last updated on',
@@ -44,7 +45,7 @@ class org_za_handler
             'tech' => 'Technical Contact:',
             'billing' => 'Billing Contact:',
             '#' => 'Search Again'
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
@@ -52,8 +53,9 @@ class org_za_handler
             $r['regrinfo']['registered'] = 'yes';
             $r['regrinfo']['domain']['handler'] = \strtok(\array_shift($r['regrinfo']['owner']), ' ');
             $r['regrinfo'] = get_contacts($r['regrinfo']);
-        } else
+        } else {
             $r['regrinfo']['registered'] = 'no';
+        }
 
         $r['regyinfo']['referrer'] = 'http://www.org.za';
         $r['regyinfo']['registrar'] = 'The ORG.ZA Domain';

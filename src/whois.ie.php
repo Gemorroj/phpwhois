@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__IE_HANDLER__'))
+if (!\defined('__IE_HANDLER__')) {
     \define('__IE_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,17 +35,17 @@ class ie_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'nic-hdl' => 'handle',
             'person' => 'name',
             'renewal' => 'expires'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
-        );
+        ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
@@ -54,10 +55,10 @@ class ie_handler
         }
 
         $r['regrinfo'] = $reg;
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.domainregistry.ie',
             'registrar' => 'IE Domain Registry'
-        );
+        ];
         return $r;
     }
 }

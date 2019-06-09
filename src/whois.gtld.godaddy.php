@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__GODADDY_HANDLER__'))
+if (!\defined('__GODADDY_HANDLER__')) {
     \define('__GODADDY_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class godaddy_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact',
             'tech' => 'Technical Contact',
@@ -44,7 +45,7 @@ class godaddy_handler
             'domain.expires' => 'Expires on:',
             'domain.changed' => 'Last Updated on:',
             'domain.sponsor' => 'Registered through:'
-        );
+        ];
 
         $r = get_blocks($data_str, $items);
         $r['owner'] = get_contact($r['owner']);

@@ -31,8 +31,9 @@ BUG
 - ContactID in address
 */
 
-if (!\defined('__IT_HANDLER__'))
+if (!\defined('__IT_HANDLER__')) {
     \define('__IT_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -40,8 +41,8 @@ class it_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.name' => 'Domain:',
             'domain.nserver' => 'Nameservers',
             'domain.status' => 'Status:',
@@ -50,16 +51,16 @@ class it_handler
             'admin' => 'Admin Contact',
             'tech' => 'Technical Contacts',
             'registrar' => 'Registrar'
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'address:' => 'address.',
             'contactid:' => 'handle',
             'organization:' => 'organization',
             'created:' => 'created',
             'last update:' => 'changed',
             'web:' => 'web'
-        );
+        ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
@@ -68,10 +69,10 @@ class it_handler
             unset($r['regrinfo']['registrar']);
         }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'registrar' => 'IT-Nic',
             'referrer' => 'http://www.nic.it/'
-        );
+        ];
         return $r;
     }
 }

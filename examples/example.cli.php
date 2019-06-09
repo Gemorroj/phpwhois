@@ -38,4 +38,4 @@ if (isset($argv[1])) {
 $whois = new Whois();
 $result = $whois->Lookup($domain);
 
-print_r($result);
+\print_r($result);

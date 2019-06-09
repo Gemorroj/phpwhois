@@ -27,15 +27,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__BE_HANDLER__'))
+if (!\defined('__BE_HANDLER__')) {
     \define('__BE_HANDLER__', 1);
+}
 
 class be_handler
 {
     public function parse($data, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.name' => 'Domain:',
             'domain.status' => 'Status:',
             'domain.nserver' => 'Nameservers:',
@@ -45,11 +46,11 @@ class be_handler
             'tech' => 'Registrar Technical Contacts:',
             'agent' => 'Registrar:',
             'agent.uri' => 'Website:'
-        );
+        ];
 
-        $trans = array(
+        $trans = [
             'company name2:' => ''
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
@@ -64,8 +65,9 @@ class be_handler
             }
 
             $r = format_dates($r, '-mdy');
-        } else
+        } else {
             $r['regrinfo']['registered'] = 'no';
+        }
 
         $r['regyinfo']['referrer'] = 'http://www.domain-registry.nl';
         $r['regyinfo']['registrar'] = 'DNS Belgium';

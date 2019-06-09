@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__CZ_HANDLER__'))
+if (!\defined('__CZ_HANDLER__')) {
     \define('__CZ_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class cz_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'expire' => 'expires',
             'registered' => 'created',
             'nserver' => 'nserver',
@@ -47,21 +48,21 @@ class cz_handler
             'person' => 'name',
             'org' => 'organization',
             'fax-no' => 'fax'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'bill-c' => 'billing',
             'registrant' => 'owner'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmy');
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.cz',
             'registrar' => 'CZ-NIC'
-        );
+        ];
 
         if ($data_str['rawdata'][0] == 'Your connection limit exceeded. Please slow down and try again later.') {
             $r['regrinfo']['registered'] = 'unknown';

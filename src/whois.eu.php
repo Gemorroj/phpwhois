@@ -27,15 +27,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__EU_HANDLER__'))
+if (!\defined('__EU_HANDLER__')) {
     \define('__EU_HANDLER__', 1);
+}
 
 class eu_handler
 {
     public function parse($data, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.name' => 'Domain:',
             'domain.status' => 'Status:',
             'domain.nserver' => 'Name servers:',
@@ -44,16 +45,16 @@ class eu_handler
             'tech' => 'Registrar Technical Contacts:',
             'owner' => 'Registrant:',
             '' => 'Please visit'
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'organisation:' => 'organization',
             'website:' => 'url'
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
-        if (!empty($r['regrinfo']['domain']['status']))
+        if (!empty($r['regrinfo']['domain']['status'])) {
             switch ($r['regrinfo']['domain']['status']) {
                 case 'FREE':
                 case 'AVAILABLE':
@@ -67,14 +68,17 @@ class eu_handler
                 default:
                     $r['regrinfo']['registered'] = 'unknown';
             }
-        else
+        } else {
             $r['regrinfo']['registered'] = 'yes';
+        }
 
-        if (isset($r['regrinfo']['tech']))
+        if (isset($r['regrinfo']['tech'])) {
             $r['regrinfo']['tech'] = get_contact($r['regrinfo']['tech'], $extra);
+        }
 
-        if (isset($r['regrinfo']['domain']['registrar']))
+        if (isset($r['regrinfo']['domain']['registrar'])) {
             $r['regrinfo']['domain']['registrar'] = get_contact($r['regrinfo']['domain']['registrar'], $extra);
+        }
 
         $r['regyinfo']['referrer'] = 'http://www.eurid.eu';
         $r['regyinfo']['registrar'] = 'EURID';

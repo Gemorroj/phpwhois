@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__AT_HANDLER__'))
+if (!\defined('__AT_HANDLER__')) {
     \define('__AT_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class at_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $translate = array(
+        $r = [];
+        $translate = [
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
@@ -45,20 +46,21 @@ class at_handler
             'city' => 'address.city',
             'postal code' => 'address.pcode',
             'country' => 'address.country'
-        );
+        ];
 
-        $contacts = array(
+        $contacts = [
             'registrant' => 'owner',
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'billing-c' => 'billing',
             'zone-c' => 'zone'
-        );
+        ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
-        if (isset($reg['domain']['remarks']))
+        if (isset($reg['domain']['remarks'])) {
             unset($reg['domain']['remarks']);
+        }
 
         if (isset($reg['domain']['descr'])) {
             foreach ($reg['domain']['descr'] as $key => $val) {
@@ -83,15 +85,16 @@ class at_handler
                 $reg['owner']['address'][$key] = $v;
             }
 
-            if (isset($reg['domain']['descr'])) unset($reg['domain']['descr']);
+            if (isset($reg['domain']['descr'])) {
+                unset($reg['domain']['descr']);
+            }
         }
 
         $r['regrinfo'] = $reg;
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nic.at',
             'registrar' => 'NIC-AT'
-        );
+        ];
         return $r;
     }
 }
-

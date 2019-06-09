@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-if (!\defined('__JP_HANDLER__'))
+if (!\defined('__JP_HANDLER__')) {
     \define('__JP_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class jp_handler extends WhoisClient
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             '[State]' => 'domain.status',
             '[Status]' => 'domain.status',
             '[Registered Date]' => 'domain.created',
@@ -53,20 +54,22 @@ class jp_handler extends WhoisClient
             '[Administrative Contact]' => 'admin.handle',
             '[Technical Contact]' => 'tech.handle',
             '[Name Server]' => 'domain.nserver.'
-        );
+        ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.jprs.jp',
             'registrar' => 'Japan Registry Services'
-        );
+        ];
 
-        if (!$this->deep_whois) return $r;
+        if (!$this->deep_whois) {
+            return $r;
+        }
 
         $r['rawdata'] = $data_str['rawdata'];
 
-        $items = array(
+        $items = [
             'a. [JPNIC Handle]' => 'handle',
             'c. [Last, First]' => 'name',
             'd. [E-Mail]' => 'email',
@@ -74,7 +77,7 @@ class jp_handler extends WhoisClient
             'o. [TEL]' => 'phone',
             'p. [FAX]' => 'fax',
             '[Last Update]' => 'changed'
-        );
+        ];
 
         $this->Query['server'] = 'jp.whois-servers.net';
 

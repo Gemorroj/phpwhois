@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__TMAGNIC_HANDLER__'))
+if (!\defined('__TMAGNIC_HANDLER__')) {
     \define('__TMAGNIC_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class tmagnic_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Owner Contact:',
             'admin' => 'Admin Contact',
             'tech' => 'Technical Contact',
@@ -44,7 +45,7 @@ class tmagnic_handler
             'domain.changed' => 'Record last updated on: ',
             '' => 'Zone Contact',
             '#' => 'Punycode Name:'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'ymd', false, false, true);
     }

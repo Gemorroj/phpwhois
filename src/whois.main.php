@@ -31,19 +31,19 @@ require_once('whois.idna.php');
 class Whois extends WhoisClient
 {
     // Deep whois ?
-    var $deep_whois = true;
+    public $deep_whois = true;
 
     // Windows based ?
-    var $windows = false;
+    public $windows = false;
 
     // Recursion allowed ?
-    var $gtld_recurse = true;
+    public $gtld_recurse = true;
 
     // Support for non-ICANN tld's
-    var $non_icann = false;
+    public $non_icann = false;
 
     // Network Solutions registry server
-    var $NSI_REGISTRY = 'whois.nsiregistry.net';
+    public $NSI_REGISTRY = 'whois.nsiregistry.net';
 
 
     /*
@@ -53,10 +53,11 @@ class Whois extends WhoisClient
     {
         parent::__construct();
 
-        if ((\substr(\php_uname(), 0, 7) === 'Windows'))
+        if ((\substr(\php_uname(), 0, 7) === 'Windows')) {
             $this->windows = true;
-        else
+        } else {
             $this->windows = false;
+        }
     }
 
     /*
@@ -73,7 +74,7 @@ class Whois extends WhoisClient
     public function Lookup($query = '', $is_utf = true)
     {
         // start clean
-        $this->Query = array('status' => '');
+        $this->Query = ['status' => ''];
 
         $query = \trim($query);
 
@@ -138,10 +139,11 @@ class Whois extends WhoisClient
             // AS Prepare to do lookup via the 'ip' handler
             $ip = @\gethostbyname($query);
             $this->Query['server'] = 'whois.arin.net';
-            if (\strtolower(\substr($ip, 0, 2)) === 'as')
+            if (\strtolower(\substr($ip, 0, 2)) === 'as') {
                 $as = \substr($ip, 2);
-            else
+            } else {
                 $as = $ip;
+            }
             $this->Query['args'] = "a $as";
             $this->Query['file'] = 'whois.ip.php';
             $this->Query['handler'] = 'ip';
@@ -156,7 +158,7 @@ class Whois extends WhoisClient
         $server = '';
         $dp = \explode('.', $domain);
         $np = \count($dp) - 1;
-        $tldtests = array();
+        $tldtests = [];
 
         for ($i = 0; $i < $np; $i++) {
             \array_shift($dp);
@@ -165,10 +167,11 @@ class Whois extends WhoisClient
 
         // Search the correct whois server
 
-        if ($this->non_icann)
+        if ($this->non_icann) {
             $special_tlds = \array_merge($this->WHOIS_SPECIAL, $this->WHOIS_NON_ICANN);
-        else
+        } else {
             $special_tlds = $this->WHOIS_SPECIAL;
+        }
 
         foreach ($tldtests as $tld) {
             // Test if we know in advance that no whois server is
@@ -178,7 +181,9 @@ class Whois extends WhoisClient
             if (isset($special_tlds[$tld])) {
                 $val = $special_tlds[$tld];
 
-                if ($val == '') return $this->Unknown();
+                if ($val == '') {
+                    return $this->Unknown();
+                }
 
                 $domain = \substr($query, 0, -\strlen($tld) - 1);
                 $val = \str_replace('{domain}', $domain, $val);
@@ -187,7 +192,7 @@ class Whois extends WhoisClient
             }
         }
 
-        if ($server == '')
+        if ($server == '') {
             foreach ($tldtests as $tld) {
                 // Determine the top level domain, and it's whois server using
                 // DNS lookups on 'whois-servers.net'.
@@ -195,10 +200,13 @@ class Whois extends WhoisClient
 
                 $cname = $tld . '.whois-servers.net';
 
-                if (\gethostbyname($cname) == $cname) continue;
+                if (\gethostbyname($cname) == $cname) {
+                    continue;
+                }
                 $server = $tld . '.whois-servers.net';
                 break;
             }
+        }
 
         if ($tld && $server) {
             // If found, set tld and whois server in query array
@@ -230,8 +238,9 @@ class Whois extends WhoisClient
 
             // Special parameters ?
 
-            if (isset($this->WHOIS_PARAM[$server]))
+            if (isset($this->WHOIS_PARAM[$server])) {
                 $this->Query['server'] = $this->Query['server'] . '?' . \str_replace('$', $domain, $this->WHOIS_PARAM[$server]);
+            }
 
             $result = $this->GetData('', $this->deep_whois);
             $this->Checkdns($result);
@@ -258,11 +267,16 @@ class Whois extends WhoisClient
     {
         if ($this->deep_whois && empty($result['regrinfo']['domain']['nserver'])) {
             $ns = @\dns_get_record($this->Query['query'], DNS_NS);
-            if (!\is_array($ns)) return;
-            $nserver = array();
-            foreach ($ns as $row) $nserver[] = $row['target'];
-            if (\count($nserver) > 0)
+            if (!\is_array($ns)) {
+                return;
+            }
+            $nserver = [];
+            foreach ($ns as $row) {
+                $nserver[] = $row['target'];
+            }
+            if (\count($nserver) > 0) {
                 $result['regrinfo']['domain']['nserver'] = $this->FixNameServer($nserver);
+            }
         }
     }
 
@@ -277,10 +291,11 @@ class Whois extends WhoisClient
         // Check if nameservers exist
 
         if (!isset($result['regrinfo']['registered'])) {
-            if (\checkdnsrr($domain, 'NS'))
+            if (\checkdnsrr($domain, 'NS')) {
                 $result['regrinfo']['registered'] = 'yes';
-            else
+            } else {
                 $result['regrinfo']['registered'] = 'unknown';
+            }
         }
 
         // Normalize nameserver fields
@@ -288,8 +303,9 @@ class Whois extends WhoisClient
         if (isset($result['regrinfo']['domain']['nserver'])) {
             if (!\is_array($result['regrinfo']['domain']['nserver'])) {
                 unset($result['regrinfo']['domain']['nserver']);
-            } else
+            } else {
                 $result['regrinfo']['domain']['nserver'] = $this->FixNameServer($result['regrinfo']['domain']['nserver']);
+            }
         }
     }
 }

@@ -30,8 +30,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
    - o punnycode deveria fazer parte dos resultados fazer parte dos resultados!
 */
 
-if (!\defined('__PT_HANDLER__'))
+if (!\defined('__PT_HANDLER__')) {
     \define('__PT_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -39,8 +40,8 @@ class pt_handler
 {
     public function parse($data, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'domain.name' => ' / Domain Name:',
             'domain.created' => 'Data de registo / Creation Date (dd/mm/yyyy):',
             'domain.nserver.' => 'Nameserver:',
@@ -50,7 +51,7 @@ class pt_handler
             'admin' => 'Respons�vel Administrativo / Admin Contact',
             'tech' => 'Respons�vel T�cnico / Tech Contact',
             '#' => 'Nameserver Information'
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
@@ -65,13 +66,14 @@ class pt_handler
         if ($r['regrinfo']['domain']['status'] == 'ACTIVE') {
             $r['regrinfo'] = get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
-        } else
+        } else {
             $r['regrinfo']['registered'] = 'no';
+        }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.fccn.pt',
             'registrar' => 'FCCN'
-        );
+        ];
 
         return $r;
     }

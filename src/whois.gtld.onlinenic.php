@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__ONLINENIC_HANDLER__'))
+if (!\defined('__ONLINENIC_HANDLER__')) {
     \define('__ONLINENIC_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class onlinenic_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrator:',
             'tech' => 'Technical Contactor:',
@@ -45,9 +46,9 @@ class onlinenic_handler
             'domain.created' => 'Record created on ',
             'domain.expires' => 'Record expired on ',
             'domain.changed' => 'Record last updated at '
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'tel--' => 'phone',
             'tel:' => 'phone',
             'tel --:' => 'phone',
@@ -63,18 +64,21 @@ class onlinenic_handler
             'province:' => '',
             ',province:' => '',
             ',country:' => 'address.country'
-        );
+        ];
 
         $r = easy_parser($data_str, $items, 'mdy', $extra, false, true);
 
-        foreach ($r as $key => $part)
+        foreach ($r as $key => $part) {
             if (isset($part['email'])) {
                 @list($email, $phone) = \explode(' ', $part['email']);
                 $email = \str_replace('(', '', $email);
                 $email = \str_replace(')', '', $email);
                 $r[$key]['email'] = $email;
-                if ($phone != '') $r[$key]['phone'] = $phone;
+                if ($phone != '') {
+                    $r[$key]['phone'] = $phone;
+                }
             }
+        }
 
         return $r;
     }

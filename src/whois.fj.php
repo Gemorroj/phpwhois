@@ -27,20 +27,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 require_once('whois.parser.php');
 
-if (!\defined('__FJ_HANDLER__'))
+if (!\defined('__FJ_HANDLER__')) {
     \define('__FJ_HANDLER__', 1);
+}
 
 class fj_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner' => 'Registrant:',
             'domain.status' => 'Status:',
             'domain.expires' => 'Expires:',
             'domain.nserver' => 'Domain servers:'
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
@@ -49,17 +50,19 @@ class fj_handler
 
             \date_default_timezone_set("Pacific/Fiji");
 
-            if (isset($r['regrinfo']['domain']['expires']))
+            if (isset($r['regrinfo']['domain']['expires'])) {
                 $r['regrinfo']['domain']['expires'] = \strftime("%Y-%m-%d", \strtotime($r['regrinfo']['domain']['expires']));
+            }
 
             $r['regrinfo']['registered'] = 'yes';
-        } else
+        } else {
             $r['regrinfo']['registered'] = 'no';
+        }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.domains.fj',
             'registrar' => 'FJ Domain Name Registry'
-        );
+        ];
         return $r;
     }
 }

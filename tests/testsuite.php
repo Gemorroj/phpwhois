@@ -29,37 +29,44 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Read domain list to test
 
 $lines = \file('./test.txt');
-$domains = array();
+$domains = [];
 
 foreach ($lines as $line) {
     $pos = \strpos($line, '/');
 
-    if ($pos !== false) $line = \substr($line, 0, $pos);
+    if ($pos !== false) {
+        $line = \substr($line, 0, $pos);
+    }
 
     $line = \trim($line);
 
-    if ($line == '') continue;
+    if ($line == '') {
+        continue;
+    }
 
     $parts = \explode(' ', \str_replace("\t", ' ', $line));
     $key = $parts[0];
 
-    for ($i = 1; $i < \count($parts); $i++)
+    $l = \count($parts);
+    for ($i = 1; $i < $l; $i++) {
         if ($parts[$i] != '') {
             if ($key) {
                 $domains[$key] = $parts[$i];
                 $key = false;
-            } else
+            } else {
                 $domains[] = $parts[$i];
+            }
         }
+    }
 }
 
 // Load previous results
 
 $fp = \fopen('testsuite.txt', 'rt');
 
-if (!$fp)
-    $results = array();
-else {
+if (!$fp) {
+    $results = [];
+} else {
     $results = \unserialize(\fgets($fp));
     \fclose($fp);
 }
@@ -67,7 +74,7 @@ else {
 // Specific test ?
 
 if (!empty($argv[1]) && isset($domains[$argv[1]])) {
-    $domains = array($domains[$argv[1]]);
+    $domains = [$domains[$argv[1]]];
 }
 
 // Test domains
@@ -95,15 +102,14 @@ foreach ($domains as $domain) {
             $results[$domain] = $result;
             save_results();
         }
-
     } else {
         // Compare with previous result
         unset($result['regrinfo']['disclaimer'], $results[$domain]['regrinfo']['disclaimer']);
         
 
-        if (empty($result))
+        if (empty($result)) {
             echo "!! empty result\n";
-        else {
+        } else {
             $diff = array_diff_assoc_recursive($result, $results[$domain]);
 
             if (\is_array($diff)) {
@@ -115,8 +121,9 @@ foreach ($domains as $domain) {
                     $results[$domain] = $result;
                     save_results();
                 }
-            } else
+            } else {
                 echo "Handler for domain $domain gives same results as before ...\n";
+            }
         }
     }
 }
@@ -143,14 +150,20 @@ function get_answer($question)
     while (true) {
         $res = \trim(\fgetc(STDIN));
 
-        if ($res == 'a') exit();
+        if ($res == 'a') {
+            exit();
+        }
 
         if ($res == 'c') {
             save_results();
             exit();
         }
-        if ($res == 'y') return true;
-        if ($res == 'n') return false;
+        if ($res == 'y') {
+            return true;
+        }
+        if ($res == 'n') {
+            return false;
+        }
     }
 }
 
@@ -161,7 +174,7 @@ function array_diff_assoc_recursive($array1, $array2)
     foreach ($array1 as $key => $value) {
         if (\is_array($value)) {
             if (!\is_array($array2[$key])) {
-                $difference[$key] = array('previous' => $array2[$key], 'actual' => $value);
+                $difference[$key] = ['previous' => $array2[$key], 'actual' => $value];
             } else {
                 $new_diff = array_diff_assoc_recursive($value, $array2[$key]);
 
@@ -169,17 +182,17 @@ function array_diff_assoc_recursive($array1, $array2)
                     $difference[$key] = $new_diff;
                 }
             }
-        } else
-            if (!isset($array2[$key]) || $array2[$key] != $value) {
-                $difference[$key] = array('previous' => $array2[$key], 'actual' => $value);
-            }
+        } elseif (!isset($array2[$key]) || $array2[$key] != $value) {
+            $difference[$key] = ['previous' => $array2[$key], 'actual' => $value];
+        }
     }
 
-// Search missing items
+    // Search missing items
 
     foreach ($array2 as $key => $value) {
-        if (!isset($array1[$key]))
-            $difference[$key] = array('previous' => $value, 'actual' => '(missing)');
+        if (!isset($array1[$key])) {
+            $difference[$key] = ['previous' => $value, 'actual' => '(missing)'];
+        }
     }
 
     return !isset($difference) ? false : $difference;

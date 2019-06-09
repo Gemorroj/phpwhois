@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__NICLINE_HANDLER__'))
+if (!\defined('__NICLINE_HANDLER__')) {
     \define('__NICLINE_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class nicline_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrative contact:',
             'tech' => 'Technical contact:',
@@ -43,7 +44,7 @@ class nicline_handler
             'domain.created' => 'Created:',
             'domain.expires' => 'Expires:',
             'domain.changed' => 'Last updated:'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'dmy');
     }

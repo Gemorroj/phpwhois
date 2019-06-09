@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__WILDWESTDOMAINS_HANDLER__'))
+if (!\defined('__WILDWESTDOMAINS_HANDLER__')) {
     \define('__WILDWESTDOMAINS_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class wildwestdomains_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact:',
             'tech' => 'Technical Contact:',
@@ -44,7 +45,7 @@ class wildwestdomains_handler
             'domain.created' => 'Created on:',
             'domain.expires' => 'Expires on:',
             'domain.changed' => 'Last Updated on:'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'mdy');
     }

@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__KRNIC_HANDLER__'))
+if (!\defined('__KRNIC_HANDLER__')) {
     \define('__KRNIC_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class krnic_handler
 {
     public function parse($data_str, $query)
     {
-        $blocks = array(
+        $blocks = [
             'owner1' => '[ Organization Information ]',
             'tech1' => '[ Technical Contact Information ]',
 
@@ -51,9 +52,9 @@ class krnic_handler
             'network.name' => 'Network Name       :',
             'network.mnt-by' => 'Connect ISP Name   :',
             'network.created' => 'Registration Date  :'
-        );
+        ];
 
-        $items = array(
+        $items = [
             'Orgnization ID     :' => 'handle',
             'Org Name      :' => 'organization',
             'Org Name           :' => 'organization',
@@ -69,40 +70,41 @@ class krnic_handler
             'Fax           :' => 'fax',
             'E-Mail        :' => 'email',
             'E-Mail             :' => 'email'
-        );
+        ];
 
         $b = get_blocks($data_str, $blocks);
 
-        if (isset($b['network']))
+        if (isset($b['network'])) {
             $r['network'] = $b['network'];
+        }
 
-        if (isset($b['owner1']))
+        if (isset($b['owner1'])) {
             $r['owner'] = generic_parser_b($b['owner1'], $items, 'Ymd', false);
-        else
-            if (isset($b['owner2']))
-                $r['owner'] = generic_parser_b($b['owner2'], $items, 'Ymd', false);
+        } elseif (isset($b['owner2'])) {
+            $r['owner'] = generic_parser_b($b['owner2'], $items, 'Ymd', false);
+        }
 
-        if (isset($b['admin2']))
+        if (isset($b['admin2'])) {
             $r['admin'] = generic_parser_b($b['admin2'], $items, 'Ymd', false);
-        else
-            if (isset($b['admin3']))
-                $r['admin'] = generic_parser_b($b['admin3'], $items, 'Ymd', false);
+        } elseif (isset($b['admin3'])) {
+            $r['admin'] = generic_parser_b($b['admin3'], $items, 'Ymd', false);
+        }
 
-        if (isset($b['tech1']))
+        if (isset($b['tech1'])) {
             $r['tech'] = generic_parser_b($b['tech1'], $items, 'Ymd', false);
-        else
-            if (isset($b['tech2']))
-                $r['tech'] = generic_parser_b($b['tech2'], $items, 'Ymd', false);
-            else
-                if (isset($b['tech3']))
-                    $r['tech'] = generic_parser_b($b['tech3'], $items, 'Ymd', false);
+        } elseif (isset($b['tech2'])) {
+            $r['tech'] = generic_parser_b($b['tech2'], $items, 'Ymd', false);
+        } elseif (isset($b['tech3'])) {
+            $r['tech'] = generic_parser_b($b['tech3'], $items, 'Ymd', false);
+        }
 
-        if (isset($b['abuse']))
+        if (isset($b['abuse'])) {
             $r['abuse'] = generic_parser_b($b['abuse'], $items, 'Ymd', false);
+        }
 
         $r = format_dates($r, 'Ymd');
 
-        $r = array('regrinfo' => $r);
+        $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';
         $r['regyinfo']['registrar'] = 'Korean Network Information Centre';
 

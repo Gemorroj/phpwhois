@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__UK_HANDLER__'))
+if (!\defined('__UK_HANDLER__')) {
     \define('__UK_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,8 +35,8 @@ class uk_handler
 {
     public function parse($data_str, $query)
     {
-        $r = array();
-        $items = array(
+        $r = [];
+        $items = [
             'owner.organization' => 'Registrant:',
             'owner.address' => "Registrant's address:",
             'owner.type' => 'Registrant type:',
@@ -48,7 +49,7 @@ class uk_handler
             'domain.dnssec' => 'DNSSEC:',
             '' => 'WHOIS lookup made at',
             'disclaimer' => '--',
-        );
+        ];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
@@ -62,14 +63,15 @@ class uk_handler
             if (\strpos($data_str['rawdata'][1], 'Error for ')) {
                 $r['regrinfo']['registered'] = 'yes';
                 $r['regrinfo']['domain']['status'] = 'invalid';
-            } else
+            } else {
                 $r['regrinfo']['registered'] = 'no';
+            }
         }
 
-        $r['regyinfo'] = array(
+        $r['regyinfo'] = [
             'referrer' => 'http://www.nominet.org.uk',
             'registrar' => 'Nominet UK'
-        );
+        ];
         return $r;
     }
 }

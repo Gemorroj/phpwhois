@@ -25,8 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!\defined('__NAMEKING_HANDLER__'))
+if (!\defined('__NAMEKING_HANDLER__')) {
     \define('__NAMEKING_HANDLER__', 1);
+}
 
 require_once('whois.parser.php');
 
@@ -34,7 +35,7 @@ class nameking_handler
 {
     public function parse($data_str, $query)
     {
-        $items = array(
+        $items = [
             'owner' => 'Registrant',
             'admin' => 'Admin Contact',
             'tech' => 'Tech Contact',
@@ -42,9 +43,9 @@ class nameking_handler
             'domain.sponsor' => 'Registration Provided By:',
             'domain.created' => 'Creation Date:',
             'domain.expires' => 'Expiration Date:',
-        );
+        ];
 
-        $extra = array(
+        $extra = [
             'tel--' => 'phone',
             'tel:' => 'phone',
             'tel --:' => 'phone',
@@ -62,7 +63,7 @@ class nameking_handler
             ',country:' => 'address.country',
             'organization:' => 'organization',
             'city, province, post code:' => 'address.city'
-        );
+        ];
 
         return easy_parser($data_str, $items, 'mdy', $extra, false, true);
     }
