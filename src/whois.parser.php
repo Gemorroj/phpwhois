@@ -113,7 +113,7 @@ function generic_parser_a_blocks($rawdata, $translate, &$disclaimer)
             if ($k == '') {
                 continue;
             }
-            if (\strstr($k, '.')) {
+            if (false !== \strpos($k, '.')) {
                 ${'block' . getvarname($k)} = $v;
                 continue;
             }
@@ -147,7 +147,7 @@ function generic_parser_a_blocks($rawdata, $translate, &$disclaimer)
 
 //-------------------------------------------------------------------------
 
-function generic_parser_b($rawdata, $items = false, $dateformat = 'mdy', $hasreg = true, $scanall = false)
+function generic_parser_b($rawdata, $items = [], $dateformat = 'mdy', $hasreg = true, $scanall = false)
 {
     if (!$items) {
         $items = [
@@ -416,7 +416,7 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
     $r = [];
     $endtag = '';
 
-    while (list($key, $val) = @\each($rawdata)) { // FIXME: remove each
+    while ([$key, $val] = @\each($rawdata)) { // FIXME: remove each
         $val = \trim($val);
         if ($val == '') {
             continue;
@@ -435,9 +435,9 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
                     break;
                 }
 
-                $last = \substr($val, -1, 1);
+                $last = $val[\strlen($val) - 1];
 
-                if ($last == ':' || $last == '-' || $last == ']') {
+                if ($last === ':' || $last === '-' || $last === ']') {
                     $found = true;
                     $endtag = $last;
                     $line = $val;
@@ -463,32 +463,22 @@ function get_blocks($rawdata, $items, $partial_match = false, $def_block = false
 
         // Block found, get data ...
 
-        while (list($key, $val) = @\each($rawdata)) { // FIXME: remove each
+        while ([$key, $val] = @\each($rawdata)) { // FIXME: remove each
             $val = \trim($val);
 
-            if ($val == '' || $val == \str_repeat($val[0], \strlen($val))) {
+            if ($val === '' || $val === \str_repeat($val[0], \strlen($val))) {
                 continue;
             }
 
-            $last = \substr($val, -1, 1);
-            /*
-                    if ($last == $endtag)
-                        {
-                        // Another block found
-                        prev($rawdata);
-                        break;
-                        }
-
-                    if ($endtag == '' || $partial_match)
-                    */
-            if ($endtag == '' || $partial_match || $last == $endtag) {
+            $last = $val[\strlen($val) - 1];
+            if ($endtag === '' || $partial_match || $last === $endtag) {
                 //Check if this line starts another block
                 $et = false;
 
-                foreach ($items as $field => $match) {
+                foreach ($items as $match) {
                     $pos = \strpos($val, $match);
 
-                    if ($pos !== false && $pos == 0) {
+                    if ($pos !== false && $pos === 0) {
                         $et = true;
                         break;
                     }
@@ -627,7 +617,7 @@ function get_contact($array, $extra_items = '', $has_org = false)
             $ok = false;
 
             foreach ($items as $match => $field) {
-                $pos = \strpos(\strtolower($val), $match);
+                $pos = \stripos($val, $match);
 
                 if ($pos === false) {
                     continue;
@@ -641,13 +631,13 @@ function get_contact($array, $extra_items = '', $has_org = false)
 
                 $val = \trim(\substr($val, 0, $pos));
 
-                if ($val == '') {
+                if ($val === '') {
                     unset($array[$key]);
                     break;
                 }
                 $array[$key] = $val;
                 $ok = true;
-                
+
                 //break;
             }
 
@@ -666,7 +656,7 @@ function get_contact($array, $extra_items = '', $has_org = false)
 
                     $val = \str_replace($matches[0], '', $val);
 
-                    if ($val == '') {
+                    if ($val === '') {
                         unset($array[$key]);
                         continue;
                     }
@@ -681,7 +671,7 @@ function get_contact($array, $extra_items = '', $has_org = false)
                 $val = \str_replace($matches[0], '', $val);
                 $val = \trim(\str_replace('()', '', $val));
 
-                if ($val == '') {
+                if ($val === '') {
                     unset($array[$key]);
                     continue;
                 }
@@ -706,7 +696,7 @@ function get_contact($array, $extra_items = '', $has_org = false)
     }
 
     if (isset($r['name']) && \is_array($r['name'])) {
-        $r['name'] = \implode($r['name'], ' ');
+        $r['name'] = \implode(' ', $r['name']);
     }
 
     if (!empty($array)) {
@@ -730,7 +720,7 @@ function format_dates(&$res, $format = 'mdy')
 
     foreach ($res as $key => $val) {
         if (\is_array($val)) {
-            if (!\is_numeric($key) && ($key == 'expires' || $key == 'created' || $key == 'changed')) {
+            if (!\is_numeric($key) && ($key === 'expires' || $key === 'created' || $key === 'changed')) {
                 $d = get_date($val[0], $format);
                 if ($d) {
                     $res[$key] = $d;
@@ -739,7 +729,7 @@ function format_dates(&$res, $format = 'mdy')
                 $res[$key] = format_dates($val, $format);
             }
         } else {
-            if (!\is_numeric($key) && ($key == 'expires' || $key == 'created' || $key == 'changed')) {
+            if (!\is_numeric($key) && ($key === 'expires' || $key === 'created' || $key === 'changed')) {
                 $d = get_date($val, $format);
                 if ($d) {
                     $res[$key] = $d;
@@ -779,10 +769,10 @@ function get_date($date, $format)
     $parts = \explode(' ', $date);
     $res = [];
 
-    if ((\strlen($parts[0]) == 8 || \count($parts) == 1) && \is_numeric($parts[0])) {
+    if ((\strlen($parts[0]) === 8 || \count($parts) === 1) && \is_numeric($parts[0])) {
         $val = $parts[0];
         for ($p = $i = 0; $i < 3; $i++) {
-            if ($format[$i] != 'Y') {
+            if ($format[$i] !== 'Y') {
                 $res[$format[$i]] = \substr($val, $p, 2);
                 $p += 2;
             } else {
@@ -794,11 +784,11 @@ function get_date($date, $format)
         $format = \strtolower($format);
 
         for ($p = $i = 0; $p < \count($parts) && $i < \strlen($format); $p++) {
-            if (\trim($parts[$p]) == '') {
+            if (\trim($parts[$p]) === '') {
                 continue;
             }
 
-            if ($format[$i] != '-') {
+            if ($format[$i] !== '-') {
                 $res[$format[$i]] = $parts[$p];
             }
             $i++;
@@ -819,9 +809,9 @@ function get_date($date, $format)
                 continue;
             }
 
-            if (!\is_numeric($val) && isset($months[\substr(\strtolower($val), 0, 3)])) {
+            if (!\is_numeric($val) && isset($months[\strtolower(\substr($val, 0, 3))])) {
                 $res[$key] = $res['m'];
-                $res['m'] = $months[\substr(\strtolower($val), 0, 3)];
+                $res['m'] = $months[\strtolower(\substr($val, 0, 3))];
                 $ok = false;
                 break;
             }

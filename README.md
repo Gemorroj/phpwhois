@@ -25,28 +25,16 @@ provided.
 Requirements
 ------------
 
-phpWhois requires PHP 4.3.0 or better with OpenSSL support to
+phpWhois requires PHP 7.2 or higher with OpenSSL support to
 work properly. Without SSL support you will not be able to
 query domains which do not have a whois server but that have
-a https based whois. Also, you can run it in lower PHP versions
-but without timeout control. phpWhois will not work with PHP
-versions below 4.1.0
+a https based whois.
 
 Installation
 ------------
-
-Basically, untar the distribution somewhere outside your server's
-document root and make sure the directory is listed in 'include_path'
-in your php.ini file, server configuration or in an .htaccess file.
-If you want to test it using a web browser just copy example.php ,
-example.html and whois.icon.png anywhere on your server's document
-root and try it.
-
-phpWhois is not a PHP aplication is a class that can be used in
-applications. There is no need to make the installation folder
-accesible to anyone but PHP, nevertheless you can install it inside
-your server's document root if you like, it will work without
-problems or security risks.
+```bash
+composer require gemorroj/phpwhois
+```
 
 Example usage
 -------------
@@ -54,15 +42,15 @@ Example usage
 <?php
 
 $whois = new Whois();
-$result = $whois->Lookup('example.com', false);
+$result = $whois->Lookup('example.com');
 print_r($result);
 ```
 
-If you provide the domain name to query in UTF8, then you
+If you provide the domain name to query not in UTF8, then you
 must use:
 ```php
 <?php
-$result = $whois->Lookup('example.com');
+$result = $whois->Lookup('example.com', false);
 ```
 
 If the query string is not in UTF8 then it must be in
@@ -183,7 +171,7 @@ or not and which is the registrar but not the owner information.
 UTF-8
 -----
 
-PHPWhois will assume that all whois servers resturn UTF-8 encoded output,
+PHPWhois will assume that all whois servers return UTF-8 encoded output,
 if some whois server does not return UTF-8 data, you can include it in
 the NON_UTF8 array in whois.servers.php
 
@@ -218,3 +206,4 @@ Credits
 Mark Jeftovic <markjr@easydns.com>
 David Saez Padros <david@ols.es>
 Ross Golder <ross@golder.org>
+Gemorroj <wapinet@mail.ru>

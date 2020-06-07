@@ -58,7 +58,7 @@ class ca_handler
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         if (!empty($r['regrinfo']['domain']['sponsor'])) {
-            list($v, $reg) = \explode(':', $r['regrinfo']['domain']['sponsor'][0]);
+            [$v, $reg] = \explode(':', $r['regrinfo']['domain']['sponsor'][0]);
             $r['regrinfo']['domain']['sponsor'] = \trim($reg);
         }
 

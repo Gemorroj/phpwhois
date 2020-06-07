@@ -5,3 +5,6 @@ vendor/
 
 .php_cs
 .php_cs.cache
+
+phpunit.xml
+.phpunit.result.cache

@@ -116,7 +116,7 @@ class ip_handler extends WhoisClient
                     $postNet = \substr($line, $p + \strlen($net) + 3);
 
                     if ($postNet !== false) {
-                        list($low, $high) = \explode('-', \str_replace(' ', '', $postNet));
+                        [$low, $high] = \explode('-', \str_replace(' ', '', $postNet));
 
                         if (!isset($done[$net]) && $ip >= \ip2long($low) && $ip <= \ip2long($high)) {
                             //$owner = \substr($line, 0, $p - 1);
@@ -162,8 +162,7 @@ class ip_handler extends WhoisClient
                 }
 
                 $result = $this->parse_results($result, $rwdata, $query, $srv_data['reset']);
-                $result = $this->set_whois_info($result);
-                $reset = false;
+                $this->set_whois_info($result);
             }
         }
 
@@ -224,7 +223,7 @@ class ip_handler extends WhoisClient
     {
         $rwres = $this->Process($rwdata);
 
-        if ($result['regyinfo']['type'] == 'AS' && !empty($rwres['regrinfo']['network'])) {
+        if ($result['regyinfo']['type'] === 'AS' && !empty($rwres['regrinfo']['network'])) {
             $rwres['regrinfo']['AS'] = $rwres['regrinfo']['network'];
             unset($rwres['regrinfo']['network']);
         }
@@ -250,14 +249,14 @@ class ip_handler extends WhoisClient
                 unset($result['regrinfo']['rwhois']);
             } elseif (!@empty($rwres['regrinfo']['owner']['organization'])) {
                 switch ($rwres['regrinfo']['owner']['organization']) {
-                        case 'KRNIC':
-                            $this->handle_rwhois('whois.krnic.net', $query);
-                            break;
+                    case 'KRNIC':
+                        $this->handle_rwhois('whois.krnic.net', $query);
+                        break;
 
-                        case 'African Network Information Center':
-                            $this->handle_rwhois('whois.afrinic.net', $query);
-                            break;
-                    }
+                    case 'African Network Information Center':
+                        $this->handle_rwhois('whois.afrinic.net', $query);
+                        break;
+                }
             }
         }
 

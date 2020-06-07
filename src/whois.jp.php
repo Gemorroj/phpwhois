@@ -86,7 +86,7 @@ class jp_handler extends WhoisClient
             $r['rawdata'][] = '';
             $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
             $r['regrinfo']['admin'] = generic_parser_b($rwdata, $items, 'ymd', false);
-            $r = $this->set_whois_info($r);
+            $this->set_whois_info($r);
         }
 
         if (!empty($r['regrinfo']['tech']['handle'])) {
@@ -100,7 +100,7 @@ class jp_handler extends WhoisClient
                 $r['rawdata'][] = '';
                 $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
                 $r['regrinfo']['tech'] = generic_parser_b($rwdata, $items, 'ymd', false);
-                $r = $this->set_whois_info($r);
+                $this->set_whois_info($r);
             }
         }
 

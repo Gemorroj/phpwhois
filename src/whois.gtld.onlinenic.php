@@ -70,7 +70,7 @@ class onlinenic_handler
 
         foreach ($r as $key => $part) {
             if (isset($part['email'])) {
-                @list($email, $phone) = \explode(' ', $part['email']);
+                [$email, $phone] = \explode(' ', $part['email']);
                 $email = \str_replace('(', '', $email);
                 $email = \str_replace(')', '', $email);
                 $r[$key]['email'] = $email;
