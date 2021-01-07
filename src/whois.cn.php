@@ -29,7 +29,7 @@ if (!\defined('__CN_HANDLER__')) {
     \define('__CN_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class cn_handler
 {
@@ -79,14 +79,15 @@ class cn_handler
             'Billing Country Code:' => 'billing.address.country',
             'Billing Email:' => 'billing.email',
             'Billing Phone Number:' => 'billing.phone',
-            'Billing Fax:' => 'billing.fax'
+            'Billing Fax:' => 'billing.fax',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.cnnic.net.cn',
-            'registrar' => 'China NIC'
+            'registrar' => 'China NIC',
         ];
+
         return $r;
     }
 }

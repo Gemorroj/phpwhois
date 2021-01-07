@@ -25,9 +25,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-/* servers.whois	v18   Markus Welters	2004/06/25 */
-/* servers.whois	v17	ross golder	2003/02/09 */
-/* servers.whois	v16	mark jeftovic	2001/02/28 */
+// servers.whois	v18   Markus Welters	2004/06/25
+// servers.whois	v17	ross golder	2003/02/09
+// servers.whois	v16	mark jeftovic	2001/02/28
 
 $this->DATA_VERSION = '19';
 
@@ -42,10 +42,10 @@ $this->DATA = [
     'za.org' => 'zanet',
     'za.net' => 'zanet',
     // Punicode
-    'xn--p1ai' => 'ru'
+    'xn--p1ai' => 'ru',
 ];
 
-/* Non UTF-8 servers */
+// Non UTF-8 servers
 
 $this->NON_UTF8 = [
     'br.whois-servers.net' => 1,
@@ -57,19 +57,19 @@ $this->NON_UTF8 = [
     'whois.interdomain.net' => 1,
     'whois.lacnic.net' => 1,
     'whois.nicline.com' => 1,
-    'whois.ripe.net' => 1
+    'whois.ripe.net' => 1,
 ];
 
-/* If whois Server needs any parameters, enter it here */
+// If whois Server needs any parameters, enter it here
 
 $this->WHOIS_PARAM = [
     'com.whois-servers.net' => 'domain =$',
     'net.whois-servers.net' => 'domain =$',
     'de.whois-servers.net' => '-T dn,ace $',
-    'jp.whois-servers.net' => 'DOM $/e'
+    'jp.whois-servers.net' => 'DOM $/e',
 ];
 
-/* TLD's that have special whois servers or that can only be reached via HTTP */
+// TLD's that have special whois servers or that can only be reached via HTTP
 
 $this->WHOIS_SPECIAL = [
     'ad' => '',
@@ -136,10 +136,10 @@ $this->WHOIS_SPECIAL = [
     'za.net' => 'whois.za.net',
     'za.org' => 'whois.za.net',
     'co.za' => 'http://co.za/cgi-bin/whois.sh?Domain={domain}.co.za',
-    'org.za' => 'http://www.org.za/cgi-bin/rwhois?domain={domain}.org.za&format=full'
+    'org.za' => 'http://www.org.za/cgi-bin/rwhois?domain={domain}.org.za&format=full',
 ];
 
-/* handled gTLD whois servers */
+// handled gTLD whois servers
 
 $this->WHOIS_GTLD_HANDLER = [
     'whois.bulkregister.com' => 'enom',
@@ -151,10 +151,10 @@ $this->WHOIS_GTLD_HANDLER = [
     'whois.35.com' => 'onlinenic',
     'whois.nominalia.com' => 'genericb',
     'whois.encirca.com' => 'genericb',
-    'whois.corenic.net' => 'genericb'
+    'whois.corenic.net' => 'genericb',
 ];
 
-/* Non ICANN TLD's */
+// Non ICANN TLD's
 
 $this->WHOIS_NON_ICANN = [
     'agent' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
@@ -250,5 +250,5 @@ $this->WHOIS_NON_ICANN = [
     'viagem' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
     'video' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
     'voyage' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
-    'z' => 'http://www.adns.net/whois.php?txtDOMAIN={domain}.{tld}'
+    'z' => 'http://www.adns.net/whois.php?txtDOMAIN={domain}.{tld}',
 ];

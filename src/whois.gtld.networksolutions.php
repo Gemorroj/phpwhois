@@ -29,7 +29,7 @@ if (!\defined('__NETWORKSOLUTIONS_HANDLER__')) {
     \define('__NETWORKSOLUTIONS_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class networksolutions_handler
 {
@@ -42,7 +42,7 @@ class networksolutions_handler
             'domain.name' => 'Domain Name:',
             'domain.nserver.' => 'Domain servers in listed order:',
             'domain.created' => 'Record created on',
-            'domain.expires' => 'Record expires on'
+            'domain.expires' => 'Record expires on',
         ];
 
         return easy_parser($data_str, $items, 'dmy', false, true, true);

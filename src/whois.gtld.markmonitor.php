@@ -29,7 +29,7 @@ if (!\defined('__MARKMONITOR_HANDLER__')) {
     \define('__MARKMONITOR_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class markmonitor_handler
 {
@@ -44,7 +44,7 @@ class markmonitor_handler
             'domain.nserver' => 'Domain servers in listed order:',
             'domain.created' => 'Created on..............:',
             'domain.expires' => 'Expires on..............:',
-            'domain.changed' => 'Record last updated on..:'
+            'domain.changed' => 'Record last updated on..:',
         ];
 
         $r = easy_parser($data_str, $items, 'dmy', false, false, true);
@@ -59,6 +59,7 @@ class markmonitor_handler
                 $r[$key]['address']['country'] = \array_pop($r[$key]['address']);
             }
         }
+
         return $r;
     }
 }

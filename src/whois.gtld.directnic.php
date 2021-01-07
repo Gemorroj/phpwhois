@@ -29,7 +29,7 @@ if (!\defined('__DIRECTNIC_HANDLER__')) {
     \define('__DIRECTNIC_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class directnic_handler
 {
@@ -45,7 +45,7 @@ class directnic_handler
             'domain.changed' => 'Record last updated ',
             'domain.created' => 'Record created on ',
             'domain.expires' => 'Record expires on ',
-            '' => 'By submitting a WHOIS query'
+            '' => 'By submitting a WHOIS query',
         ];
 
         return easy_parser($data_str, $items, 'mdy', false, false, true);

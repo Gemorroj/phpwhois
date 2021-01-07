@@ -29,7 +29,7 @@ if (!\defined('__NAME_HANDLER__')) {
     \define('__NAME_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class name_handler
 {
@@ -39,8 +39,9 @@ class name_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.name/',
-            'registrar' => 'Global Name Registry'
+            'registrar' => 'Global Name Registry',
         ];
+
         return $r;
     }
 }

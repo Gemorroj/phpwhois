@@ -29,7 +29,7 @@ if (!\defined('__NL_HANDLER__')) {
     \define('__NL_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class nl_handler
 {
@@ -44,7 +44,7 @@ class nl_handler
             'domain.changed' => 'Record last updated:',
             'domain.sponsor' => 'Registrar:',
             'admin' => 'Administrative contact:',
-            'tech' => 'Technical contact(s):'
+            'tech' => 'Technical contact(s):',
         ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
@@ -53,6 +53,7 @@ class nl_handler
 
         if (!isset($r['regrinfo']['domain']['status'])) {
             $r['regrinfo']['registered'] = 'no';
+
             return $r;
         }
 
@@ -74,6 +75,7 @@ class nl_handler
 
         $r['regrinfo']['registered'] = 'yes';
         format_dates($r, 'dmy');
+
         return $r;
     }
 

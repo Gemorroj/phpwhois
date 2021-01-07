@@ -29,7 +29,7 @@ if (!\defined('__PM_HANDLER__')) {
     \define('__PM_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class pm_handler
 {
@@ -50,7 +50,7 @@ class pm_handler
             'registered' => 'created',
             'country' => 'address.country',
             'registrar' => 'sponsor',
-            'role' => 'organization'
+            'role' => 'organization',
         ];
 
         $contacts = [
@@ -58,7 +58,7 @@ class pm_handler
             'tech-c' => 'tech',
             'zone-c' => 'zone',
             'holder-c' => 'owner',
-            'nsl-id' => 'nserver'
+            'nsl-id' => 'nserver',
         ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmY');
@@ -71,8 +71,9 @@ class pm_handler
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.fr',
-            'registrar' => 'AFNIC'
+            'registrar' => 'AFNIC',
         ];
+
         return $r;
     }
 }

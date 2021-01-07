@@ -29,7 +29,7 @@ if (!\defined('__AE_HANDLER__')) {
     \define('__AE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ae_handler
 {
@@ -44,14 +44,14 @@ class ae_handler
             'Registrant Contact Name:' => 'owner.name',
             'Tech Contact Name:' => 'tech.name',
             'Tech Contact ID:' => 'tech.handle',
-            'Name Server:' => 'domain.nserver.'
+            'Name Server:' => 'domain.nserver.',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ae',
-            'registrar' => 'UAENIC'
+            'registrar' => 'UAENIC',
         ];
 
         return $r;

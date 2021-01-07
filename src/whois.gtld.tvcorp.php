@@ -29,7 +29,7 @@ if (!\defined('__TVCORP_HANDLER__')) {
     \define('__TVCORP_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class tvcorp_handler
 {
@@ -42,7 +42,7 @@ class tvcorp_handler
             'billing' => 'Billing',
             'domain.nserver.' => 'Domain servers:',
             'domain.created' => 'Record created on',
-            'domain.expires' => 'Record expires on'
+            'domain.expires' => 'Record expires on',
         ];
 
         return easy_parser($data_str, $items, 'mdy');

@@ -29,7 +29,7 @@ if (!\defined('__INTERDOMAIN_HANDLER__')) {
     \define('__INTERDOMAIN_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class interdomain_handler
 {
@@ -72,7 +72,7 @@ class interdomain_handler
             'Technical Country........' => 'tech.address.country',
             'Technical Phone..........' => 'tech.phone',
             'Technical e-mail.........' => 'tech.email',
-            'Technical Fax............' => 'tech.fax'
+            'Technical Fax............' => 'tech.fax',
         ];
 
         return generic_parser_b($data_str, $items, 'dmy');

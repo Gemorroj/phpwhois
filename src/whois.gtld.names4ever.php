@@ -29,7 +29,7 @@ if (!\defined('__NAMES4EVER_HANDLER__')) {
     \define('__NAMES4EVER_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class names4ever_handler
 {
@@ -46,7 +46,7 @@ class names4ever_handler
             'domain.created' => 'Record created on',
             'domain.expires' => 'Record expires on',
             'domain.changed' => 'Record last updated on',
-            'domain.status' => 'Domain status:'
+            'domain.status' => 'Domain status:',
         ];
 
         return easy_parser($data_str, $items, 'dmy', false, false, true);

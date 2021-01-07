@@ -29,7 +29,7 @@ if (!\defined('__ITSYOURDOMAIN_HANDLER__')) {
     \define('__ITSYOURDOMAIN_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class itsyourdomain_handler
 {
@@ -44,7 +44,7 @@ class itsyourdomain_handler
             'domain.nserver.' => 'Domain Name Servers:',
             'domain.created' => 'Record created on ',
             'domain.expires' => 'Record expires on ',
-            'domain.changed' => 'Record last updated on '
+            'domain.changed' => 'Record last updated on ',
         ];
 
         return easy_parser($data_str, $items, 'mdy');

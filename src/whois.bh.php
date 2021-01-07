@@ -29,7 +29,7 @@ if (!\defined('__BH_HANDLER__')) {
     \define('__BH_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class bh_handler
 {
@@ -40,7 +40,7 @@ class bh_handler
             'Sponsoring Registrar Name:' => 'domain.sponsor.name',
             'Sponsoring Registrar Email:' => 'domain.sponsor.email',
             'Sponsoring Registrar Uri:' => 'domain.sponsor.uri',
-            'Sponsoring Registrar Phone:' => 'domain.sponsor.phone'
+            'Sponsoring Registrar Phone:' => 'domain.sponsor.phone',
         ];
         $i = generic_parser_b($data_str['rawdata'], $items);
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
@@ -55,8 +55,9 @@ class bh_handler
         }
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.bh/',
-            'registrar' => 'NIC-BH'
+            'registrar' => 'NIC-BH',
         ];
+
         return $r;
     }
 }

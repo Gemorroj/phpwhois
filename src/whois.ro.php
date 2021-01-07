@@ -36,7 +36,7 @@ if (!\defined('__RO_HANDLER__')) {
     \define('__RO_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ro_handler
 {
@@ -53,18 +53,18 @@ class ro_handler
             'updated' => 'changed',
             'registration-date' => 'created',
             'domain-status' => 'status',
-            'nameserver' => 'nserver'
+            'nameserver' => 'nserver',
         ];
 
         $contacts = [
             'admin-contact' => 'admin',
             'technical-contact' => 'tech',
             'zone-contact' => 'zone',
-            'billing-contact' => 'billing'
+            'billing-contact' => 'billing',
         ];
 
         $extra = [
-            'postal code:' => 'address.pcode'
+            'postal code:' => 'address.pcode',
         ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
@@ -89,7 +89,7 @@ class ro_handler
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ro',
-            'registrar' => 'nic.ro'
+            'registrar' => 'nic.ro',
         ];
 
         return $r;

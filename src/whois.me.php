@@ -29,7 +29,7 @@ if (!\defined('__ME_HANDLER__')) {
     \define('__ME_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class me_handler
 {
@@ -39,8 +39,9 @@ class me_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://domain.me',
-            'registrar' => 'doMEn'
+            'registrar' => 'doMEn',
         ];
+
         return $r;
     }
 }

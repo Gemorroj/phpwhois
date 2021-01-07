@@ -29,7 +29,7 @@ if (!\defined('__US_HANDLER__')) {
     \define('__US_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class us_handler
 {
@@ -39,8 +39,9 @@ class us_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], false, '-md--y');
         $r['regyinfo'] = [
             'referrer' => 'http://www.neustar.us',
-            'registrar' => 'NEUSTAR INC.'
+            'registrar' => 'NEUSTAR INC.',
         ];
+
         return $r;
     }
 }

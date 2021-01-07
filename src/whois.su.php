@@ -29,7 +29,7 @@ if (!\defined('__SU_HANDLER__')) {
     \define('__SU_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class su_handler
 {
@@ -57,8 +57,9 @@ class su_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.ripn.net',
-            'registrar' => 'RUCENTER-REG-RIPN'
+            'registrar' => 'RUCENTER-REG-RIPN',
         ];
+
         return $r;
     }
 }

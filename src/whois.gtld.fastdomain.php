@@ -29,7 +29,7 @@ if (!\defined('__FASTDOMAIN_HANDLER__')) {
     \define('__FASTDOMAIN_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class fastdomain_handler
 {
@@ -46,7 +46,7 @@ class fastdomain_handler
             'domain.created' => 'Created on..............:',
             'domain.expires' => 'Expires on..............:',
             'domain.changed' => 'Last modified on........:',
-            'domain.status' => 'Status:'
+            'domain.status' => 'Status:',
         ];
 
         foreach ($data_str as $key => $val) {
@@ -64,7 +64,7 @@ class fastdomain_handler
 
         if (isset($r['domain']['nserver'])) {
             foreach ($r['domain']['nserver'] as $key => $val) {
-                if ($val == '=-=-=-=') {
+                if ('=-=-=-=' == $val) {
                     unset($r['domain']['nserver'][$key]);
                 }
             }

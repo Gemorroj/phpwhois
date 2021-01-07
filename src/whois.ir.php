@@ -1,6 +1,6 @@
 <?php
 /**
- * PHPWhois IR Lookup Extension - http://github.com/sepehr/phpwhois-ir
+ * PHPWhois IR Lookup Extension - http://github.com/sepehr/phpwhois-ir.
  *
  * An extension to PHPWhois (http://phpwhois.org) library to support IR lookups.
  *
@@ -24,7 +24,7 @@ if (!\defined('__IR_HANDLER__')) {
 }
 
 // Loadup the parser.
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 /**
  * IR Domain names lookup handler class.
@@ -40,13 +40,13 @@ class ir_handler
             'e-mail' => 'email',
             'person' => 'name',
             'fax-no' => 'fax',
-            'domain' => 'name'
+            'domain' => 'name',
         ];
 
         $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
-            'holder-c' => 'owner'
+            'holder-c' => 'owner',
         ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
@@ -54,8 +54,9 @@ class ir_handler
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
             'referrer' => 'http://whois.nic.ir/',
-            'registrar' => 'NIC-IR'
+            'registrar' => 'NIC-IR',
         ];
+
         return $r;
     }
 }

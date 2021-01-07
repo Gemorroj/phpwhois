@@ -29,7 +29,7 @@ if (!\defined('__NAMEINTEL_HANDLER__')) {
     \define('__NAMEINTEL_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class nameintel_handler
 {
@@ -43,7 +43,7 @@ class nameintel_handler
             'domain.status' => 'Status:',
             'domain.nserver' => 'Name Server:',
             'domain.created' => 'Creation Date:',
-            'domain.expires' => 'Expiration Date:'
+            'domain.expires' => 'Expiration Date:',
         ];
 
         $r = easy_parser($data_str, $items, 'dmy', false, false, true);
@@ -58,6 +58,7 @@ class nameintel_handler
                 $r[$key]['address']['country'] = \array_pop($r[$key]['address']);
             }
         }
+
         return $r;
     }
 }

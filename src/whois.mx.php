@@ -29,7 +29,7 @@ if (!\defined('__MX_HANDLER__')) {
     \define('__MX_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class mx_handler
 {
@@ -45,20 +45,20 @@ class mx_handler
             'domain.created' => 'Created On:',
             'domain.expires' => 'Expiration Date:',
             'domain.changed' => 'Last Updated On:',
-            'domain.sponsor' => 'Registrar:'
+            'domain.sponsor' => 'Registrar:',
         ];
 
         $extra = [
             'city:' => 'address.city',
             'state:' => 'address.state',
-            'dns:' => '0'
+            'dns:' => '0',
         ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'dmy', $extra);
 
         $r['regyinfo'] = [
             'registrar' => 'NIC Mexico',
-            'referrer' => 'http://www.nic.mx/'
+            'referrer' => 'http://www.nic.mx/',
         ];
 
         if (empty($r['regrinfo']['domain']['created'])) {

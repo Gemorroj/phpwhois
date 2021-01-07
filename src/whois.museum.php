@@ -29,7 +29,7 @@ if (!\defined('__MUSEUM_HANDLER__')) {
     \define('__MUSEUM_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class museum_handler
 {
@@ -39,8 +39,9 @@ class museum_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://musedoma.museum',
-            'registrar' => 'Museum Domain Management Association'
+            'registrar' => 'Museum Domain Management Association',
         ];
+
         return $r;
     }
 }

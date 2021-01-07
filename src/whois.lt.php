@@ -29,7 +29,7 @@ if (!\defined('__LT_HANDLER__')) {
     \define('__LT_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class lt_handler
 {
@@ -38,7 +38,7 @@ class lt_handler
         $r = [];
         $translate = [
             'contact nic-hdl:' => 'handle',
-            'contact name:' => 'name'
+            'contact name:' => 'name',
         ];
 
         $items = [
@@ -51,15 +51,16 @@ class lt_handler
             'domain.created' => 'Registered:',
             'domain.changed' => 'Last updated:',
             'domain.nserver.' => 'NS:',
-            '' => '%'
+            '' => '%',
         ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $translate);
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.domreg.lt',
-            'registrar' => 'DOMREG.LT'
+            'registrar' => 'DOMREG.LT',
         ];
+
         return $r;
     }
 }

@@ -29,7 +29,7 @@ if (!\defined('__ASIA_HANDLER__')) {
     \define('__ASIA_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class asia_handler
 {
@@ -39,8 +39,9 @@ class asia_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://www.dotasia.org/',
-            'registrar' => 'DotAsia'
+            'registrar' => 'DotAsia',
         ];
+
         return $r;
     }
 }

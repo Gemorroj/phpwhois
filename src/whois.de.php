@@ -29,7 +29,7 @@ if (!\defined('__DE_HANDLER__')) {
     \define('__DE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class de_handler
 {
@@ -46,7 +46,7 @@ class de_handler
             'owner' => '[Holder]',
             'admin' => '[Admin-C]',
             'tech' => '[Tech-C]',
-            'zone' => '[Zone-C]'
+            'zone' => '[Zone-C]',
         ];
 
         $extra = [
@@ -55,22 +55,23 @@ class de_handler
             'countrycode:' => 'address.country',
             'remarks:' => '',
             'sip:' => 'sip',
-            'type:' => ''
+            'type:' => '',
         ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         $r['regyinfo'] = [
             'registrar' => 'DENIC eG',
-            'referrer' => 'http://www.denic.de/'
+            'referrer' => 'http://www.denic.de/',
         ];
 
-        if (!isset($r['regrinfo']['domain']['status']) || $r['regrinfo']['domain']['status'] == "free") {
+        if (!isset($r['regrinfo']['domain']['status']) || 'free' == $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'no';
         } else {
             $r['regrinfo']['domain']['changed'] = \substr($r['regrinfo']['domain']['changed'], 0, 10);
             $r['regrinfo']['registered'] = 'yes';
         }
+
         return $r;
     }
 }

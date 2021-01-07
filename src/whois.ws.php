@@ -29,7 +29,7 @@ if (!\defined('__WS_HANDLER__')) {
     \define('__WS_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ws_handler extends WhoisClient
 {
@@ -46,7 +46,7 @@ class ws_handler extends WhoisClient
             'Current Nameservers:' => 'domain.nserver.',
             'Administrative Contact Email:' => 'admin.email',
             'Administrative Contact Telephone:' => 'admin.phone',
-            'Registrar Whois:' => 'rwhois'
+            'Registrar Whois:' => 'rwhois',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');

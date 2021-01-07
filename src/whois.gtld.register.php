@@ -29,7 +29,7 @@ if (!\defined('__REGISTER_HANDLER__')) {
     \define('__REGISTER_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class register_handler
 {
@@ -53,7 +53,7 @@ class register_handler
             'domain.expires#0' => 'Expires on..............:',
             'domain.expires#1' => 'Expiration date:',
             'domain.changed' => 'Record last updated on..:',
-            'domain.status' => 'Status:'
+            'domain.status' => 'Status:',
         ];
 
         return easy_parser($data_str, $items, 'ymd');

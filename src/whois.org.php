@@ -29,7 +29,7 @@ if (!\defined('__ORG_HANDLER__')) {
     \define('__ORG_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class org_handler
 {
@@ -44,6 +44,7 @@ class org_handler
 
         $r['regyinfo']['referrer'] = 'http://www.pir.org/';
         $r['regyinfo']['registrar'] = 'Public Interest Registry';
+
         return $r;
     }
 }

@@ -25,12 +25,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-
 if (!\defined('__ARIN_HANDLER__')) {
     \define('__ARIN_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class arin_handler
 {
@@ -63,7 +62,7 @@ class arin_handler
             'OrgAbuseHandle:' => 'abuse.handle',
             'OrgAbusePhone:' => 'abuse.phone',
             'OrgAbuseEmail:' => 'abuse.email.',
-            'ReferralServer:' => 'rwhois'
+            'ReferralServer:' => 'rwhois',
         ];
 
         $r = generic_parser_b($data_str, $items, 'ymd', false, true);

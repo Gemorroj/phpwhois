@@ -29,7 +29,7 @@ if (!\defined('__RU_HANDLER__')) {
     \define('__RU_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ru_handler
 {
@@ -47,7 +47,7 @@ class ru_handler
             'org:' => 'owner.organization',
             'phone:' => 'owner.phone',
             'fax-no:' => 'owner.fax',
-            'e-mail:' => 'owner.email'
+            'e-mail:' => 'owner.email',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'dmy');
@@ -58,8 +58,9 @@ class ru_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.ripn.net',
-            'registrar' => 'RU-CENTER-REG-RIPN'
+            'registrar' => 'RU-CENTER-REG-RIPN',
         ];
+
         return $r;
     }
 }

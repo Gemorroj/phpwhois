@@ -29,7 +29,7 @@ if (!\defined('__NAMEJUICE_HANDLER__')) {
     \define('__NAMEJUICE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class namejuice_handler
 {
@@ -45,7 +45,7 @@ class namejuice_handler
             'domain.expires' => 'Expiration date:',
             'domain.changed' => 'Update date:',
             'domain.status' => 'Status:',
-            'domain.sponsor' => 'Registration Service Provided By:'
+            'domain.sponsor' => 'Registration Service Provided By:',
         ];
 
         return easy_parser($data_str, $items, 'dmy', false, true, true);

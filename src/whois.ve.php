@@ -30,7 +30,7 @@ if (!\defined('__VE_HANDLER__')) {
     \define('__VE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ve_handler
 {
@@ -47,20 +47,21 @@ class ve_handler
             'domain.changed' => 'Ultima Actualizacion:',
             'domain.expires' => 'Fecha de Vencimiento:',
             'domain.status' => 'Estatus del dominio:',
-            'domain.nserver' => 'Servidor(es) de Nombres de Dominio'
+            'domain.nserver' => 'Servidor(es) de Nombres de Dominio',
         ];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
 
         if (!isset($r['regrinfo']['domain']['created']) || \is_array($r['regrinfo']['domain']['created'])) {
             $r['regrinfo'] = ['registered' => 'no'];
+
             return $r;
         }
 
         $dns = [];
 
         foreach ($r['regrinfo']['domain']['nserver'] as $nserv) {
-            if ($nserv[0] == '-') {
+            if ('-' == $nserv[0]) {
                 $dns[] = $nserv;
             }
         }
@@ -69,8 +70,9 @@ class ve_handler
         $r['regrinfo'] = get_contacts($r['regrinfo']);
         $r['regyinfo'] = [
             'referrer' => 'http://registro.nic.ve',
-            'registrar' => 'NIC-Venezuela - CNTI'
+            'registrar' => 'NIC-Venezuela - CNTI',
         ];
+
         return $r;
     }
 }

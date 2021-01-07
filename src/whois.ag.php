@@ -29,7 +29,7 @@ if (!\defined('__AG_HANDLER__')) {
     \define('__AG_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ag_handler
 {
@@ -38,8 +38,9 @@ class ag_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ag',
-            'registrar' => 'Nic AG'
+            'registrar' => 'Nic AG',
         ];
+
         return $r;
     }
 }

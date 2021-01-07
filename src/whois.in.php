@@ -29,7 +29,7 @@ if (!\defined('__IN_HANDLER__')) {
     \define('__IN_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class in_handler
 {
@@ -39,8 +39,9 @@ class in_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://whois.registry.in',
-            'registrar' => 'INRegistry'
+            'registrar' => 'INRegistry',
         ];
+
         return $r;
     }
 }

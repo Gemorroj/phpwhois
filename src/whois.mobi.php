@@ -29,7 +29,7 @@ if (!\defined('__MOBI_HANDLER__')) {
     \define('__MOBI_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class mobi_handler
 {
@@ -44,6 +44,7 @@ class mobi_handler
 
         $r['regyinfo']['referrer'] = 'http://www.mtld.mobi/';
         $r['regyinfo']['registrar'] = 'Dot Mobi Registry';
+
         return $r;
     }
 }

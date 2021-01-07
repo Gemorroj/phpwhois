@@ -28,14 +28,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class utils extends Whois
 {
-
     // showObject() and debugObject()
     // - debug code to show an object or array
 
     public function showObject(&$obj)
     {
         $r = $this->debugObject($obj);
-        return "<pre>$r</pre>\n";
+
+        return "<pre>{$r}</pre>\n";
     }
 
     public function debugObject($obj, $indent = 0)
@@ -44,9 +44,10 @@ class utils extends Whois
             $return = '';
             foreach ($obj as $k => $v) {
                 $return .= \str_repeat('&nbsp;', $indent);
-                $return .= $k . "->$v\n";
+                $return .= $k."->{$v}\n";
                 $return .= $this->debugObject($v, $indent + 1);
             }
+
             return $return;
         }
     }
@@ -61,9 +62,9 @@ class utils extends Whois
     {
         // adds links fort HTML output
 
-        $email_regex = "/([-_\w\.]+)(@)([-_\w\.]+)\b/i";
-        $html_regex = "/(?:^|\b)((((http|https|ftp):\/\/)|(www\.))([\w\.]+)([,:%#&\/?~=\w+\.-]+))(?:\b|$)/is";
-        $ip_regex = "/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/i";
+        $email_regex = '/([-_\\w\\.]+)(@)([-_\\w\\.]+)\\b/i';
+        $html_regex = '/(?:^|\\b)((((http|https|ftp):\\/\\/)|(www\\.))([\\w\\.]+)([,:%#&\\/?~=\\w+\\.-]+))(?:\\b|$)/is';
+        $ip_regex = '/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/i';
 
         $out = '';
         $lempty = true;
@@ -71,7 +72,7 @@ class utils extends Whois
         foreach ($result['rawdata'] as $line) {
             $line = \trim($line);
 
-            if ($line == '') {
+            if ('' == $line) {
                 if ($lempty) {
                     continue;
                 }
@@ -80,7 +81,7 @@ class utils extends Whois
                 $lempty = false;
             }
 
-            $out .= $line . "\n";
+            $out .= $line."\n";
         }
 
         if ($lempty) {
@@ -92,13 +93,13 @@ class utils extends Whois
         $out = \preg_replace_callback($html_regex, 'href_replace', $out);
 
         if ($link_myself) {
-            if ($params[0] == '/') {
+            if ('/' == $params[0]) {
                 $link = $params;
             } else {
-                $link = $_SERVER['PHP_SELF'] . '?' . $params;
+                $link = $_SERVER['PHP_SELF'].'?'.$params;
             }
 
-            $out = \preg_replace($ip_regex, '<a href="' . $link . '">$0</a>', $out);
+            $out = \preg_replace($ip_regex, '<a href="'.$link.'">$0</a>', $out);
 
             if (isset($result['regrinfo']['domain']['nserver'])) {
                 $nserver = $result['regrinfo']['domain']['nserver'];
@@ -112,7 +113,7 @@ class utils extends Whois
 
             if (\is_array($nserver)) {
                 foreach ($nserver as $host => $ip) {
-                    $url = '<a href="' . \str_replace('$0', $ip, $link) . "\">$host</a>";
+                    $url = '<a href="'.\str_replace('$0', $ip, $link)."\">{$host}</a>";
                     $out = \str_replace($host, $url, $out);
                     $out = \str_replace(\strtoupper($host), $url, $out);
                 }
@@ -121,26 +122,25 @@ class utils extends Whois
 
         // Add bold field names
 
-        $out = \preg_replace("/(?m)^([-\s\.&;'\w\t\(\)\/]+:\s*)/", '<b>$1</b>', $out);
+        $out = \preg_replace("/(?m)^([-\\s\\.&;'\\w\t\\(\\)\\/]+:\\s*)/", '<b>$1</b>', $out);
 
         // Add italics for disclaimer
 
-        $out = \preg_replace("/(?m)^(%.*)/", '<i>$0</i>', $out);
+        $out = \preg_replace('/(?m)^(%.*)/', '<i>$0</i>', $out);
 
         return \str_replace("\n", "<br/>\n", $out);
     }
 }
 
-
 function href_replace($matches)
 {
-    if (\substr($matches[0], 0, 4) == 'www.') {
+    if ('www.' == \substr($matches[0], 0, 4)) {
         $web = $matches[0];
-        $url = 'http://' . $web;
+        $url = 'http://'.$web;
     } else {
         $web = $matches[0];
         $url = $web;
     }
 
-    return '<a href="' . $url . '" target="_blank">' . $web . '</a>';
+    return '<a href="'.$url.'" target="_blank">'.$web.'</a>';
 }

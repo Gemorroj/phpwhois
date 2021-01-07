@@ -1,8 +1,13 @@
 <?php
+
 namespace PHPWhois\Tests;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PHPWhoisTest extends TestCase
 {
     public function testLookupDomain(): void

@@ -29,7 +29,7 @@ if (!\defined('__TRAVEL_HANDLER__')) {
     \define('__TRAVEL_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class travel_handler
 {
@@ -39,6 +39,7 @@ class travel_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo']['referrer'] = 'http://www.nic.travel/';
         $r['regyinfo']['registrar'] = 'Tralliance Corporation';
+
         return $r;
     }
 }

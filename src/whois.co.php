@@ -29,7 +29,7 @@ if (!\defined('__CO_HANDLER__')) {
     \define('__CO_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class co_handler
 {
@@ -39,6 +39,7 @@ class co_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], false, '-md--y');
         $r['regyinfo']['referrer'] = 'http://www.cointernet.com.co/';
         $r['regyinfo']['registrar'] = '.CO Internet, S.A.S.';
+
         return $r;
     }
 }

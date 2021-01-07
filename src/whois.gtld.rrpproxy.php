@@ -29,7 +29,7 @@ if (!\defined('__RRPPROXY_HANDLER__')) {
     \define('__RRPPROXY_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class rrpproxy_handler
 {
@@ -84,7 +84,7 @@ class rrpproxy_handler
             'billing-country:' => 'billing.address.country',
             'billing-phone:' => 'billing.phone',
             'billing-fax:' => 'billing.fax',
-            'billing-email:' => 'billing.email'
+            'billing-email:' => 'billing.email',
         ];
 
         return generic_parser_b($data_str, $items);

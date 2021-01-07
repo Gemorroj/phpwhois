@@ -29,7 +29,7 @@ if (!\defined('__NAMEKING_HANDLER__')) {
     \define('__NAMEKING_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class nameking_handler
 {
@@ -62,7 +62,7 @@ class nameking_handler
             ',province:' => '',
             ',country:' => 'address.country',
             'organization:' => 'organization',
-            'city, province, post code:' => 'address.city'
+            'city, province, post code:' => 'address.city',
         ];
 
         return easy_parser($data_str, $items, 'mdy', $extra, false, true);

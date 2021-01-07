@@ -29,7 +29,7 @@ if (!\defined('__ZANET_HANDLER__')) {
     \define('__ZANET_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class zanet_handler
 {
@@ -45,7 +45,7 @@ class zanet_handler
             'tech' => 'Technical Contact      :',
             'domain.nserver' => 'Domain Name Servers listed in order:',
             'registered' => 'No such domain: ',
-            '' => 'The ZA NiC whois'
+            '' => 'The ZA NiC whois',
         ];
 
         // Arrange contacts ...
@@ -53,12 +53,13 @@ class zanet_handler
         $rawdata = [];
 
         foreach ($data_str['rawdata'] as $line) {
-            if (\strpos($line, ' Contact ') !== false) {
+            if (false !== \strpos($line, ' Contact ')) {
                 $pos = \strpos($line, ':');
 
-                if ($pos !== false) {
+                if (false !== $pos) {
                     $rawdata[] = \substr($line, 0, $pos + 1);
                     $rawdata[] = \trim(\substr($line, $pos + 1));
+
                     continue;
                 }
             }
@@ -82,6 +83,7 @@ class zanet_handler
         $r['regyinfo']['referrer'] = 'http://www.za.net/'; // or http://www.za.org
         $r['regyinfo']['registrar'] = 'ZA NiC';
         format_dates($r, 'xmdxxy');
+
         return $r;
     }
 }

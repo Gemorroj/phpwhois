@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__BR_HANDLER__')) {
     \define('__BR_HANDLER__', 1);
@@ -43,20 +43,21 @@ class br_handler
             'person' => 'name',
             'netname' => 'name',
             'domain' => 'name',
-            'updated' => ''
+            'updated' => '',
         ];
 
         $contacts = [
             'owner-c' => 'owner',
             'tech-c' => 'tech',
             'admin-c' => 'admin',
-            'billing-c' => 'billing'
+            'billing-c' => 'billing',
         ];
 
         $r = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (\in_array('Permission denied.', $r['disclaimer'])) {
             $r['registered'] = 'unknown';
+
             return $r;
         }
 
@@ -85,8 +86,9 @@ class br_handler
         $a['regrinfo'] = $r;
         $a['regyinfo'] = [
             'registrar' => 'BR-NIC',
-            'referrer' => 'http://www.nic.br'
+            'referrer' => 'http://www.nic.br',
         ];
+
         return $a;
     }
 }

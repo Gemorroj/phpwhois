@@ -29,7 +29,7 @@ if (!\defined('__GTLD_HANDLER__')) {
     \define('__GTLD_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class gtld_handler extends WhoisClient
 {
@@ -51,7 +51,7 @@ class gtld_handler extends WhoisClient
         'Creation Date:' => 'regrinfo.domain.created',
         'Created On:' => 'regrinfo.domain.created',
         'Expiration Date:' => 'regrinfo.domain.expires',
-        'No match for ' => 'nodomain'
+        'No match for ' => 'nodomain',
     ];
 
     public function parse($data, $query)
@@ -67,6 +67,7 @@ class gtld_handler extends WhoisClient
         if (isset($this->result['nodomain'])) {
             unset($this->result['nodomain']);
             $this->result['regrinfo']['registered'] = 'no';
+
             return $this->result;
         }
 

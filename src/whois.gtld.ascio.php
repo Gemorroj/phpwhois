@@ -29,7 +29,7 @@ if (!\defined('__ASCIO_HANDLER__')) {
     \define('__ASCIO_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ascio_handler
 {
@@ -43,7 +43,7 @@ class ascio_handler
             'domain.nserver.' => 'Domain servers in listed order:',
             'domain.created' => 'Record created:',
             'domain.expires' => 'Record expires:',
-            'domain.changed' => 'Record last updated:'
+            'domain.changed' => 'Record last updated:',
         ];
 
         return easy_parser($data_str, $items, 'ymd', false, false, true);

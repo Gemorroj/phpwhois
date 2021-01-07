@@ -29,7 +29,7 @@ if (!\defined('__NAMEVAULT_HANDLER__')) {
     \define('__NAMEVAULT_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class namevault_handler
 {
@@ -44,7 +44,7 @@ class namevault_handler
             'domain.nserver.' => 'Name Servers',
             'domain.created' => 'Creation Date:',
             'domain.expires' => 'Expiration Date:',
-            'domain.status' => 'Status:'
+            'domain.status' => 'Status:',
         ];
 
         return easy_parser($data_str, $items, 'dmy', false, true, true);

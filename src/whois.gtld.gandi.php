@@ -29,7 +29,7 @@ if (!\defined('__GANDI_HANDLER__')) {
     \define('__GANDI_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class gandi_handler
 {
@@ -39,7 +39,7 @@ class gandi_handler
             'owner' => 'owner-c',
             'admin' => 'admin-c',
             'tech' => 'tech-c',
-            'billing' => 'bill-c'
+            'billing' => 'bill-c',
         ];
 
         $trans = [
@@ -48,7 +48,7 @@ class gandi_handler
             'zipcode:' => 'address.pcode',
             'city:' => 'address.city',
             'lastupdated:' => 'changed',
-            'owner-name:' => ''
+            'owner-name:' => '',
         ];
 
         return easy_parser($data_str, $items, 'dmy', $trans);

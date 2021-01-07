@@ -29,7 +29,7 @@ if (!\defined('__CA_HANDLER__')) {
     \define('__CA_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ca_handler
 {
@@ -45,14 +45,14 @@ class ca_handler
             'domain.status' => 'Domain status:',
             'domain.created' => 'Creation date:',
             'domain.expires' => 'Expiry date:',
-            'domain.changed' => 'Updated date:'
+            'domain.changed' => 'Updated date:',
         ];
 
         $extra = [
             'postal address:' => 'address.0',
             'job title:' => '',
             'number:' => 'handle',
-            'description:' => 'organization'
+            'description:' => 'organization',
         ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
@@ -62,7 +62,7 @@ class ca_handler
             $r['regrinfo']['domain']['sponsor'] = \trim($reg);
         }
 
-        if (empty($r['regrinfo']['domain']['status']) || $r['regrinfo']['domain']['status'] == 'available') {
+        if (empty($r['regrinfo']['domain']['status']) || 'available' == $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'no';
         } else {
             $r['regrinfo']['registered'] = 'yes';
@@ -70,8 +70,9 @@ class ca_handler
 
         $r['regyinfo'] = [
             'registrar' => 'CIRA',
-            'referrer' => 'http://www.cira.ca/'
+            'referrer' => 'http://www.cira.ca/',
         ];
+
         return $r;
     }
 }

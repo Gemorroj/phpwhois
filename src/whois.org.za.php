@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__ORG_ZA_HANDLER__')) {
     \define('__ORG_ZA_HANDLER__', 1);
@@ -44,7 +44,7 @@ class org_za_handler
             'admin' => 'Administrative Contact:',
             'tech' => 'Technical Contact:',
             'billing' => 'Billing Contact:',
-            '#' => 'Search Again'
+            '#' => 'Search Again',
         ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
@@ -59,6 +59,7 @@ class org_za_handler
 
         $r['regyinfo']['referrer'] = 'http://www.org.za';
         $r['regyinfo']['registrar'] = 'The ORG.ZA Domain';
+
         return $r;
     }
 }

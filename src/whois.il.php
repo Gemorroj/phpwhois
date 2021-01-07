@@ -29,7 +29,7 @@ if (!\defined('__IL_HANDLER__')) {
     \define('__IL_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class il_handler
 {
@@ -42,7 +42,7 @@ class il_handler
             'nic-hdl' => 'handle',
             'person' => 'name',
             'personname' => 'name',
-            'address' => 'address'/*,
+            'address' => 'address', /*,
             'address' => 'address.city',
             'address' => 'address.pcode',
             'address' => 'address.country'*/
@@ -53,7 +53,7 @@ class il_handler
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'billing-c' => 'billing',
-            'zone-c' => 'zone'
+            'zone-c' => 'zone',
         ];
         //unset($data_str['rawdata'][19]);
         \array_splice($data_str['rawdata'], 16, 1);
@@ -71,18 +71,22 @@ class il_handler
                 $v = \trim(\substr(\strstr($val, ':'), 1));
                 if (\strstr($val, '[organization]:')) {
                     $reg['owner']['organization'] = $v;
+
                     continue;
                 }
                 if (\strstr($val, '[phone]:')) {
                     $reg['owner']['phone'] = $v;
+
                     continue;
                 }
                 if (\strstr($val, '[fax-no]:')) {
                     $reg['owner']['fax'] = $v;
+
                     continue;
                 }
                 if (\strstr($val, '[e-mail]:')) {
                     $reg['owner']['email'] = $v;
+
                     continue;
                 }
 
@@ -97,8 +101,9 @@ class il_handler
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
             'referrer' => 'http://www.isoc.org.il/',
-            'registrar' => 'ISOC-IL'
+            'registrar' => 'ISOC-IL',
         ];
+
         return $r;
     }
 }

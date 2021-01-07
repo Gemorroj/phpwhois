@@ -29,7 +29,7 @@ if (!\defined('__JOKER_HANDLER__')) {
     \define('__JOKER_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class joker_handler
 {
@@ -45,13 +45,13 @@ class joker_handler
             'state' => 'address.state',
             'country' => 'address.country',
             'person' => 'name',
-            'domain' => 'name'
+            'domain' => 'name',
         ];
 
         $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
-            'billing-c' => 'billing'
+            'billing-c' => 'billing',
         ];
 
         $items = [

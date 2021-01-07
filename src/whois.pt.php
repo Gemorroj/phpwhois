@@ -34,7 +34,7 @@ if (!\defined('__PT_HANDLER__')) {
     \define('__PT_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class pt_handler
 {
@@ -50,7 +50,7 @@ class pt_handler
             'billing' => 'Entidade Gestora / Billing Contact',
             'admin' => 'Respons�vel Administrativo / Admin Contact',
             'tech' => 'Respons�vel T�cnico / Tech Contact',
-            '#' => 'Nameserver Information'
+            '#' => 'Nameserver Information',
         ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
@@ -58,12 +58,13 @@ class pt_handler
         if (empty($r['regrinfo']['domain']['name'])) {
             \print_r($r['regrinfo']);
             $r['regrinfo']['registered'] = 'no';
+
             return $r;
         }
 
         $r['regrinfo']['domain']['created'] = get_date($r['regrinfo']['domain']['created'], 'dmy');
 
-        if ($r['regrinfo']['domain']['status'] == 'ACTIVE') {
+        if ('ACTIVE' == $r['regrinfo']['domain']['status']) {
             $r['regrinfo'] = get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
         } else {
@@ -72,7 +73,7 @@ class pt_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.fccn.pt',
-            'registrar' => 'FCCN'
+            'registrar' => 'FCCN',
         ];
 
         return $r;

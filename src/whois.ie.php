@@ -29,7 +29,7 @@ if (!\defined('__IE_HANDLER__')) {
     \define('__IE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ie_handler
 {
@@ -39,7 +39,7 @@ class ie_handler
         $translate = [
             'nic-hdl' => 'handle',
             'person' => 'name',
-            'renewal' => 'expires'
+            'renewal' => 'expires',
         ];
 
         $contacts = [
@@ -57,8 +57,9 @@ class ie_handler
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
             'referrer' => 'http://www.domainregistry.ie',
-            'registrar' => 'IE Domain Registry'
+            'registrar' => 'IE Domain Registry',
         ];
+
         return $r;
     }
 }

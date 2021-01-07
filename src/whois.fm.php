@@ -29,7 +29,7 @@ if (!\defined('__FM_HANDLER__')) {
     \define('__FM_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class fm_handler
 {
@@ -46,7 +46,7 @@ class fm_handler
             'domain.expires' => 'Expires:',
             'domain.changed' => 'Modified:',
             'domain.status' => 'Status:',
-            'domain.sponsor' => 'Registrar Name:'
+            'domain.sponsor' => 'Registrar Name:',
         ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
@@ -55,7 +55,7 @@ class fm_handler
             'phone number:' => 'phone',
             'email address:' => 'email',
             'fax number:' => 'fax',
-            'organisation:' => 'organization'
+            'organisation:' => 'organization',
         ];
 
         if (!empty($r['regrinfo']['domain']['created'])) {
@@ -74,6 +74,7 @@ class fm_handler
 
         $r['regyinfo']['referrer'] = 'http://www.dot.dm';
         $r['regyinfo']['registrar'] = 'dotFM';
+
         return $r;
     }
 }

@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__CH_HANDLER__')) {
     \define('__CH_HANDLER__', 1);
@@ -43,11 +43,11 @@ class ch_handler
             'domain.changed' => 'Date of last modification:',
             'tech' => 'Technical contact:',
             'domain.nserver' => 'Name servers:',
-            'domain.dnssec' => 'DNSSEC:'
+            'domain.dnssec' => 'DNSSEC:',
         ];
 
         $trans = [
-            'contractual language:' => 'language'
+            'contractual language:' => 'language',
         ];
 
         $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
@@ -73,8 +73,9 @@ class ch_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ch',
-            'registrar' => 'SWITCH Domain Name Registration'
+            'registrar' => 'SWITCH Domain Name Registration',
         ];
+
         return $r;
     }
 }

@@ -29,7 +29,7 @@ if (!\defined('__FI_HANDLER__')) {
     \define('__FI_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class fi_handler
 {
@@ -51,8 +51,9 @@ class fi_handler
 
         $r['regyinfo'] = [
             'referrer' => 'https://domain.ficora.fi/',
-            'registrar' => 'Finnish Communications Regulatory Authority'
+            'registrar' => 'Finnish Communications Regulatory Authority',
         ];
+
         return $r;
     }
 }

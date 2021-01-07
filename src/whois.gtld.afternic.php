@@ -29,7 +29,7 @@ if (!\defined('__AFTERNIC_HANDLER__')) {
     \define('__AFTERNIC_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class afternic_handler
 {
@@ -43,7 +43,7 @@ class afternic_handler
             'domain.name' => 'Domain Name:',
             'domain.changed' => 'Last updated on',
             'domain.created' => 'Domain created on',
-            'domain.expires' => 'Domain expires on'
+            'domain.expires' => 'Domain expires on',
         ];
 
         return easy_parser($data_str, $items, 'dmy', false, false, true);

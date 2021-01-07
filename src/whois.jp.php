@@ -29,7 +29,7 @@ if (!\defined('__JP_HANDLER__')) {
     \define('__JP_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class jp_handler extends WhoisClient
 {
@@ -53,14 +53,14 @@ class jp_handler extends WhoisClient
             '[Fax]' => 'owner.fax',
             '[Administrative Contact]' => 'admin.handle',
             '[Technical Contact]' => 'tech.handle',
-            '[Name Server]' => 'domain.nserver.'
+            '[Name Server]' => 'domain.nserver.',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.jprs.jp',
-            'registrar' => 'Japan Registry Services'
+            'registrar' => 'Japan Registry Services',
         ];
 
         if (!$this->deep_whois) {
@@ -76,13 +76,13 @@ class jp_handler extends WhoisClient
             'g. [Organization]' => 'organization',
             'o. [TEL]' => 'phone',
             'p. [FAX]' => 'fax',
-            '[Last Update]' => 'changed'
+            '[Last Update]' => 'changed',
         ];
 
         $this->Query['server'] = 'jp.whois-servers.net';
 
         if (!empty($r['regrinfo']['admin']['handle'])) {
-            $rwdata = $this->GetRawData('CONTACT ' . $r['regrinfo']['admin']['handle'] . '/e');
+            $rwdata = $this->GetRawData('CONTACT '.$r['regrinfo']['admin']['handle'].'/e');
             $r['rawdata'][] = '';
             $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
             $r['regrinfo']['admin'] = generic_parser_b($rwdata, $items, 'ymd', false);
@@ -90,13 +90,13 @@ class jp_handler extends WhoisClient
         }
 
         if (!empty($r['regrinfo']['tech']['handle'])) {
-            if (!empty($r['regrinfo']['admin']['handle']) &&
-                $r['regrinfo']['admin']['handle'] == $r['regrinfo']['tech']['handle']) {
+            if (!empty($r['regrinfo']['admin']['handle'])
+                && $r['regrinfo']['admin']['handle'] == $r['regrinfo']['tech']['handle']) {
                 $r['regrinfo']['tech'] = $r['regrinfo']['admin'];
             } else {
                 unset($this->Query);
                 $this->Query['server'] = 'jp.whois-servers.net';
-                $rwdata = $this->GetRawData('CONTACT ' . $r['regrinfo']['tech']['handle'] . '/e');
+                $rwdata = $this->GetRawData('CONTACT '.$r['regrinfo']['tech']['handle'].'/e');
                 $r['rawdata'][] = '';
                 $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
                 $r['regrinfo']['tech'] = generic_parser_b($rwdata, $items, 'ymd', false);

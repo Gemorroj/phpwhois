@@ -29,7 +29,7 @@ if (!\defined('__WILDWESTDOMAINS_HANDLER__')) {
     \define('__WILDWESTDOMAINS_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class wildwestdomains_handler
 {
@@ -44,7 +44,7 @@ class wildwestdomains_handler
             'domain.nserver' => 'Domain servers in listed order:',
             'domain.created' => 'Created on:',
             'domain.expires' => 'Expires on:',
-            'domain.changed' => 'Last Updated on:'
+            'domain.changed' => 'Last Updated on:',
         ];
 
         return easy_parser($data_str, $items, 'mdy');

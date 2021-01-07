@@ -29,7 +29,7 @@ if (!\defined('__RWHOIS_HANDLER__')) {
     \define('__RWHOIS_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class rwhois_handler
 {
@@ -48,13 +48,14 @@ class rwhois_handler
             'network:Created:' => 'network.created',
             'network:Updated:' => 'network.changed',
             'network:Tech-Contact;I:' => 'tech.email',
-            'network:Admin-Contact;I:' => 'admin.email'
+            'network:Admin-Contact;I:' => 'admin.email',
         ];
 
         $res = generic_parser_b($data_str, $items, 'Ymd', false);
         if (isset($res['disclaimer'])) {
             unset($res['disclaimer']);
         }
+
         return ['regrinfo' => $res];
     }
 }

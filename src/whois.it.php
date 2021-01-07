@@ -35,7 +35,7 @@ if (!\defined('__IT_HANDLER__')) {
     \define('__IT_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class it_handler
 {
@@ -50,7 +50,7 @@ class it_handler
             'owner' => 'Registrant',
             'admin' => 'Admin Contact',
             'tech' => 'Technical Contacts',
-            'registrar' => 'Registrar'
+            'registrar' => 'Registrar',
         ];
 
         $extra = [
@@ -59,7 +59,7 @@ class it_handler
             'organization:' => 'organization',
             'created:' => 'created',
             'last update:' => 'changed',
-            'web:' => 'web'
+            'web:' => 'web',
         ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
@@ -71,8 +71,9 @@ class it_handler
 
         $r['regyinfo'] = [
             'registrar' => 'IT-Nic',
-            'referrer' => 'http://www.nic.it/'
+            'referrer' => 'http://www.nic.it/',
         ];
+
         return $r;
     }
 }

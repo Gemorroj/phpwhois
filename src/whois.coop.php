@@ -29,7 +29,7 @@ if (!\defined('__COOP_HANDLER__')) {
     \define('__COOP_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class coop_handler
 {
@@ -48,7 +48,7 @@ class coop_handler
             'domain.changed' => 'Last updated:',
             'domain.status' => 'Domain Status:',
             'domain.sponsor' => 'Sponsoring registrar:',
-            'domain.nserver.' => 'Host Name:'
+            'domain.nserver.' => 'Host Name:',
         ];
 
         $translate = [
@@ -64,7 +64,7 @@ class coop_handler
             'Country:' => 'address.country',
             'Voice:' => 'phone',
             'Fax:' => 'fax',
-            'Email:' => 'email'
+            'Email:' => 'email',
         ];
 
         $blocks = get_blocks($data_str['rawdata'], $items);
@@ -98,8 +98,9 @@ class coop_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.coop',
-            'registrar' => '.coop registry'
+            'registrar' => '.coop registry',
         ];
+
         return $r;
     }
 }

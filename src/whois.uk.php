@@ -29,7 +29,7 @@ if (!\defined('__UK_HANDLER__')) {
     \define('__UK_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class uk_handler
 {
@@ -70,8 +70,9 @@ class uk_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nominet.org.uk',
-            'registrar' => 'Nominet UK'
+            'registrar' => 'Nominet UK',
         ];
+
         return $r;
     }
 }

@@ -29,7 +29,7 @@ if (!\defined('__ONLINENIC_HANDLER__')) {
     \define('__ONLINENIC_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class onlinenic_handler
 {
@@ -45,7 +45,7 @@ class onlinenic_handler
             'domain.nserver' => 'Domain servers in listed order:',
             'domain.created' => 'Record created on ',
             'domain.expires' => 'Record expired on ',
-            'domain.changed' => 'Record last updated at '
+            'domain.changed' => 'Record last updated at ',
         ];
 
         $extra = [
@@ -63,7 +63,7 @@ class onlinenic_handler
             'city:' => 'address.city',
             'province:' => '',
             ',province:' => '',
-            ',country:' => 'address.country'
+            ',country:' => 'address.country',
         ];
 
         $r = easy_parser($data_str, $items, 'mdy', $extra, false, true);
@@ -74,7 +74,7 @@ class onlinenic_handler
                 $email = \str_replace('(', '', $email);
                 $email = \str_replace(')', '', $email);
                 $r[$key]['email'] = $email;
-                if ($phone != '') {
+                if ('' != $phone) {
                     $r[$key]['phone'] = $phone;
                 }
             }

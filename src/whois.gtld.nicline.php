@@ -29,7 +29,7 @@ if (!\defined('__NICLINE_HANDLER__')) {
     \define('__NICLINE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class nicline_handler
 {
@@ -43,7 +43,7 @@ class nicline_handler
             'domain.nserver.' => 'Domain servers in listed order:',
             'domain.created' => 'Created:',
             'domain.expires' => 'Expires:',
-            'domain.changed' => 'Last updated:'
+            'domain.changed' => 'Last updated:',
         ];
 
         return easy_parser($data_str, $items, 'dmy');

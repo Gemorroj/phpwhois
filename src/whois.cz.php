@@ -29,7 +29,7 @@ if (!\defined('__CZ_HANDLER__')) {
     \define('__CZ_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class cz_handler
 {
@@ -47,24 +47,24 @@ class cz_handler
             'e-mail' => 'email',
             'person' => 'name',
             'org' => 'organization',
-            'fax-no' => 'fax'
+            'fax-no' => 'fax',
         ];
 
         $contacts = [
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'bill-c' => 'billing',
-            'registrant' => 'owner'
+            'registrant' => 'owner',
         ];
 
         $r['regrinfo'] = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.cz',
-            'registrar' => 'CZ-NIC'
+            'registrar' => 'CZ-NIC',
         ];
 
-        if ($data_str['rawdata'][0] == 'Your connection limit exceeded. Please slow down and try again later.') {
+        if ('Your connection limit exceeded. Please slow down and try again later.' == $data_str['rawdata'][0]) {
             $r['regrinfo']['registered'] = 'unknown';
         }
 

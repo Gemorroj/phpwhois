@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__LY_HANDLER__')) {
     \define('__LY_HANDLER__', 1);
@@ -45,7 +45,7 @@ class ly_handler
             'domain.created' => 'Created:',
             'domain.changed' => 'Updated:',
             'domain.expires' => 'Expired:',
-            'domain.nserver' => 'Domain servers in listed order:'
+            'domain.nserver' => 'Domain servers in listed order:',
         ];
 
         $extra = ['zip/postal code:' => 'address.pcode'];
@@ -63,8 +63,9 @@ class ly_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ly',
-            'registrar' => 'Libya ccTLD'
+            'registrar' => 'Libya ccTLD',
         ];
+
         return $r;
     }
 }

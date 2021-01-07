@@ -29,7 +29,7 @@ if (!\defined('__NAME_HANDLER__')) {
     \define('__NAME_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class name_handler
 {
@@ -43,12 +43,12 @@ class name_handler
             'domain.name' => 'Domain Name:',
             'domain.sponsor' => 'Registrar',
             'domain.created' => 'Creation Date:',
-            'domain.expires' => 'Expiration Date:'
+            'domain.expires' => 'Expiration Date:',
         ];
 
         $extra = [
             'phone:' => 'phone',
-            'email address:' => 'email'
+            'email address:' => 'email',
         ];
 
         return easy_parser($data_str, $items, 'y-m-d', $extra, false, true);

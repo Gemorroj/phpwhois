@@ -29,7 +29,7 @@ if (!\defined('__SCHLUND_HANDLER__')) {
     \define('__SCHLUND_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class schlund_handler
 {
@@ -78,7 +78,7 @@ class schlund_handler
             'bill-c-city:' => 'billing.address.city',
             'bill-c-ccode:' => 'billing.address.country',
             'bill-c-phone:' => 'billing.phone',
-            'bill-c-email:' => 'billing.email'
+            'bill-c-email:' => 'billing.email',
         ];
 
         return generic_parser_b($data_str, $items);

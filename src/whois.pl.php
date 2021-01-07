@@ -29,7 +29,7 @@ if (!\defined('__PL_HANDLER__')) {
     \define('__PL_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class pl_handler
 {
@@ -40,16 +40,16 @@ class pl_handler
             'domain.created' => 'created:',
             'domain.changed' => 'last modified:',
             'domain.sponsor' => 'REGISTRAR:',
-            '#' => 'WHOIS displays data with a delay not exceeding 15 minutes in relation to the .pl Registry system'
-
+            '#' => 'WHOIS displays data with a delay not exceeding 15 minutes in relation to the .pl Registry system',
         ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.dns.pl/english/index.html',
-            'registrar' => 'NASK'
+            'registrar' => 'NASK',
         ];
+
         return $r;
     }
 }

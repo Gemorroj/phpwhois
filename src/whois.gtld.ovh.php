@@ -29,7 +29,7 @@ if (!\defined('__OVH_HANDLER__')) {
     \define('__OVH_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class ovh_handler
 {
@@ -43,7 +43,7 @@ class ovh_handler
             'domain.sponsor' => 'Registrar of Record:',
             'domain.changed' => 'Record last updated on',
             'domain.expires' => 'Record expires on',
-            'domain.created' => 'Record created on'
+            'domain.created' => 'Record created on',
         ];
 
         return easy_parser($data_str, $items, 'mdy', false, false, true);

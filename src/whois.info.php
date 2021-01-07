@@ -29,7 +29,7 @@ if (!\defined('__INFO_HANDLER__')) {
     \define('__INFO_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class info_handler
 {
@@ -39,8 +39,9 @@ class info_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://whois.afilias.info',
-            'registrar' => 'Afilias Global Registry Services'
+            'registrar' => 'Afilias Global Registry Services',
         ];
+
         return $r;
     }
 }

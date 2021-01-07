@@ -29,7 +29,7 @@ if (!\defined('__HU_HANDLER__')) {
     \define('__HU_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class hu_handler
 {
@@ -38,7 +38,7 @@ class hu_handler
         $r = [];
         $items = [
             'domain:' => 'domain.name',
-            'record created:' => 'domain.created'
+            'record created:' => 'domain.created',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
@@ -50,6 +50,7 @@ class hu_handler
         }
 
         $r['regyinfo'] = ['referrer' => 'http://www.nic.hu', 'registrar' => 'HUNIC'];
+
         return $r;
     }
 }

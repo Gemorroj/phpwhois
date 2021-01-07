@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__MELBOURNEIT_HANDLER__')) {
     \define('__MELBOURNEIT_HANDLER__', 1);
@@ -51,7 +51,7 @@ class melbourneit_handler
             'Tech Email...........' => 'tech.email',
             'Tech Phone...........' => 'tech.phone',
             'Tech Fax.............' => 'tech.fax',
-            'Name Server..........' => 'domain.nserver.'
+            'Name Server..........' => 'domain.nserver.',
         ];
 
         return generic_parser_b($data_str, $items, 'ymd');

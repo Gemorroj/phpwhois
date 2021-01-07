@@ -29,7 +29,7 @@ if (!\defined('__SC_HANDLER__')) {
     \define('__SC_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class sc_handler
 {
@@ -39,8 +39,9 @@ class sc_handler
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], false, 'dmy');
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.sc',
-            'registrar' => 'VCS (Pty) Limited'
+            'registrar' => 'VCS (Pty) Limited',
         ];
+
         return $r;
     }
 }

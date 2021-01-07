@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__EU_HANDLER__')) {
     \define('__EU_HANDLER__', 1);
@@ -44,12 +44,12 @@ class eu_handler
             'domain.registrar' => 'Registrar:',
             'tech' => 'Registrar Technical Contacts:',
             'owner' => 'Registrant:',
-            '' => 'Please visit'
+            '' => 'Please visit',
         ];
 
         $extra = [
             'organisation:' => 'organization',
-            'website:' => 'url'
+            'website:' => 'url',
         ];
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
@@ -59,10 +59,12 @@ class eu_handler
                 case 'FREE':
                 case 'AVAILABLE':
                     $r['regrinfo']['registered'] = 'no';
+
                     break;
 
                 case 'APPLICATION PENDING':
                     $r['regrinfo']['registered'] = 'pending';
+
                     break;
 
                 default:
@@ -82,6 +84,7 @@ class eu_handler
 
         $r['regyinfo']['referrer'] = 'http://www.eurid.eu';
         $r['regyinfo']['registrar'] = 'EURID';
+
         return $r;
     }
 }

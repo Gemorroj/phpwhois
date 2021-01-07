@@ -29,7 +29,7 @@ if (!\defined('__SE_HANDLER__')) {
     \define('__SE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class se_handler
 {
@@ -43,7 +43,7 @@ class se_handler
             'expires:' => 'domain.expires',
             'created:' => 'domain.created',
             'nserver:' => 'domain.nserver.',
-            'holder:' => 'owner.handle'
+            'holder:' => 'owner.handle',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd', false);
@@ -52,8 +52,9 @@ class se_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic-se.se',
-            'registrar' => 'NIC-SE'
+            'registrar' => 'NIC-SE',
         ];
+
         return $r;
     }
 }

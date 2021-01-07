@@ -29,7 +29,7 @@ if (!\defined('__CL_HANDLER__')) {
     \define('__CL_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class cl_handler
 {
@@ -40,18 +40,19 @@ class cl_handler
             'admin' => '(Administrative Contact)',
             'tech' => 'Contacto Técnico (Technical Contact):',
             'domain.nserver' => 'Servidores de nombre (Domain servers):',
-            'domain.changed' => '(Database last updated on):'
+            'domain.changed' => '(Database last updated on):',
         ];
 
         $trans = [
             'organización:' => 'organization',
-            'nombre      :' => 'name'];
+            'nombre      :' => 'name', ];
 
         $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'd-m-y', $trans);
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.cl',
-            'registrar' => 'NIC Chile'
+            'registrar' => 'NIC Chile',
         ];
+
         return $r;
     }
 }

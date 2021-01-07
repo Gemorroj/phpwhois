@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__APNIC_HANDLER__')) {
     \define('__APNIC_HANDLER__', 1);
@@ -44,12 +44,12 @@ class apnic_handler
             'netname' => 'name',
             'descr' => 'desc',
             'aut-num' => 'handle',
-            'country' => 'country'
+            'country' => 'country',
         ];
 
         $contacts = [
             'admin-c' => 'admin',
-            'tech-c' => 'tech'
+            'tech-c' => 'tech',
         ];
 
         $blocks = generic_parser_a_blocks($data_str, $translate, $disclaimer);
@@ -115,6 +115,7 @@ class apnic_handler
         $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';
         $r['regyinfo']['registrar'] = 'Asia Pacific Network Information Centre';
+
         return $r;
     }
 }

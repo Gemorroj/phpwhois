@@ -29,7 +29,7 @@ if (!\defined('__IS_HANDLER__')) {
     \define('__IS_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class is_handler
 {
@@ -40,7 +40,7 @@ class is_handler
             'fax-no' => 'fax',
             'e-mail' => 'email',
             'nic-hdl' => 'handle',
-            'person' => 'name'
+            'person' => 'name',
         ];
 
         $contacts = [
@@ -48,7 +48,7 @@ class is_handler
             'admin-c' => 'admin',
             'tech-c' => 'tech',
             'billing-c' => 'billing',
-            'zone-c' => 'zone'
+            'zone-c' => 'zone',
         ];
 
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'mdy');
@@ -62,8 +62,9 @@ class is_handler
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
             'referrer' => 'http://www.isnic.is',
-            'registrar' => 'ISNIC'
+            'registrar' => 'ISNIC',
         ];
+
         return $r;
     }
 }

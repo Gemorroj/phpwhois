@@ -29,7 +29,7 @@ if (!\defined('__KRNIC_HANDLER__')) {
     \define('__KRNIC_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class krnic_handler
 {
@@ -51,7 +51,7 @@ class krnic_handler
             'network.inetnum' => 'IPv4 Address       :',
             'network.name' => 'Network Name       :',
             'network.mnt-by' => 'Connect ISP Name   :',
-            'network.created' => 'Registration Date  :'
+            'network.created' => 'Registration Date  :',
         ];
 
         $items = [
@@ -69,7 +69,7 @@ class krnic_handler
             'Phone              :' => 'phone',
             'Fax           :' => 'fax',
             'E-Mail        :' => 'email',
-            'E-Mail             :' => 'email'
+            'E-Mail             :' => 'email',
         ];
 
         $b = get_blocks($data_str, $blocks);

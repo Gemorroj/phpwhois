@@ -29,7 +29,7 @@ if (!\defined('__ENOM_HANDLER__')) {
     \define('__ENOM_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class enom_handler
 {
@@ -54,7 +54,7 @@ class enom_handler
             'domain.created#1' => 'Created:',
             'domain.expires#1' => 'Expires:',
             'domain.created#2' => 'Start of registration-',
-            'domain.expires#2' => 'Registered through-'
+            'domain.expires#2' => 'Registered through-',
         ];
 
         return easy_parser($data_str, $items, 'dmy', false, false, true);

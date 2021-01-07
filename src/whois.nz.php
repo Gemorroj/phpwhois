@@ -29,7 +29,7 @@ if (!\defined('__NZ_HANDLER__')) {
     \define('__NZ_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class nz_handler
 {
@@ -76,7 +76,7 @@ class nz_handler
             'technical_contact_country:' => 'tech.address.country',
             'technical_contact_phone:' => 'tech.phone',
             'technical_contact_fax:' => 'tech.fax',
-            'technical_contact_email:' => 'tech.email'
+            'technical_contact_email:' => 'tech.email',
         ];
 
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
@@ -87,9 +87,9 @@ class nz_handler
             $domain_status = '';
         }
 
-        if ($domain_status == '200') {
+        if ('200' == $domain_status) {
             $r['regrinfo']['registered'] = 'yes';
-        } elseif ($domain_status == '220') {
+        } elseif ('220' == $domain_status) {
             $r['regrinfo']['registered'] = 'no';
         } else {
             $r['regrinfo']['registered'] = 'unknown';
@@ -101,6 +101,7 @@ class nz_handler
 
         $r['regyinfo']['referrer'] = 'http://www.dnc.org.nz';
         $r['regyinfo']['registrar'] = 'New Zealand Domain Name Registry Limited';
+
         return $r;
     }
 }

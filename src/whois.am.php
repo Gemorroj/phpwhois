@@ -1,9 +1,10 @@
 <?php
+
 if (!\defined('__AM_HANDLER__')) {
     \define('__AM_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class am_handler
 {
@@ -33,7 +34,7 @@ class am_handler
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.isoc.am',
-            'registrar' => 'ISOCAM'
+            'registrar' => 'ISOCAM',
         ];
 
         return $r;

@@ -29,7 +29,7 @@ if (!\defined('__NU_HANDLER__')) {
     \define('__NU_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class nu_handler
 {
@@ -42,27 +42,29 @@ class nu_handler
             'expires' => 'Record expires on',
             'changed' => 'Record last updated on',
             'status' => 'Record status:',
-            'handle' => 'Record ID:'
+            'handle' => 'Record ID:',
         ];
 
         foreach ($data_str['rawdata'] as $val) {
             $val = \trim($val);
 
-            if ($val != '') {
-                if ($val == 'Domain servers in listed order:') {
+            if ('' != $val) {
+                if ('Domain servers in listed order:' == $val) {
                     foreach ($data_str['rawdata'] as $valRawdata) {
                         $valRawdata = \trim($valRawdata);
-                        if ($valRawdata == '') {
+                        if ('' == $valRawdata) {
                             break;
                         }
                         $r['regrinfo']['domain']['nserver'][] = $valRawdata;
                     }
+
                     break;
                 }
 
                 foreach ($items as $field => $match) {
                     if (\strstr($val, $match)) {
                         $r['regrinfo']['domain'][$field] = \trim(\substr($val, \strlen($match)));
+
                         break;
                     }
                 }
@@ -78,10 +80,11 @@ class nu_handler
         $r['regyinfo'] = [
             'whois' => 'whois.nic.nu',
             'referrer' => 'http://www.nunames.nu',
-            'registrar' => '.NU Domain, Ltd'
+            'registrar' => '.NU Domain, Ltd',
         ];
 
         format_dates($r, 'dmy');
+
         return $r;
     }
 }

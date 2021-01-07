@@ -29,7 +29,7 @@ if (!\defined('__DOMAINPEOPLE_HANDLER__')) {
     \define('__DOMAINPEOPLE_HANDLER__', 1);
 }
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 class domainpeople_handler
 {
@@ -45,14 +45,15 @@ class domainpeople_handler
             'domain.nserver.' => 'Name Servers:',
             'domain.created' => 'Creation date:',
             'domain.expires' => 'Expiration date:',
-//                  'domain.changed' => 'Record last updated on',
-            'domain.status' => 'Status:'
+            //                  'domain.changed' => 'Record last updated on',
+            'domain.status' => 'Status:',
         ];
 
         $r = easy_parser($data_str, $items, 'dmy', false, false, true);
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];
         }
+
         return $r;
     }
 }

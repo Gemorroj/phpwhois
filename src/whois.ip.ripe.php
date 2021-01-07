@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once('whois.parser.php');
+require_once 'whois.parser.php';
 
 if (!\defined('__RIPE_HANDLER__')) {
     \define('__RIPE_HANDLER__', 1);
@@ -41,12 +41,12 @@ class ripe_handler
             'nic-hdl' => 'handle',
             'person' => 'name',
             'netname' => 'name',
-            'descr' => 'desc'
+            'descr' => 'desc',
         ];
 
         $contacts = [
             'admin-c' => 'admin',
-            'tech-c' => 'tech'
+            'tech-c' => 'tech',
         ];
 
         if (!empty($data_str['rawdata'])) {
@@ -87,6 +87,7 @@ class ripe_handler
         $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';
         $r['regyinfo']['registrar'] = 'RIPE Network Coordination Centre';
+
         return $r;
     }
 }
