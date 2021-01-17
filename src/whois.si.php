@@ -29,8 +29,6 @@ if (!\defined('__SI_HANDLER__')) {
     \define('__SI_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class si_handler
 {
     public function parse($data_str, $query)

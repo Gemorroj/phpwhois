@@ -29,8 +29,6 @@ if (!\defined('__IS_HANDLER__')) {
     \define('__IS_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class is_handler
 {
     public function parse($data_str, $query)

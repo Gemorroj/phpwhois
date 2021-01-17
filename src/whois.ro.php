@@ -36,8 +36,6 @@ if (!\defined('__RO_HANDLER__')) {
     \define('__RO_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class ro_handler
 {
     public function parse($data_str, $query)

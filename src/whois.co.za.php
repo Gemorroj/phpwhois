@@ -29,8 +29,6 @@ if (!\defined('__CO_ZA_HANDLER__')) {
     \define('__CO_ZA_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class co_Za_handler
 {
     public function parse($data_str, $query)

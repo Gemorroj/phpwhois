@@ -29,8 +29,6 @@ if (!\defined('__IE_HANDLER__')) {
     \define('__IE_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class ie_handler
 {
     public function parse($data_str, $query)

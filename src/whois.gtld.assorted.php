@@ -29,8 +29,6 @@ if (!\defined('__ASSORTED_HANDLER__')) {
     \define('__ASSORTED_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class assorted_handler
 {
     public function parse($data_str, $query)
@@ -46,6 +44,6 @@ class assorted_handler
             'domain.changed' => 'Record last updated',
         ];
 
-        return easy_parser($data_str, $items, 'ymd', false, false, true);
+        return easy_parser($data_str, $items, 'ymd', [], false, true);
     }
 }

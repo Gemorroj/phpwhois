@@ -29,8 +29,6 @@ if (!\defined('__IANA_HANDLER__')) {
     \define('__IANA_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class iana_handler
 {
     public function parse($data_str, $query)
@@ -46,6 +44,6 @@ class iana_handler
             'disclaimer.' => '% ',
         ];
 
-        return easy_parser($data_str, $items, 'Ymd', false, false, false, 'owner');
+        return easy_parser($data_str, $items, 'Ymd', [], false, false, 'owner');
     }
 }

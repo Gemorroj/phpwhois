@@ -29,8 +29,6 @@ if (!\defined('__YT_HANDLER__')) {
     \define('__YT_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class yt_handler
 {
     public function parse($data_str, $query)

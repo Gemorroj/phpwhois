@@ -29,8 +29,6 @@ if (!\defined('__ZANET_HANDLER__')) {
     \define('__ZANET_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class zanet_handler
 {
     public function parse($data_str, $query)
@@ -82,8 +80,7 @@ class zanet_handler
 
         $r['regyinfo']['referrer'] = 'http://www.za.net/'; // or http://www.za.org
         $r['regyinfo']['registrar'] = 'ZA NiC';
-        format_dates($r, 'xmdxxy');
 
-        return $r;
+        return format_dates($r, 'xmdxxy');
     }
 }

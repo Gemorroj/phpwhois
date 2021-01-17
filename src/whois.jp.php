@@ -29,8 +29,6 @@ if (!\defined('__JP_HANDLER__')) {
     \define('__JP_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class jp_handler extends WhoisClient
 {
     public function parse($data_str, $query)

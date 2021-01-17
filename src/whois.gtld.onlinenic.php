@@ -29,8 +29,6 @@ if (!\defined('__ONLINENIC_HANDLER__')) {
     \define('__ONLINENIC_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class onlinenic_handler
 {
     public function parse($data_str, $query)

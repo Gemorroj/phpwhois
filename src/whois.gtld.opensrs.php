@@ -29,8 +29,6 @@ if (!\defined('__OPENSRS_HANDLER__')) {
     \define('__OPENSRS_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class opensrs_handler
 {
     public function parse($data_str, $query)
@@ -48,7 +46,7 @@ class opensrs_handler
             'domain.sponsor' => 'Registrar of Record:',
         ];
 
-        $r = easy_parser($data_str, $items, 'dmy', false, false, true);
+        $r = easy_parser($data_str, $items, 'dmy', [], false, true);
 
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];

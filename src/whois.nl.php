@@ -29,8 +29,6 @@ if (!\defined('__NL_HANDLER__')) {
     \define('__NL_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class nl_handler
 {
     public function parse($data, $query)
@@ -74,12 +72,11 @@ class nl_handler
         }
 
         $r['regrinfo']['registered'] = 'yes';
-        format_dates($r, 'dmy');
 
-        return $r;
+        return format_dates($r, 'dmy');
     }
 
-    protected function get_contact($data)
+    protected function get_contact(array $data): array
     {
         $r = get_contact($data);
 

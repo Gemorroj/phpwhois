@@ -29,8 +29,6 @@ if (!\defined('__NAMEJUICE_HANDLER__')) {
     \define('__NAMEJUICE_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class namejuice_handler
 {
     public function parse($data_str, $query)
@@ -48,6 +46,6 @@ class namejuice_handler
             'domain.sponsor' => 'Registration Service Provided By:',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', false, true, true);
+        return easy_parser($data_str, $items, 'dmy', [], true, true);
     }
 }

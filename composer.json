@@ -15,7 +15,8 @@
     "autoload": {
         "files": [
             "src/whois.main.php",
-            "src/whois.utils.php"
+            "src/whois.utils.php",
+            "src/whois.parser.php"
         ]
     },
     "autoload-dev": {

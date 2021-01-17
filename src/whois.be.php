@@ -25,8 +25,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once 'whois.parser.php';
-
 if (!\defined('__BE_HANDLER__')) {
     \define('__BE_HANDLER__', 1);
 }
@@ -54,7 +52,7 @@ class be_handler
 
         $r['regrinfo'] = get_blocks($data['rawdata'], $items);
 
-        if ('AVAILABLE' != $r['regrinfo']['domain']['status']) {
+        if ('AVAILABLE' !== $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'yes';
             $r['regrinfo'] = get_contacts($r['regrinfo'], $trans);
 

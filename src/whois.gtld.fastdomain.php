@@ -29,8 +29,6 @@ if (!\defined('__FASTDOMAIN_HANDLER__')) {
     \define('__FASTDOMAIN_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class fastdomain_handler
 {
     public function parse($data_str, $query)
@@ -56,7 +54,7 @@ class fastdomain_handler
             }
         }
 
-        $r = easy_parser($data_str, $items, 'dmy', false, false, true);
+        $r = easy_parser($data_str, $items, 'dmy', [], false, true);
 
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];
@@ -64,7 +62,7 @@ class fastdomain_handler
 
         if (isset($r['domain']['nserver'])) {
             foreach ($r['domain']['nserver'] as $key => $val) {
-                if ('=-=-=-=' == $val) {
+                if ('=-=-=-=' === $val) {
                     unset($r['domain']['nserver'][$key]);
                 }
             }

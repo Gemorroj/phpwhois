@@ -29,8 +29,6 @@ if (!\defined('__OVH_HANDLER__')) {
     \define('__OVH_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class ovh_handler
 {
     public function parse($data_str, $query)
@@ -46,6 +44,6 @@ class ovh_handler
             'domain.created' => 'Record created on',
         ];
 
-        return easy_parser($data_str, $items, 'mdy', false, false, true);
+        return easy_parser($data_str, $items, 'mdy', [], false, true);
     }
 }

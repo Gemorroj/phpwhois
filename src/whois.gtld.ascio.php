@@ -29,8 +29,6 @@ if (!\defined('__ASCIO_HANDLER__')) {
     \define('__ASCIO_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class ascio_handler
 {
     public function parse($data_str, $query)
@@ -46,6 +44,6 @@ class ascio_handler
             'domain.changed' => 'Record last updated:',
         ];
 
-        return easy_parser($data_str, $items, 'ymd', false, false, true);
+        return easy_parser($data_str, $items, 'ymd', [], false, true);
     }
 }

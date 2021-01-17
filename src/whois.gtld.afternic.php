@@ -29,8 +29,6 @@ if (!\defined('__AFTERNIC_HANDLER__')) {
     \define('__AFTERNIC_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class afternic_handler
 {
     public function parse($data_str, $query)
@@ -46,6 +44,6 @@ class afternic_handler
             'domain.expires' => 'Domain expires on',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', false, false, true);
+        return easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

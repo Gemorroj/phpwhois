@@ -29,8 +29,6 @@ if (!\defined('__DOMAINDISCOVER_HANDLER__')) {
     \define('__DOMAINDISCOVER_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class domaindiscover_handler
 {
     public function parse($data_str, $query)
@@ -46,6 +44,6 @@ class domaindiscover_handler
             'domain.expires' => 'Domain expires on',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', false, false, true);
+        return easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

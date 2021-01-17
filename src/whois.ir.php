@@ -24,7 +24,6 @@ if (!\defined('__IR_HANDLER__')) {
 }
 
 // Loadup the parser.
-require_once 'whois.parser.php';
 
 /**
  * IR Domain names lookup handler class.

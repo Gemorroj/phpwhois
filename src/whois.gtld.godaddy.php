@@ -29,8 +29,6 @@ if (!\defined('__GODADDY_HANDLER__')) {
     \define('__GODADDY_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class godaddy_handler
 {
     public function parse($data_str, $query)
@@ -49,8 +47,8 @@ class godaddy_handler
 
         $r = get_blocks($data_str, $items);
         $r['owner'] = get_contact($r['owner']);
-        $r['admin'] = get_contact($r['admin'], false, true);
-        $r['tech'] = get_contact($r['tech'], false, true);
+        $r['admin'] = get_contact($r['admin'], [], true);
+        $r['tech'] = get_contact($r['tech'], [], true);
 
         return format_dates($r, 'dmy');
     }

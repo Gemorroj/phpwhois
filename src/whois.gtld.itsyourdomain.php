@@ -29,8 +29,6 @@ if (!\defined('__ITSYOURDOMAIN_HANDLER__')) {
     \define('__ITSYOURDOMAIN_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class itsyourdomain_handler
 {
     public function parse($data_str, $query)

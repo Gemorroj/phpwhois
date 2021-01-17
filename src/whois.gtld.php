@@ -29,8 +29,6 @@ if (!\defined('__GTLD_HANDLER__')) {
     \define('__GTLD_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class gtld_handler extends WhoisClient
 {
     public $HANDLER_VERSION = '1.1';

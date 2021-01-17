@@ -30,8 +30,6 @@ if (!\defined('__VE_HANDLER__')) {
     \define('__VE_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class ve_handler
 {
     public function parse($data_str, $query)

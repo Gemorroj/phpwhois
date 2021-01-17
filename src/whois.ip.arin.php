@@ -29,8 +29,6 @@ if (!\defined('__ARIN_HANDLER__')) {
     \define('__ARIN_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class arin_handler
 {
     public function parse($data_str, $query)

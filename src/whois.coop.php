@@ -29,8 +29,6 @@ if (!\defined('__COOP_HANDLER__')) {
     \define('__COOP_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class coop_handler
 {
     public function parse($data_str, $query)

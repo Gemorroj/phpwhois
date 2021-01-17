@@ -29,8 +29,6 @@ if (!\defined('__NU_HANDLER__')) {
     \define('__NU_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class nu_handler
 {
     public function parse($data_str, $query)
@@ -49,7 +47,7 @@ class nu_handler
             $val = \trim($val);
 
             if ('' != $val) {
-                if ('Domain servers in listed order:' == $val) {
+                if ('Domain servers in listed order:' === $val) {
                     foreach ($data_str['rawdata'] as $valRawdata) {
                         $valRawdata = \trim($valRawdata);
                         if ('' == $valRawdata) {
@@ -62,7 +60,7 @@ class nu_handler
                 }
 
                 foreach ($items as $field => $match) {
-                    if (\strstr($val, $match)) {
+                    if (false !== \strpos($val, $match)) {
                         $r['regrinfo']['domain'][$field] = \trim(\substr($val, \strlen($match)));
 
                         break;
@@ -83,8 +81,6 @@ class nu_handler
             'registrar' => '.NU Domain, Ltd',
         ];
 
-        format_dates($r, 'dmy');
-
-        return $r;
+        return format_dates($r, 'dmy');
     }
 }

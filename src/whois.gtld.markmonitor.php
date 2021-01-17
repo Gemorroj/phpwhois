@@ -29,8 +29,6 @@ if (!\defined('__MARKMONITOR_HANDLER__')) {
     \define('__MARKMONITOR_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class markmonitor_handler
 {
     public function parse($data_str, $query)
@@ -47,7 +45,7 @@ class markmonitor_handler
             'domain.changed' => 'Record last updated on..:',
         ];
 
-        $r = easy_parser($data_str, $items, 'dmy', false, false, true);
+        $r = easy_parser($data_str, $items, 'dmy', [], false, true);
 
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];

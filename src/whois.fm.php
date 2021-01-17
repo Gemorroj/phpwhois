@@ -29,8 +29,6 @@ if (!\defined('__FM_HANDLER__')) {
     \define('__FM_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class fm_handler
 {
     public function parse($data, $query)
@@ -66,7 +64,7 @@ class fm_handler
             }
 
             $r['regrinfo']['registered'] = 'yes';
-            format_dates($r['regrinfo']['domain'], 'dmY');
+            $r['regrinfo']['domain'] = format_dates($r['regrinfo']['domain'], 'dmY');
         } else {
             $r = [];
             $r['regrinfo']['registered'] = 'no';

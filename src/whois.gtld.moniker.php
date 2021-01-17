@@ -29,8 +29,6 @@ if (!\defined('__MONIKER_HANDLER__')) {
     \define('__MONIKER_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class moniker_handler
 {
     public function parse($data_str, $query)

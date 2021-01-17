@@ -29,8 +29,6 @@ if (!\defined('__INTERDOMAIN_HANDLER__')) {
     \define('__INTERDOMAIN_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class interdomain_handler
 {
     public function parse($data_str, $query)

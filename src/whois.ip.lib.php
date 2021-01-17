@@ -34,7 +34,9 @@ function phpwhois_validip($ip)
         return false;
     }
 
-    if ((-1 == \ip2long($ip)) or (false === \ip2long($ip))) {
+    $ipLong = \ip2long($ip);
+
+    if ((-1 === $ipLong) || (false === $ipLong)) {
         return false;
     }
 
@@ -52,7 +54,8 @@ function phpwhois_validip($ip)
     foreach ($reserved_ips as $r) {
         $min = \ip2long($r[0]);
         $max = \ip2long($r[1]);
-        if ((\ip2long($ip) >= $min) && (\ip2long($ip) <= $max)) {
+
+        if (($ipLong >= $min) && ($ipLong <= $max)) {
             return false;
         }
     }
@@ -111,7 +114,7 @@ function phpwhois_cidr_conv($net)
     }
 
     $bits1 = \str_pad(\decbin(\ip2long($start)), 32, '0', 'STR_PAD_LEFT');
-    $net = \pow(2, (32 - \substr(\strstr($net, '/'), 1))) - 1;
+    $net = 2 ** (32 - \substr(\strstr($net, '/'), 1)) - 1;
     $bits2 = \str_pad(\decbin($net), 32, '0', 'STR_PAD_LEFT');
     $final = '';
 
@@ -119,10 +122,10 @@ function phpwhois_cidr_conv($net)
         if ($bits1[$i] == $bits2[$i]) {
             $final .= $bits1[$i];
         }
-        if (1 == $bits1[$i] and 0 == $bits2[$i]) {
+        if (1 == $bits1[$i] && 0 == $bits2[$i]) {
             $final .= $bits1[$i];
         }
-        if (0 == $bits1[$i] and 1 == $bits2[$i]) {
+        if (0 == $bits1[$i] && 1 == $bits2[$i]) {
             $final .= $bits2[$i];
         }
     }

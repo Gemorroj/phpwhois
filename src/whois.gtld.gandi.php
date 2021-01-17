@@ -29,8 +29,6 @@ if (!\defined('__GANDI_HANDLER__')) {
     \define('__GANDI_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class gandi_handler
 {
     public function parse($data_str, $query)

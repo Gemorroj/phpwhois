@@ -29,8 +29,6 @@ if (!\defined('__KRNIC_HANDLER__')) {
     \define('__KRNIC_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class krnic_handler
 {
     public function parse($data_str, $query)
@@ -73,6 +71,7 @@ class krnic_handler
         ];
 
         $b = get_blocks($data_str, $blocks);
+        $r = [];
 
         if (isset($b['network'])) {
             $r['network'] = $b['network'];

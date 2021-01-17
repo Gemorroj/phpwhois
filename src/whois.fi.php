@@ -29,8 +29,6 @@ if (!\defined('__FI_HANDLER__')) {
     \define('__FI_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class fi_handler
 {
     public function parse($data_str, $query)

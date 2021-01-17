@@ -29,8 +29,6 @@ if (!\defined('__SCHLUND_HANDLER__')) {
     \define('__SCHLUND_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class schlund_handler
 {
     public function parse($data_str, $query)

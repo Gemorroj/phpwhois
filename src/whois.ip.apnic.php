@@ -25,8 +25,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-require_once 'whois.parser.php';
-
 if (!\defined('__APNIC_HANDLER__')) {
     \define('__APNIC_HANDLER__', 1);
 }
@@ -88,7 +86,7 @@ class apnic_handler
             }
 
             $r['network'] = $rb;
-            format_dates($r, 'Ymd');
+            $r = format_dates($r, 'Ymd');
 
             if (isset($r['network']['desc'])) {
                 if (\is_array($r['network']['desc'])) {

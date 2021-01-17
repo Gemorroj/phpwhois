@@ -29,8 +29,6 @@ if (!\defined('__NAMEINTEL_HANDLER__')) {
     \define('__NAMEINTEL_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class nameintel_handler
 {
     public function parse($data_str, $query)
@@ -46,7 +44,7 @@ class nameintel_handler
             'domain.expires' => 'Expiration Date:',
         ];
 
-        $r = easy_parser($data_str, $items, 'dmy', false, false, true);
+        $r = easy_parser($data_str, $items, 'dmy', [], false, true);
 
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];

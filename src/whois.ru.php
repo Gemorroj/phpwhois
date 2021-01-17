@@ -29,8 +29,6 @@ if (!\defined('__RU_HANDLER__')) {
     \define('__RU_HANDLER__', 1);
 }
 
-require_once 'whois.parser.php';
-
 class ru_handler
 {
     public function parse($data_str, $query)
