@@ -63,7 +63,7 @@ class ip_handler extends WhoisClient
      * @param array  $data
      * @param string $query
      *
-     * @return null|array
+     * @return array|null
      */
     public function parse($data, $query)
     {

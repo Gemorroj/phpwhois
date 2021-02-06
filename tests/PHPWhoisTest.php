@@ -15,9 +15,9 @@ class PHPWhoisTest extends TestCase
         $whois = new \Whois();
         $result = $whois->Lookup('example.com');
 
-        $this->assertIsArray($result['rawdata']);
-        $this->assertIsArray($result['regrinfo']);
-        $this->assertIsArray($result['regyinfo']);
+        self::assertIsArray($result['rawdata']);
+        self::assertIsArray($result['regrinfo']);
+        self::assertIsArray($result['regyinfo']);
         //print_r($result);
     }
 
@@ -26,9 +26,9 @@ class PHPWhoisTest extends TestCase
         $whois = new \Whois();
         $result = $whois->Lookup('fake-domain.fake-tld');
 
-        $this->assertIsArray($result['rawdata']);
-        $this->assertIsArray($result['regrinfo']);
-        $this->assertArrayNotHasKey('regyinfo', $result);
+        self::assertIsArray($result['rawdata']);
+        self::assertIsArray($result['regrinfo']);
+        self::assertArrayNotHasKey('regyinfo', $result);
         //print_r($result);
     }
 
@@ -38,9 +38,9 @@ class PHPWhoisTest extends TestCase
         $result = $whois->Lookup('62.97.102.115');
 
         //print_r($result);
-        $this->assertIsArray($result['rawdata']);
-        $this->assertIsArray($result['regrinfo']);
-        $this->assertIsArray($result['regyinfo']);
+        self::assertIsArray($result['rawdata']);
+        self::assertIsArray($result['regrinfo']);
+        self::assertIsArray($result['regyinfo']);
     }
 
     public function testLookupAs(): void
@@ -48,9 +48,9 @@ class PHPWhoisTest extends TestCase
         $whois = new \Whois();
         $result = $whois->Lookup('AS220');
 
-        $this->assertIsArray($result['rawdata']);
-        $this->assertIsArray($result['regrinfo']);
-        $this->assertIsArray($result['regyinfo']);
+        self::assertIsArray($result['rawdata']);
+        self::assertIsArray($result['regrinfo']);
+        self::assertIsArray($result['regyinfo']);
         //print_r($result);
     }
 
@@ -61,9 +61,9 @@ class PHPWhoisTest extends TestCase
         $result = $whois->Lookup('yandex.ru');
 
         //print_r($result);
-        $this->assertIsArray($result['rawdata']);
-        $this->assertIsArray($result['regrinfo']);
-        $this->assertIsArray($result['regyinfo']);
+        self::assertIsArray($result['rawdata']);
+        self::assertIsArray($result['regrinfo']);
+        self::assertIsArray($result['regyinfo']);
     }
 
     public function dataProvider()
@@ -169,6 +169,6 @@ Please visit www.eurid.eu for more info.'),
         $r = get_blocks($rawData, $items, $partialMatch, $defBlock);
         //\print_r($r);
 
-        $this->assertIsArray($r);
+        self::assertIsArray($r);
     }
 }
