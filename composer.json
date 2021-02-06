@@ -6,7 +6,7 @@
     "require": {
         "php": ">=7.3",
         "ext-pcre": "*",
-        "algo26-matthias/idna-convert": "^3.0"
+        "algo26-matthias/idna-convert": "^3.0.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
