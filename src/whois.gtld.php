@@ -55,7 +55,7 @@ class gtld_handler extends WhoisClient
     public function parse($data, $query)
     {
         $this->Query = [];
-        if (\is_array($query) and \array_key_exists('handler', $query)) {
+        if (\is_array($query) && \array_key_exists('handler', $query)) {
             $this->SUBVERSION = \sprintf('%s-%s', $query['handler'], $this->HANDLER_VERSION);
         }
         $this->result = generic_parser_b($data['rawdata'], $this->REG_FIELDS, 'dmy');

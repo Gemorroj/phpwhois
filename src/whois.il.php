@@ -56,8 +56,7 @@ class il_handler
         //unset($data_str['rawdata'][19]);
         \array_splice($data_str['rawdata'], 16, 1);
         \array_splice($data_str['rawdata'], 18, 1);
-        //print_r($data_str['rawdata']);
-        //die;
+
         $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['remarks'])) {
@@ -67,22 +66,22 @@ class il_handler
         if (isset($reg['domain']['descr:'])) {
             foreach ($reg['domain']['descr:'] as $key => $val) {
                 $v = \trim(\substr(\strstr($val, ':'), 1));
-                if (\strstr($val, '[organization]:')) {
+                if (false !== \strpos($val, '[organization]:')) {
                     $reg['owner']['organization'] = $v;
 
                     continue;
                 }
-                if (\strstr($val, '[phone]:')) {
+                if (false !== \strpos($val, '[phone]:')) {
                     $reg['owner']['phone'] = $v;
 
                     continue;
                 }
-                if (\strstr($val, '[fax-no]:')) {
+                if (false !== \strpos($val, '[fax-no]:')) {
                     $reg['owner']['fax'] = $v;
 
                     continue;
                 }
-                if (\strstr($val, '[e-mail]:')) {
+                if (false !== \strpos($val, '[e-mail]:')) {
                     $reg['owner']['email'] = $v;
 
                     continue;
@@ -91,9 +90,7 @@ class il_handler
                 $reg['owner']['address'][$key] = $v;
             }
 
-            if (isset($reg['domain']['descr:'])) {
-                unset($reg['domain']['descr:']);
-            }
+            unset($reg['domain']['descr:']);
         }
 
         $r['regrinfo'] = $reg;

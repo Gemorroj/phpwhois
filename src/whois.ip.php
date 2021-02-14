@@ -248,7 +248,7 @@ class ip_handler extends WhoisClient
             if (isset($rwres['regrinfo']['rwhois'])) {
                 $this->handle_rwhois($rwres['regrinfo']['rwhois'], $query);
                 unset($result['regrinfo']['rwhois']);
-            } elseif (!@empty($rwres['regrinfo']['owner']['organization'])) {
+            } elseif (isset($rwres['regrinfo']['owner']['organization']) && $rwres['regrinfo']['owner']['organization']) {
                 switch ($rwres['regrinfo']['owner']['organization']) {
                     case 'KRNIC':
                         $this->handle_rwhois('whois.krnic.net', $query);

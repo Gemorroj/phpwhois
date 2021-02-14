@@ -65,7 +65,7 @@ class arin_handler
 
         $r = generic_parser_b($data_str, $items, 'ymd', false, true);
 
-        if (@isset($r['abuse']['email'])) {
+        if (isset($r['abuse']['email'])) {
             $r['abuse']['email'] = \implode(',', $r['abuse']['email']);
         }
 

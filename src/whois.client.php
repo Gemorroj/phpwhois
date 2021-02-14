@@ -78,7 +78,7 @@ class WhoisClient
     public function __construct()
     {
         // Load DATA array
-        @require 'whois.servers.php';
+        require 'whois.servers.php';
 
         // Set version
         $this->VERSION = \sprintf('phpWhois v%s-%s', $this->CODE_VERSION, $this->DATA_VERSION);
@@ -552,7 +552,8 @@ class WhoisClient
                     $p = \substr($p, 0, -1);
                 }
 
-                if ((-1 == \ip2long($p)) or (false === \ip2long($p))) {
+                $ipToLong = \ip2long($p);
+                if (-1 === $ipToLong || false === $ipToLong) {
                     // Hostname ?
                     if ('' === $host && \preg_match('/^[\w\-]+(\.[\w\-]+)+$/', $p)) {
                         $host = $p;
@@ -565,15 +566,15 @@ class WhoisClient
 
             // Valid host name ?
 
-            if ('' == $host) {
+            if ('' === $host) {
                 continue;
             }
 
             // Get ip address
 
-            if ('' == $ip) {
+            if ('' === $ip) {
                 $ip = \gethostbyname($host);
-                if ($ip == $host) {
+                if ($ip === $host) {
                     $ip = '(DOES NOT EXIST)';
                 }
             }
