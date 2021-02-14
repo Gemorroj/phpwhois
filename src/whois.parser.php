@@ -518,8 +518,6 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
         }
     }
 
-    \var_dump($r);
-
     return $r;
 }
 
