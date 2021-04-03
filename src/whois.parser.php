@@ -419,36 +419,42 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
 {
     $r = [];
     $endTag = '';
+    $processedKey = -1;
 
-    while ([$key, $val] = @\each($rawData)) { // FIXME: remove each
-        $val = \trim($val);
-        if ('' === $val) {
+    foreach ($rawData as $keyBlock => $valBlock) {
+        if ($processedKey >= $keyBlock) {
+            continue;
+        }
+        $processedKey = $keyBlock;
+
+        $valBlock = \trim($valBlock);
+        if ('' === $valBlock) {
             continue;
         }
 
         $var = $found = false;
 
         foreach ($items as $field => $match) {
-            $pos = \strpos($val, $match);
+            $pos = \strpos($valBlock, $match);
 
             if ('' != $field && false !== $pos) {
-                if ($val == $match) {
+                if ($valBlock == $match) {
                     $found = true;
                     $endTag = '';
-                    $line = $val;
+                    $line = $valBlock;
 
                     break;
                 }
 
-                $last = $val[\strlen($val) - 1];
+                $last = $valBlock[\strlen($valBlock) - 1];
 
                 if (':' === $last || '-' === $last || ']' === $last) {
                     $found = true;
                     $endTag = $last;
-                    $line = $val;
+                    $line = $valBlock;
                 } else {
                     $var = getvarname(\strtok($field, '#'));
-                    $itm = \trim(\substr($val, $pos + \strlen($match)));
+                    $itm = \trim(\substr($valBlock, $pos + \strlen($match)));
 
                     ${'r'.$var} = $itm;
                 }
@@ -459,7 +465,7 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
 
         if (!$found) {
             if (!$var && $defBlock) {
-                $r[$defBlock][] = $val;
+                $r[$defBlock][] = $valBlock;
             }
 
             continue;
@@ -469,20 +475,25 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
 
         // Block found, get data ...
 
-        while ([$key, $val] = @\each($rawData)) { // FIXME: remove each
-            $val = \trim($val);
+        foreach ($rawData as $keyData => $valData) {
+            if ($processedKey >= $keyData) {
+                continue;
+            }
+            $processedKey = $keyData;
 
-            if ('' === $val || $val === \str_repeat($val[0], \strlen($val))) {
+            $valData = \trim($valData);
+
+            if ('' === $valData || $valData === \str_repeat($valData[0], \strlen($valData))) {
                 continue;
             }
 
-            $last = $val[\strlen($val) - 1];
+            $last = $valData[\strlen($valData) - 1];
             if ('' === $endTag || $partialMatch || $last === $endTag) {
                 //Check if this line starts another block
                 $et = false;
 
                 foreach ($items as $match) {
-                    $pos = \strpos($val, $match);
+                    $pos = \strpos($valData, $match);
 
                     if (false !== $pos && 0 === $pos) {
                         $et = true;
@@ -493,13 +504,13 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
 
                 if ($et) {
                     // Another block found
-                    \prev($rawData);
+                    --$processedKey;
 
                     break;
                 }
             }
 
-            $block[] = $val;
+            $block[] = $valData;
         }
 
         if (empty($block)) {
