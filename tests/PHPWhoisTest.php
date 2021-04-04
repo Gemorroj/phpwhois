@@ -66,7 +66,7 @@ class PHPWhoisTest extends TestCase
         self::assertIsArray($result['regyinfo']);
     }
 
-    public function dataProvider()
+    public function dataProviderGetBlocks(): \Generator
     {
         yield [
             [
@@ -162,7 +162,7 @@ Please visit www.eurid.eu for more info.'),
 
     /**
      * @todo find any domain with that fking data
-     * @dataProvider dataProvider
+     * @dataProvider dataProviderGetBlocks
      */
     public function testGetBlocks(array $rawData, array $items, bool $partialMatch = false, bool $defBlock = false): void
     {
@@ -170,5 +170,62 @@ Please visit www.eurid.eu for more info.'),
         //\print_r($r);
 
         self::assertIsArray($r);
+    }
+
+    public function dataProviderShowHTML(): \Generator
+    {
+        yield [
+            [
+                'rawdata' => [],
+                'regrinfo' => [],
+                'regyinfo' => [],
+            ],
+            '',
+        ];
+
+        yield [
+            [
+                'rawdata' => [
+                    'Ref: 62.0.0.0',
+                ],
+                'regrinfo' => [],
+                'regyinfo' => [],
+            ],
+            '<b>Ref: </b>62.0.0.0<br />',
+        ];
+
+        yield [
+            [
+                'rawdata' => [
+                    'Ref:            https://rdap.arin.net/registry/ip/62.0.0.0',
+                ],
+                'regrinfo' => [],
+                'regyinfo' => [],
+            ],
+            '<b>Ref:            </b>62.0.0.0<br />',
+        ];
+
+        yield [
+            [
+                'rawdata' => [
+                    'Ref:            https://rdap.arin.net/registry/ip/62.0.0.0',
+                ],
+                'regrinfo' => [],
+                'regyinfo' => [],
+            ],
+            '<b>Ref:            </b><a href="https://example.com/test-page?query=62.0.0.0">62.0.0.0</a><br />',
+            'https://example.com/test-page',
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderShowHTML
+     */
+    public function testShowHTML(array $data, string $expectedResult, ?string $useLink = null): void
+    {
+        $utils = new \WhoisUtils();
+        $resultHtml = $utils->showHTML($data, $useLink);
+
+        self::assertSame($expectedResult, $resultHtml);
     }
 }

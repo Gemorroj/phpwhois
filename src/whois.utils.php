@@ -26,39 +26,31 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-class utils extends Whois
+class WhoisUtils extends Whois
 {
-    // showObject() and debugObject()
-    // - debug code to show an object or array
-
-    public function showObject(&$obj)
+    public function showObject(array $arr): string
     {
-        $r = $this->debugObject($obj);
+        $r = $this->debugObject($arr);
 
         return "<pre>{$r}</pre>\n";
     }
 
-    public function debugObject($obj, $indent = 0)
+    public function debugObject(array $arr, $indent = 0): string
     {
-        if (\is_array($obj)) {
-            $return = '';
-            foreach ($obj as $k => $v) {
-                $return .= \str_repeat('&nbsp;', $indent);
-                $return .= $k."->{$v}\n";
-                $return .= $this->debugObject($v, $indent + 1);
-            }
-
-            return $return;
+        $return = '';
+        foreach ($arr as $k => $v) {
+            $return .= \str_repeat('&#160;', $indent);
+            $return .= $k."->{$v}\n";
+            $return .= $this->debugObject($v, $indent + 1);
         }
+
+        return $return;
     }
 
-    public function ns_rr_defined($query)
-    {
-        return \checkdnsrr($query, 'NS');
-    }
-
-    // get nice HTML output
-    public function showHTML($result, $link_myself = true, $params = 'query=$0&amp;output=nice')
+    /**
+     * get nice HTML output.
+     */
+    public function showHTML(array $result, ?string $useLink = null, string $params = 'query=$0'): string
     {
         // adds links fort HTML output
 
@@ -67,37 +59,48 @@ class utils extends Whois
         $ip_regex = '/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/i';
 
         $out = '';
-        $lempty = true;
+        $lEmpty = true;
 
         foreach ($result['rawdata'] as $line) {
             $line = \trim($line);
 
-            if ('' == $line) {
-                if ($lempty) {
+            if ('' === $line) {
+                if ($lEmpty) {
                     continue;
                 }
-                $lempty = true;
+                $lEmpty = true;
             } else {
-                $lempty = false;
+                $lEmpty = false;
+            }
+
+            if (\preg_match($ip_regex, $line)) {
+                // fixme: make properly fix
+                $line = \str_replace('https://rdap.arin.net/registry/ip/', '', $line);
             }
 
             $out .= $line."\n";
         }
 
-        if ($lempty) {
+        if ($lEmpty) {
             $out = \trim($out);
         }
 
         $out = \strip_tags($out);
         $out = \preg_replace($email_regex, '<a href="mailto:$0">$0</a>', $out);
-        $out = \preg_replace_callback($html_regex, 'href_replace', $out);
-
-        if ($link_myself) {
-            if ('/' == $params[0]) {
-                $link = $params;
+        $out = \preg_replace_callback($html_regex, static function (array $matches): string {
+            if (0 === \strpos($matches[0], 'www.')) {
+                $web = $matches[0];
+                $url = 'http://'.$web;
             } else {
-                $link = $_SERVER['PHP_SELF'].'?'.$params;
+                $web = $matches[0];
+                $url = $web;
             }
+
+            return '<a href="'.$url.'" target="_blank">'.$web.'</a>';
+        }, $out);
+
+        if ($useLink) {
+            $link = $useLink.'?'.$params;
 
             $out = \preg_replace($ip_regex, '<a href="'.$link.'">$0</a>', $out);
 
@@ -114,33 +117,17 @@ class utils extends Whois
             if (\is_array($nserver)) {
                 foreach ($nserver as $host => $ip) {
                     $url = '<a href="'.\str_replace('$0', $ip, $link)."\">{$host}</a>";
-                    $out = \str_replace($host, $url, $out);
-                    $out = \str_replace(\strtoupper($host), $url, $out);
+                    $out = \str_ireplace($host, $url, $out);
                 }
             }
         }
 
         // Add bold field names
-
         $out = \preg_replace("/(?m)^([-\\s\\.&;'\\w\t\\(\\)\\/]+:\\s*)/", '<b>$1</b>', $out);
 
         // Add italics for disclaimer
-
         $out = \preg_replace('/(?m)^(%.*)/', '<i>$0</i>', $out);
 
-        return \str_replace("\n", "<br/>\n", $out);
+        return \trim(\nl2br($out));
     }
-}
-
-function href_replace($matches)
-{
-    if ('www.' == \substr($matches[0], 0, 4)) {
-        $web = $matches[0];
-        $url = 'http://'.$web;
-    } else {
-        $web = $matches[0];
-        $url = $web;
-    }
-
-    return '<a href="'.$url.'" target="_blank">'.$web.'</a>';
 }
