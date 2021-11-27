@@ -166,7 +166,7 @@ Please visit www.eurid.eu for more info.'),
      */
     public function testGetBlocks(array $rawData, array $items, bool $partialMatch = false, bool $defBlock = false): void
     {
-        $r = get_blocks($rawData, $items, $partialMatch, $defBlock);
+        $r = \get_blocks($rawData, $items, $partialMatch, $defBlock);
         //\print_r($r);
 
         self::assertIsArray($r);

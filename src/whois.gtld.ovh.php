@@ -44,6 +44,6 @@ class ovh_handler
             'domain.created' => 'Record created on',
         ];
 
-        return easy_parser($data_str, $items, 'mdy', [], false, true);
+        return \easy_parser($data_str, $items, 'mdy', [], false, true);
     }
 }

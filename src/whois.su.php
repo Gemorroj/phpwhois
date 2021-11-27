@@ -51,7 +51,7 @@ class su_handler
             */
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.ripn.net',

@@ -80,7 +80,7 @@ class cn_handler
             'Billing Fax:' => 'billing.fax',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.cnnic.net.cn',
             'registrar' => 'China NIC',

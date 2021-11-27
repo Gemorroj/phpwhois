@@ -48,7 +48,7 @@ class ru_handler
             'e-mail:' => 'owner.email',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'dmy');
 
         if (empty($r['regrinfo']['domain']['status'])) {
             $r['regrinfo']['registered'] = 'no';

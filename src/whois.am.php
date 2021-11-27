@@ -20,10 +20,10 @@ class am_handler
             'admin' => 'Administrative contact:',
         ];
 
-        $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['name'])) {
-            $r['regrinfo'] = get_contacts($r['regrinfo']);
+            $r['regrinfo'] = \get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
         } else {
             $r = [];

@@ -63,6 +63,6 @@ class nameking_handler
             'city, province, post code:' => 'address.city',
         ];
 
-        return easy_parser($data_str, $items, 'mdy', $extra, false, true);
+        return \easy_parser($data_str, $items, 'mdy', $extra, false, true);
     }
 }

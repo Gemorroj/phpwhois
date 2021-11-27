@@ -50,7 +50,7 @@ class apnic_handler
             'tech-c' => 'tech',
         ];
 
-        $blocks = generic_parser_a_blocks($data_str, $translate, $disclaimer);
+        $blocks = \generic_parser_a_blocks($data_str, $translate, $disclaimer);
 
         if (isset($disclaimer) && \is_array($disclaimer)) {
             $r['disclaimer'] = $disclaimer;
@@ -86,7 +86,7 @@ class apnic_handler
             }
 
             $r['network'] = $rb;
-            $r = format_dates($r, 'Ymd');
+            $r = \format_dates($r, 'Ymd');
 
             if (isset($r['network']['desc'])) {
                 if (\is_array($r['network']['desc'])) {

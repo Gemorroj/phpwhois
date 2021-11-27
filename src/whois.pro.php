@@ -34,7 +34,7 @@ class pro_handler
     public function parse($data, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data['rawdata']);
+        $r['regrinfo'] = \generic_parser_b($data['rawdata']);
         $r['regyinfo']['referrer'] = 'http://www.registrypro.pro';
         $r['regyinfo']['registrar'] = 'RegistryPRO';
 

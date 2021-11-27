@@ -52,7 +52,7 @@ class mx_handler
             'dns:' => '0',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'dmy', $extra);
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'dmy', $extra);
 
         $r['regyinfo'] = [
             'registrar' => 'NIC Mexico',

@@ -51,7 +51,7 @@ class br_handler
             'billing-c' => 'billing',
         ];
 
-        $r = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $r = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (\in_array('Permission denied.', $r['disclaimer'])) {
             $r['registered'] = 'unknown';

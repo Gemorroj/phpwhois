@@ -56,7 +56,7 @@ class de_handler
             'type:' => '',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         $r['regyinfo'] = [
             'registrar' => 'DENIC eG',

@@ -63,7 +63,7 @@ class co_Za_handler
             '6q. secns4fqdn             :' => 'domain.nserver.4',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items);
 
         $r['regyinfo']['referrer'] = 'http://www.co.za';
         $r['regyinfo']['registrar'] = 'UniForum Association';

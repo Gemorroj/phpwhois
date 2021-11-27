@@ -40,8 +40,8 @@ class bh_handler
             'Sponsoring Registrar Uri:' => 'domain.sponsor.uri',
             'Sponsoring Registrar Phone:' => 'domain.sponsor.phone',
         ];
-        $i = generic_parser_b($data_str['rawdata'], $items);
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+        $i = \generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
         if (isset($r['regrinfo']['domain'])
             && \is_array($r['regrinfo']['domain'])) {
             $r['regrinfo']['domain']['sponsor'] = $i['domain']['sponsor'];

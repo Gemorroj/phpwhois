@@ -65,30 +65,30 @@ class coop_handler
             'Email:' => 'email',
         ];
 
-        $blocks = get_blocks($data_str['rawdata'], $items);
+        $blocks = \get_blocks($data_str['rawdata'], $items);
 
         $r = [];
 
         if (isset($blocks['domain'])) {
-            $r['regrinfo']['domain'] = format_dates($blocks['domain'], 'dmy');
+            $r['regrinfo']['domain'] = \format_dates($blocks['domain'], 'dmy');
             $r['regrinfo']['registered'] = 'yes';
 
             if (isset($blocks['owner'])) {
-                $r['regrinfo']['owner'] = generic_parser_b($blocks['owner'], $translate, 'dmy', false);
+                $r['regrinfo']['owner'] = \generic_parser_b($blocks['owner'], $translate, 'dmy', false);
 
                 if (isset($blocks['tech'])) {
-                    $r['regrinfo']['tech'] = generic_parser_b($blocks['tech'], $translate, 'dmy', false);
+                    $r['regrinfo']['tech'] = \generic_parser_b($blocks['tech'], $translate, 'dmy', false);
                 }
 
                 if (isset($blocks['admin'])) {
-                    $r['regrinfo']['admin'] = generic_parser_b($blocks['admin'], $translate, 'dmy', false);
+                    $r['regrinfo']['admin'] = \generic_parser_b($blocks['admin'], $translate, 'dmy', false);
                 }
 
                 if (isset($blocks['billing'])) {
-                    $r['regrinfo']['billing'] = generic_parser_b($blocks['billing'], $translate, 'dmy', false);
+                    $r['regrinfo']['billing'] = \generic_parser_b($blocks['billing'], $translate, 'dmy', false);
                 }
             } else {
-                $r['regrinfo']['owner'] = generic_parser_b($data_str['rawdata'], $translate, 'dmy', false);
+                $r['regrinfo']['owner'] = \generic_parser_b($data_str['rawdata'], $translate, 'dmy', false);
             }
         } else {
             $r['regrinfo']['registered'] = 'no';

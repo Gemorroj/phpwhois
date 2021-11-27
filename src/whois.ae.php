@@ -45,7 +45,7 @@ class ae_handler
             'Name Server:' => 'domain.nserver.',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ae',

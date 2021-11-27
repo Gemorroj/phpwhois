@@ -45,7 +45,7 @@ class fi_handler
             'phone:' => 'owner.phone',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items);
 
         $r['regyinfo'] = [
             'referrer' => 'https://domain.ficora.fi/',

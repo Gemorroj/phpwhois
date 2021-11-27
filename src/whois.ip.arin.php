@@ -63,7 +63,7 @@ class arin_handler
             'ReferralServer:' => 'rwhois',
         ];
 
-        $r = generic_parser_b($data_str, $items, 'ymd', false, true);
+        $r = \generic_parser_b($data_str, $items, 'ymd', false, true);
 
         if (isset($r['abuse']['email'])) {
             $r['abuse']['email'] = \implode(',', $r['abuse']['email']);

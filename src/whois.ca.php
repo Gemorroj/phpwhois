@@ -53,7 +53,7 @@ class ca_handler
             'description:' => 'organization',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         if (!empty($r['regrinfo']['domain']['sponsor'])) {
             [$v, $reg] = \explode(':', $r['regrinfo']['domain']['sponsor'][0]);

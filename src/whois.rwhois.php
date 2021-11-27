@@ -49,7 +49,7 @@ class rwhois_handler
             'network:Admin-Contact;I:' => 'admin.email',
         ];
 
-        $res = generic_parser_b($data_str, $items, 'Ymd', false);
+        $res = \generic_parser_b($data_str, $items, 'Ymd', false);
         if (isset($res['disclaimer'])) {
             unset($res['disclaimer']);
         }

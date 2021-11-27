@@ -45,6 +45,6 @@ class itsyourdomain_handler
             'domain.changed' => 'Record last updated on ',
         ];
 
-        return easy_parser($data_str, $items, 'mdy');
+        return \easy_parser($data_str, $items, 'mdy');
     }
 }

@@ -49,6 +49,6 @@ class name_handler
             'email address:' => 'email',
         ];
 
-        return easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
+        return \easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
     }
 }

@@ -52,7 +52,7 @@ class lt_handler
             '' => '%',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $translate);
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $translate);
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.domreg.lt',

@@ -33,6 +33,6 @@ class genericb_handler
 {
     public function parse($data_str, $query)
     {
-        return generic_parser_b($data_str);
+        return \generic_parser_b($data_str);
     }
 }

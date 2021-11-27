@@ -44,7 +44,7 @@ class si_handler
             'tech-c' => 'tech',
         ];
 
-        $r['regrinfo'] = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $r['regrinfo'] = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.arnes.si',
             'registrar' => 'ARNES',

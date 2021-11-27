@@ -57,7 +57,7 @@ class il_handler
         \array_splice($data_str['rawdata'], 16, 1);
         \array_splice($data_str['rawdata'], 18, 1);
 
-        $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['remarks'])) {
             unset($reg['domain']['remarks']);

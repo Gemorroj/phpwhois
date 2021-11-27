@@ -49,7 +49,7 @@ class is_handler
             'zone-c' => 'zone',
         ];
 
-        $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'mdy');
+        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'mdy');
 
         if (isset($reg['domain']['descr'])) {
             $reg['owner']['name'] = \array_shift($reg['domain']['descr']);

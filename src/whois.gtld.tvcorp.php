@@ -43,6 +43,6 @@ class tvcorp_handler
             'domain.expires' => 'Record expires on',
         ];
 
-        return easy_parser($data_str, $items, 'mdy');
+        return \easy_parser($data_str, $items, 'mdy');
     }
 }

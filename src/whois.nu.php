@@ -81,6 +81,6 @@ class nu_handler
             'registrar' => '.NU Domain, Ltd',
         ];
 
-        return format_dates($r, 'dmy');
+        return \format_dates($r, 'dmy');
     }
 }

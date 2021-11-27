@@ -34,7 +34,7 @@ class info_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://whois.afilias.info',
             'registrar' => 'Afilias Global Registry Services',

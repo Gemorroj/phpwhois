@@ -54,7 +54,7 @@ class jp_handler extends WhoisClient
             '[Name Server]' => 'domain.nserver.',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.jprs.jp',
@@ -83,7 +83,7 @@ class jp_handler extends WhoisClient
             $rwdata = $this->GetRawData('CONTACT '.$r['regrinfo']['admin']['handle'].'/e');
             $r['rawdata'][] = '';
             $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
-            $r['regrinfo']['admin'] = generic_parser_b($rwdata, $items, 'ymd', false);
+            $r['regrinfo']['admin'] = \generic_parser_b($rwdata, $items, 'ymd', false);
             $this->set_whois_info($r);
         }
 
@@ -97,7 +97,7 @@ class jp_handler extends WhoisClient
                 $rwdata = $this->GetRawData('CONTACT '.$r['regrinfo']['tech']['handle'].'/e');
                 $r['rawdata'][] = '';
                 $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
-                $r['regrinfo']['tech'] = generic_parser_b($rwdata, $items, 'ymd', false);
+                $r['regrinfo']['tech'] = \generic_parser_b($rwdata, $items, 'ymd', false);
                 $this->set_whois_info($r);
             }
         }

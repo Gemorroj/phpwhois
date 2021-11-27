@@ -47,7 +47,7 @@ class fm_handler
             'domain.sponsor' => 'Registrar Name:',
         ];
 
-        $r['regrinfo'] = get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
 
         $items = [
             'phone number:' => 'phone',
@@ -57,14 +57,14 @@ class fm_handler
         ];
 
         if (!empty($r['regrinfo']['domain']['created'])) {
-            $r['regrinfo'] = get_contacts($r['regrinfo'], $items);
+            $r['regrinfo'] = \get_contacts($r['regrinfo'], $items);
 
             if (\count($r['regrinfo']['billing']['address']) > 4) {
                 $r['regrinfo']['billing']['address'] = \array_slice($r['regrinfo']['billing']['address'], 0, 4);
             }
 
             $r['regrinfo']['registered'] = 'yes';
-            $r['regrinfo']['domain'] = format_dates($r['regrinfo']['domain'], 'dmY');
+            $r['regrinfo']['domain'] = \format_dates($r['regrinfo']['domain'], 'dmY');
         } else {
             $r = [];
             $r['regrinfo']['registered'] = 'no';

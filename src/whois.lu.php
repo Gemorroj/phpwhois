@@ -66,7 +66,7 @@ class lu_handler
             'bil-email:' => 'billing.email',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.dns.lu',

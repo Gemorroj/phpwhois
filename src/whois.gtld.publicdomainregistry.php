@@ -50,6 +50,6 @@ class publicdomainregistry_handler
             'domain.status' => 'Status:',
         ];
 
-        return easy_parser($data_str, $items, 'mdy', [], true, true);
+        return \easy_parser($data_str, $items, 'mdy', [], true, true);
     }
 }

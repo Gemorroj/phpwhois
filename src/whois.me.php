@@ -34,7 +34,7 @@ class me_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://domain.me',
             'registrar' => 'doMEn',

@@ -42,6 +42,6 @@ class alldomains_handler
             'domain.nserver.' => 'Domain servers in listed order:',
         ];
 
-        return easy_parser($data_str, $items, 'ymd');
+        return \easy_parser($data_str, $items, 'ymd');
     }
 }

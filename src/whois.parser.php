@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 function generic_parser_a(array $rawData, array $translate, array $contacts, string $main = 'domain', string $dateFormat = 'dmy'): array
 {
     $ret = [];
-    $blocks = generic_parser_a_blocks($rawData, $translate, $disclaimer);
+    $blocks = \generic_parser_a_blocks($rawData, $translate, $disclaimer);
 
     if (isset($disclaimer) && \is_array($disclaimer)) {
         $ret['disclaimer'] = $disclaimer;
@@ -65,7 +65,7 @@ function generic_parser_a(array $rawData, array $translate, array $contacts, str
         $ret[$main] = $r;
     }
 
-    return format_dates($ret, $dateFormat);
+    return \format_dates($ret, $dateFormat);
 }
 
 //-------------------------------------------------------------------------
@@ -116,7 +116,7 @@ function generic_parser_a_blocks(array $rawData, array $translate, array &$discl
                 continue;
             }
             if (false !== \strpos($k, '.')) {
-                ${'block'.getvarname($k)} = $v;
+                ${'block'.\getvarname($k)} = $v;
 
                 continue;
             }
@@ -368,7 +368,7 @@ function generic_parser_b(array $rawData, array $items = [], string $dateFormat 
                         $itm = \trim(\substr($val, $pos + \strlen($match)));
 
                         if ('' != $itm) {
-                            ${'r'.getvarname($field)} = '="'.\str_replace('"', '\"', $itm).'";';
+                            ${'r'.\getvarname($field)} = '="'.\str_replace('"', '\"', $itm).'";';
                         }
                     }
 
@@ -389,7 +389,7 @@ function generic_parser_b(array $rawData, array $items = [], string $dateFormat 
             $r['registered'] = 'yes';
         }
 
-        $r = format_dates($r, $dateFormat);
+        $r = \format_dates($r, $dateFormat);
     }
 
     return $r;
@@ -453,7 +453,7 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
                     $endTag = $last;
                     $line = $valBlock;
                 } else {
-                    $var = getvarname(\strtok($field, '#'));
+                    $var = \getvarname(\strtok($field, '#'));
                     $itm = \trim(\substr($valBlock, $pos + \strlen($match)));
 
                     ${'r'.$var} = $itm;
@@ -521,7 +521,7 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
             $pos = \strpos($line, $match);
 
             if (false !== $pos) {
-                $var = getvarname(\strtok($field, '#'));
+                $var = \getvarname(\strtok($field, '#'));
                 if ('[]' !== $var) {
                     ${'r'.$var} = $block;
                 }
@@ -543,10 +543,10 @@ function easy_parser(
     bool $partial_match = false,
     bool $def_block = false
 ) {
-    $r = get_blocks($data_raw, $items, $partial_match, $def_block);
-    $r = get_contacts($r, $translate, $has_org);
+    $r = \get_blocks($data_raw, $items, $partial_match, $def_block);
+    $r = \get_contacts($r, $translate, $has_org);
 
-    return format_dates($r, $date_format);
+    return \format_dates($r, $date_format);
 }
 
 //-------------------------------------------------------------------------
@@ -554,27 +554,27 @@ function easy_parser(
 function get_contacts(array $array, array $extra_items = [], bool $has_org = false): array
 {
     if (isset($array['billing'])) {
-        $array['billing'] = get_contact($array['billing'], $extra_items, $has_org);
+        $array['billing'] = \get_contact($array['billing'], $extra_items, $has_org);
     }
 
     if (isset($array['tech'])) {
-        $array['tech'] = get_contact($array['tech'], $extra_items, $has_org);
+        $array['tech'] = \get_contact($array['tech'], $extra_items, $has_org);
     }
 
     if (isset($array['zone'])) {
-        $array['zone'] = get_contact($array['zone'], $extra_items, $has_org);
+        $array['zone'] = \get_contact($array['zone'], $extra_items, $has_org);
     }
 
     if (isset($array['admin'])) {
-        $array['admin'] = get_contact($array['admin'], $extra_items, $has_org);
+        $array['admin'] = \get_contact($array['admin'], $extra_items, $has_org);
     }
 
     if (isset($array['owner'])) {
-        $array['owner'] = get_contact($array['owner'], $extra_items, $has_org);
+        $array['owner'] = \get_contact($array['owner'], $extra_items, $has_org);
     }
 
     if (isset($array['registrar'])) {
-        $array['registrar'] = get_contact($array['registrar'], $extra_items, $has_org);
+        $array['registrar'] = \get_contact($array['registrar'], $extra_items, $has_org);
     }
 
     return $array;
@@ -645,7 +645,7 @@ function get_contact(array $array, array $extra_items = [], bool $has_org = fals
                 $itm = \trim(\substr($val, $pos + \strlen($match)));
 
                 if ('' != $field && '' !== $itm) {
-                    ${'r'.getvarname($field)} = $itm;
+                    ${'r'.\getvarname($field)} = $itm;
                 }
 
                 $val = \trim(\substr($val, 0, $pos));
@@ -743,16 +743,16 @@ function format_dates(array $res, string $format = 'mdy'): array
     foreach ($res as $key => $val) {
         if (\is_array($val)) {
             if (!\is_numeric($key) && ('expires' === $key || 'created' === $key || 'changed' === $key)) {
-                $d = get_date($val[0], $format);
+                $d = \get_date($val[0], $format);
                 if ($d) {
                     $res[$key] = $d;
                 }
             } else {
-                $res[$key] = format_dates($val, $format);
+                $res[$key] = \format_dates($val, $format);
             }
         } else {
             if (!\is_numeric($key) && ('expires' === $key || 'created' === $key || 'changed' === $key)) {
-                $d = get_date($val, $format);
+                $d = \get_date($val, $format);
                 if ($d) {
                     $res[$key] = $d;
                 }

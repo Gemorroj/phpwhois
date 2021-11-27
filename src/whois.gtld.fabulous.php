@@ -41,7 +41,7 @@ class fabulous_handler
             '' => 'Record dates:',
         ];
 
-        $r = easy_parser($data_str, $items, 'mdy', [], false, true);
+        $r = \easy_parser($data_str, $items, 'mdy', [], false, true);
 
         if (!isset($r['tech'])) {
             $r['tech'] = $r['billing'];

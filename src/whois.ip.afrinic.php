@@ -50,7 +50,7 @@ class afrinic_handler
             'org' => 'owner',
         ];
 
-        $r = generic_parser_a($data_str, $translate, $contacts, 'network', 'Ymd');
+        $r = \generic_parser_a($data_str, $translate, $contacts, 'network', 'Ymd');
 
         if (isset($r['network']['descr'])) {
             $r['owner']['organization'] = $r['network']['descr'];

@@ -50,7 +50,7 @@ class au_handler
             'Name Server:' => 'domain.nserver.',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items);
         $r['regyinfo'] = [
             'referrer' => 'http://www.aunic.net',
             'registrar' => 'AU-NIC',

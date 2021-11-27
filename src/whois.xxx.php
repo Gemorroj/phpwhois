@@ -34,7 +34,7 @@ class xxx_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
 
         if (!\strncmp($data_str['rawdata'][0], 'WHOIS LIMIT EXCEEDED', 20)) {
             $r['regrinfo']['registered'] = 'unknown';

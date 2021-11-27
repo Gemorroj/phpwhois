@@ -50,19 +50,19 @@ class be_handler
             'company name2:' => '',
         ];
 
-        $r['regrinfo'] = get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
 
         if ('AVAILABLE' !== $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'yes';
-            $r['regrinfo'] = get_contacts($r['regrinfo'], $trans);
+            $r['regrinfo'] = \get_contacts($r['regrinfo'], $trans);
 
             if (isset($r['regrinfo']['agent'])) {
-                $sponsor = get_contact($r['regrinfo']['agent'], $trans);
+                $sponsor = \get_contact($r['regrinfo']['agent'], $trans);
                 unset($r['regrinfo']['agent']);
                 $r['regrinfo']['domain']['sponsor'] = $sponsor;
             }
 
-            $r = format_dates($r, '-mdy');
+            $r = \format_dates($r, '-mdy');
         } else {
             $r['regrinfo']['registered'] = 'no';
         }

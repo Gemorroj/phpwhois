@@ -34,7 +34,7 @@ class cat_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
 
         if (!isset($r['regrinfo']['domain']['name'])) {
             $r['regrinfo']['registered'] = 'no';

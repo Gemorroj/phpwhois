@@ -51,11 +51,11 @@ class nicco_handler
             'postal code:' => 'address.zip',
         ];
 
-        $r = get_blocks($data_str, $items, true);
-        $r['owner'] = get_contact($r['owner'], $translate);
-        $r['admin'] = get_contact($r['admin'], $translate, true);
-        $r['tech'] = get_contact($r['tech'], $translate, true);
+        $r = \get_blocks($data_str, $items, true);
+        $r['owner'] = \get_contact($r['owner'], $translate);
+        $r['admin'] = \get_contact($r['admin'], $translate, true);
+        $r['tech'] = \get_contact($r['tech'], $translate, true);
 
-        return format_dates($r, 'dmy');
+        return \format_dates($r, 'dmy');
     }
 }

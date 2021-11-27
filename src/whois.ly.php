@@ -48,10 +48,10 @@ class ly_handler
 
         $extra = ['zip/postal code:' => 'address.pcode'];
 
-        $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['name'])) {
-            $r['regrinfo'] = get_contacts($r['regrinfo'], $extra);
+            $r['regrinfo'] = \get_contacts($r['regrinfo'], $extra);
             $r['regrinfo']['domain']['name'] = $r['regrinfo']['domain']['name'][0];
             $r['regrinfo']['registered'] = 'yes';
         } else {

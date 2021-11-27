@@ -39,7 +39,7 @@ class hu_handler
             'record created:' => 'domain.created',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         if (isset($r['regrinfo']['domain'])) {
             $r['regrinfo']['registered'] = 'yes';

@@ -46,7 +46,7 @@ class edu_handler
             'billing' => 'Billing Contact:',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'dmy');
 
         if (isset($b['tech'])) {
             if ('Same as above' == $r['regrinfo']['tech']['name']) {

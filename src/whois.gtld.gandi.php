@@ -49,6 +49,6 @@ class gandi_handler
             'owner-name:' => '',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', $trans);
+        return \easy_parser($data_str, $items, 'dmy', $trans);
     }
 }

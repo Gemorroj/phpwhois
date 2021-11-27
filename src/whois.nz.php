@@ -77,7 +77,7 @@ class nz_handler
             'technical_contact_email:' => 'tech.email',
         ];
 
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
             $domain_status = \substr($r['regrinfo']['domain']['status'], 0, 3);

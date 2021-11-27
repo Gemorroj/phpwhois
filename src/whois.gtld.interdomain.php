@@ -73,6 +73,6 @@ class interdomain_handler
             'Technical Fax............' => 'tech.fax',
         ];
 
-        return generic_parser_b($data_str, $items, 'dmy');
+        return \generic_parser_b($data_str, $items, 'dmy');
     }
 }

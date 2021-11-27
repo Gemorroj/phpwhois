@@ -43,6 +43,6 @@ class networksolutions_handler
             'domain.expires' => 'Record expires on',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', [], true, true);
+        return \easy_parser($data_str, $items, 'dmy', [], true, true);
     }
 }

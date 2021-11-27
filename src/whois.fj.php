@@ -41,10 +41,10 @@ class fj_handler
             'domain.nserver' => 'Domain servers:',
         ];
 
-        $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
-            $r['regrinfo'] = get_contacts($r['regrinfo']);
+            $r['regrinfo'] = \get_contacts($r['regrinfo']);
 
             \date_default_timezone_set('Pacific/Fiji');
 

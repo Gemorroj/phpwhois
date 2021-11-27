@@ -64,7 +64,7 @@ class onlinenic_handler
             ',country:' => 'address.country',
         ];
 
-        $r = easy_parser($data_str, $items, 'mdy', $extra, false, true);
+        $r = \easy_parser($data_str, $items, 'mdy', $extra, false, true);
 
         foreach ($r as $key => $part) {
             if (isset($part['email'])) {

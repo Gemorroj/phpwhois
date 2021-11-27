@@ -59,7 +59,7 @@ class fr_handler
             'nsl-id' => 'nserver',
         ];
 
-        $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmY');
+        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmY');
 
         if (isset($reg['nserver'])) {
             $reg['domain'] = \array_merge($reg['domain'], $reg['nserver']);

@@ -45,12 +45,12 @@ class org_za_handler
             '#' => 'Search Again',
         ];
 
-        $r['regrinfo'] = get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
 
         if (isset($r['regrinfo']['domain']['status'])) {
             $r['regrinfo']['registered'] = 'yes';
             $r['regrinfo']['domain']['handler'] = \strtok(\array_shift($r['regrinfo']['owner']), ' ');
-            $r['regrinfo'] = get_contacts($r['regrinfo']);
+            $r['regrinfo'] = \get_contacts($r['regrinfo']);
         } else {
             $r['regrinfo']['registered'] = 'no';
         }

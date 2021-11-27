@@ -45,11 +45,11 @@ class godaddy_handler
             'domain.sponsor' => 'Registered through:',
         ];
 
-        $r = get_blocks($data_str, $items);
-        $r['owner'] = get_contact($r['owner']);
-        $r['admin'] = get_contact($r['admin'], [], true);
-        $r['tech'] = get_contact($r['tech'], [], true);
+        $r = \get_blocks($data_str, $items);
+        $r['owner'] = \get_contact($r['owner']);
+        $r['admin'] = \get_contact($r['admin'], [], true);
+        $r['tech'] = \get_contact($r['tech'], [], true);
 
-        return format_dates($r, 'dmy');
+        return \format_dates($r, 'dmy');
     }
 }

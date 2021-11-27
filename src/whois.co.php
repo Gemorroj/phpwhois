@@ -34,7 +34,7 @@ class co_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], false, '-md--y');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], false, '-md--y');
         $r['regyinfo']['referrer'] = 'http://www.cointernet.com.co/';
         $r['regyinfo']['registrar'] = '.CO Internet, S.A.S.';
 

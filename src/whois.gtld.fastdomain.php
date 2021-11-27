@@ -54,7 +54,7 @@ class fastdomain_handler
             }
         }
 
-        $r = easy_parser($data_str, $items, 'dmy', [], false, true);
+        $r = \easy_parser($data_str, $items, 'dmy', [], false, true);
 
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];

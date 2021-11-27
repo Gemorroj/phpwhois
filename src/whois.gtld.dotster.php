@@ -45,6 +45,6 @@ class dotster_handler
             'domain.sponsor' => 'Registrar:',
         ];
 
-        return easy_parser($data_str, $items, 'dmy');
+        return \easy_parser($data_str, $items, 'dmy');
     }
 }

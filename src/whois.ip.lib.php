@@ -68,31 +68,31 @@ function phpwhois_validip($ip)
 
 function phpwhois_getclientip()
 {
-    if (!empty($_SERVER['HTTP_CLIENT_IP']) && phpwhois_validip($_SERVER['HTTP_CLIENT_IP'])) {
+    if (!empty($_SERVER['HTTP_CLIENT_IP']) && \phpwhois_validip($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
     }
 
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         foreach (\explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']) as $ip) {
-            if (phpwhois_validip(\trim($ip))) {
+            if (\phpwhois_validip(\trim($ip))) {
                 return $ip;
             }
         }
     }
 
-    if (!empty($_SERVER['HTTP_X_FORWARDED']) && phpwhois_validip($_SERVER['HTTP_X_FORWARDED'])) {
+    if (!empty($_SERVER['HTTP_X_FORWARDED']) && \phpwhois_validip($_SERVER['HTTP_X_FORWARDED'])) {
         return $_SERVER['HTTP_X_FORWARDED'];
     }
 
-    if (!empty($_SERVER['HTTP_FORWARDED_FOR']) && phpwhois_validip($_SERVER['HTTP_FORWARDED_FOR'])) {
+    if (!empty($_SERVER['HTTP_FORWARDED_FOR']) && \phpwhois_validip($_SERVER['HTTP_FORWARDED_FOR'])) {
         return $_SERVER['HTTP_FORWARDED_FOR'];
     }
 
-    if (!empty($_SERVER['HTTP_FORWARDED']) && phpwhois_validip($_SERVER['HTTP_FORWARDED'])) {
+    if (!empty($_SERVER['HTTP_FORWARDED']) && \phpwhois_validip($_SERVER['HTTP_FORWARDED'])) {
         return $_SERVER['HTTP_FORWARDED'];
     }
 
-    if (!empty($_SERVER['HTTP_X_FORWARDED']) && phpwhois_validip($_SERVER['HTTP_X_FORWARDED'])) {
+    if (!empty($_SERVER['HTTP_X_FORWARDED']) && \phpwhois_validip($_SERVER['HTTP_X_FORWARDED'])) {
         return $_SERVER['HTTP_X_FORWARDED'];
     }
 

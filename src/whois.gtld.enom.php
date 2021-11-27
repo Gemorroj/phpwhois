@@ -55,6 +55,6 @@ class enom_handler
             'domain.expires#2' => 'Registered through-',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', [], false, true);
+        return \easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

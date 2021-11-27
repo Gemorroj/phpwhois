@@ -46,6 +46,6 @@ class corporatedomains_handler
             'domain.nserver' => 'DNS Servers:',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', [], false, true);
+        return \easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

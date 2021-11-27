@@ -54,6 +54,6 @@ class register_handler
             'domain.status' => 'Status:',
         ];
 
-        return easy_parser($data_str, $items, 'ymd');
+        return \easy_parser($data_str, $items, 'ymd');
     }
 }

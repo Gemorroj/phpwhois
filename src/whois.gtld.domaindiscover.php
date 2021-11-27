@@ -44,6 +44,6 @@ class domaindiscover_handler
             'domain.expires' => 'Domain expires on',
         ];
 
-        return easy_parser($data_str, $items, 'dmy', [], false, true);
+        return \easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

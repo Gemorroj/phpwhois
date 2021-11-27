@@ -45,6 +45,6 @@ class wildwestdomains_handler
             'domain.changed' => 'Last Updated on:',
         ];
 
-        return easy_parser($data_str, $items, 'mdy');
+        return \easy_parser($data_str, $items, 'mdy');
     }
 }

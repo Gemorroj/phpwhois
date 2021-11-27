@@ -34,7 +34,7 @@ class name_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.name/',
             'registrar' => 'Global Name Registry',

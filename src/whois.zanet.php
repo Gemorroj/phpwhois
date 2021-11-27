@@ -64,23 +64,23 @@ class zanet_handler
             $rawdata[] = $line;
         }
 
-        $r['regrinfo'] = get_blocks($rawdata, $items);
+        $r['regrinfo'] = \get_blocks($rawdata, $items);
 
         if (isset($r['regrinfo']['registered'])) {
             $r['regrinfo']['registered'] = 'no';
         } else {
             if (isset($r['regrinfo']['admin'])) {
-                $r['regrinfo']['admin'] = get_contact($r['regrinfo']['admin']);
+                $r['regrinfo']['admin'] = \get_contact($r['regrinfo']['admin']);
             }
 
             if (isset($r['regrinfo']['tech'])) {
-                $r['regrinfo']['tech'] = get_contact($r['regrinfo']['tech']);
+                $r['regrinfo']['tech'] = \get_contact($r['regrinfo']['tech']);
             }
         }
 
         $r['regyinfo']['referrer'] = 'http://www.za.net/'; // or http://www.za.org
         $r['regyinfo']['registrar'] = 'ZA NiC';
 
-        return format_dates($r, 'xmdxxy');
+        return \format_dates($r, 'xmdxxy');
     }
 }

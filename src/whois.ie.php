@@ -45,7 +45,7 @@ class ie_handler
             'tech-c' => 'tech',
         ];
 
-        $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['descr'])) {
             $reg['owner']['organization'] = $reg['domain']['descr'][0];

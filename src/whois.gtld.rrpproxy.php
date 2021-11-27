@@ -85,6 +85,6 @@ class rrpproxy_handler
             'billing-email:' => 'billing.email',
         ];
 
-        return generic_parser_b($data_str, $items);
+        return \generic_parser_b($data_str, $items);
     }
 }

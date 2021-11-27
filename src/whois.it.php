@@ -60,7 +60,7 @@ class it_handler
             'web:' => 'web',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         if (isset($r['regrinfo']['registrar'])) {
             $r['regrinfo']['domain']['registrar'] = $r['regrinfo']['registrar'];

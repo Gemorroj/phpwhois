@@ -60,7 +60,7 @@ class joker_handler
             'address' => 'address',
         ];
 
-        $r = generic_parser_a($data_str, $translate, $contacts, 'domain', 'Ymd');
+        $r = \generic_parser_a($data_str, $translate, $contacts, 'domain', 'Ymd');
 
         foreach ($items as $tag => $convert) {
             if (isset($r['domain'][$tag])) {

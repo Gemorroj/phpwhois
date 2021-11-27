@@ -52,6 +52,6 @@ class melbourneit_handler
             'Name Server..........' => 'domain.nserver.',
         ];
 
-        return generic_parser_b($data_str, $items, 'ymd');
+        return \generic_parser_b($data_str, $items, 'ymd');
     }
 }

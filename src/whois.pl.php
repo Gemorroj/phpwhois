@@ -41,7 +41,7 @@ class pl_handler
             '#' => 'WHOIS displays data with a delay not exceeding 15 minutes in relation to the .pl Registry system',
         ];
 
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.dns.pl/english/index.html',

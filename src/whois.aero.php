@@ -34,7 +34,7 @@ class aero_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], false, 'ymd');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], false, 'ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.aero',
             'registrar' => 'Societe Internationale de Telecommunications Aeronautiques SC',

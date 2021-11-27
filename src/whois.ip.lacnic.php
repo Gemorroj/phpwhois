@@ -51,7 +51,7 @@ class lacnic_handler
             'admin-c' => 'admin',
         ];
 
-        $r = generic_parser_a($data_str, $translate, $contacts, 'network');
+        $r = \generic_parser_a($data_str, $translate, $contacts, 'network');
 
         unset($r['network']['owner'], $r['network']['ownerid'], $r['network']['responsible'], $r['network']['address'], $r['network']['phone'], $r['network']['aut-num'], $r['network']['nsstat'], $r['network']['nslastaa'], $r['network']['inetrev']);
 

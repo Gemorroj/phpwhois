@@ -197,11 +197,11 @@ class WhoisClient
                 $query_args = \str_replace('{version}', 'phpWhois'.$this->CODE_VERSION, $query_args);
 
                 if (false !== \strpos($query_args, '{ip}')) {
-                    $query_args = \str_replace('{ip}', phpwhois_getclientip(), $query_args);
+                    $query_args = \str_replace('{ip}', \phpwhois_getclientip(), $query_args);
                 }
 
                 if (false !== \strpos($query_args, '{hname}')) {
-                    $query_args = \str_replace('{hname}', \gethostbyaddr(phpwhois_getclientip()), $query_args);
+                    $query_args = \str_replace('{hname}', \gethostbyaddr(\phpwhois_getclientip()), $query_args);
                 }
             } else {
                 if (empty($this->Query['args'])) {

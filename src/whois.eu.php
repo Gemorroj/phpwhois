@@ -50,7 +50,7 @@ class eu_handler
             'website:' => 'url',
         ];
 
-        $r['regrinfo'] = get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
             switch ($r['regrinfo']['domain']['status']) {
@@ -73,11 +73,11 @@ class eu_handler
         }
 
         if (isset($r['regrinfo']['tech'])) {
-            $r['regrinfo']['tech'] = get_contact($r['regrinfo']['tech'], $extra);
+            $r['regrinfo']['tech'] = \get_contact($r['regrinfo']['tech'], $extra);
         }
 
         if (isset($r['regrinfo']['domain']['registrar'])) {
-            $r['regrinfo']['domain']['registrar'] = get_contact($r['regrinfo']['domain']['registrar'], $extra);
+            $r['regrinfo']['domain']['registrar'] = \get_contact($r['regrinfo']['domain']['registrar'], $extra);
         }
 
         $r['regyinfo']['referrer'] = 'http://www.eurid.eu';

@@ -48,7 +48,7 @@ class ve_handler
             'domain.nserver' => 'Servidor(es) de Nombres de Dominio',
         ];
 
-        $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
 
         if (!isset($r['regrinfo']['domain']['created']) || \is_array($r['regrinfo']['domain']['created'])) {
             $r['regrinfo'] = ['registered' => 'no'];
@@ -65,7 +65,7 @@ class ve_handler
         }
 
         $r['regrinfo']['domain']['nserver'] = $dns;
-        $r['regrinfo'] = get_contacts($r['regrinfo']);
+        $r['regrinfo'] = \get_contacts($r['regrinfo']);
         $r['regyinfo'] = [
             'referrer' => 'http://registro.nic.ve',
             'registrar' => 'NIC-Venezuela - CNTI',

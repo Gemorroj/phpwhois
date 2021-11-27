@@ -54,7 +54,7 @@ class at_handler
             'zone-c' => 'zone',
         ];
 
-        $reg = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['remarks'])) {
             unset($reg['domain']['remarks']);

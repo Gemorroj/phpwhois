@@ -34,7 +34,7 @@ class biz_handler
     public function parse($data_str, $query)
     {
         $r = [];
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], false, '-md--y');
+        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], false, '-md--y');
         $r['regyinfo'] = [
             'referrer' => 'http://www.neulevel.biz',
             'registrar' => 'NEULEVEL',

@@ -55,7 +55,7 @@ class cz_handler
             'registrant' => 'owner',
         ];
 
-        $r['regrinfo'] = generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmy');
+        $r['regrinfo'] = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.cz',

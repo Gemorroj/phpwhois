@@ -45,6 +45,6 @@ class moniker_handler
             'domain.changed' => 'Database last updated on: ',
         ];
 
-        return easy_parser($data_str, $items, 'ymd');
+        return \easy_parser($data_str, $items, 'ymd');
     }
 }

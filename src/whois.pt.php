@@ -51,7 +51,7 @@ class pt_handler
             '#' => 'Nameserver Information',
         ];
 
-        $r['regrinfo'] = get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
 
         if (empty($r['regrinfo']['domain']['name'])) {
             $r['regrinfo']['registered'] = 'no';
@@ -59,10 +59,10 @@ class pt_handler
             return $r;
         }
 
-        $r['regrinfo']['domain']['created'] = get_date($r['regrinfo']['domain']['created'], 'dmy');
+        $r['regrinfo']['domain']['created'] = \get_date($r['regrinfo']['domain']['created'], 'dmy');
 
         if ('ACTIVE' == $r['regrinfo']['domain']['status']) {
-            $r['regrinfo'] = get_contacts($r['regrinfo']);
+            $r['regrinfo'] = \get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
         } else {
             $r['regrinfo']['registered'] = 'no';

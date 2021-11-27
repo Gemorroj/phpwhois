@@ -44,6 +44,6 @@ class nicline_handler
             'domain.changed' => 'Last updated:',
         ];
 
-        return easy_parser($data_str, $items, 'dmy');
+        return \easy_parser($data_str, $items, 'dmy');
     }
 }
