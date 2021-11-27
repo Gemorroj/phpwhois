@@ -50,6 +50,7 @@ class apnic_handler
             'tech-c' => 'tech',
         ];
 
+        $disclaimer = [];
         $blocks = \generic_parser_a_blocks($data_str, $translate, $disclaimer);
 
         if (isset($disclaimer) && \is_array($disclaimer)) {

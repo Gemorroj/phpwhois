@@ -30,6 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 function generic_parser_a(array $rawData, array $translate, array $contacts, string $main = 'domain', string $dateFormat = 'dmy'): array
 {
     $ret = [];
+    $disclaimer = [];
     $blocks = \generic_parser_a_blocks($rawData, $translate, $disclaimer);
 
     if (isset($disclaimer) && \is_array($disclaimer)) {
