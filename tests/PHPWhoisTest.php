@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class PHPWhoisTest extends TestCase
@@ -18,7 +19,7 @@ class PHPWhoisTest extends TestCase
         self::assertIsArray($result['rawdata']);
         self::assertIsArray($result['regrinfo']);
         self::assertIsArray($result['regyinfo']);
-        //print_r($result);
+        // print_r($result);
     }
 
     public function testLookupDomainFail(): void
@@ -29,7 +30,7 @@ class PHPWhoisTest extends TestCase
         self::assertIsArray($result['rawdata']);
         self::assertIsArray($result['regrinfo']);
         self::assertArrayNotHasKey('regyinfo', $result);
-        //print_r($result);
+        // print_r($result);
     }
 
     public function testLookupIp(): void
@@ -37,7 +38,7 @@ class PHPWhoisTest extends TestCase
         $whois = new \Whois();
         $result = $whois->Lookup('62.97.102.115');
 
-        //print_r($result);
+        // print_r($result);
         self::assertIsArray($result['rawdata']);
         self::assertIsArray($result['regrinfo']);
         self::assertIsArray($result['regyinfo']);
@@ -51,7 +52,7 @@ class PHPWhoisTest extends TestCase
         self::assertIsArray($result['rawdata']);
         self::assertIsArray($result['regrinfo']);
         self::assertIsArray($result['regyinfo']);
-        //print_r($result);
+        // print_r($result);
     }
 
     public function testLookupUseServer(): void
@@ -60,7 +61,7 @@ class PHPWhoisTest extends TestCase
         $whois->UseServer('ru', 'whois.apnic.net');
         $result = $whois->Lookup('yandex.ru');
 
-        //print_r($result);
+        // print_r($result);
         self::assertIsArray($result['rawdata']);
         self::assertIsArray($result['regrinfo']);
         self::assertIsArray($result['regyinfo']);
@@ -162,12 +163,13 @@ Please visit www.eurid.eu for more info.'),
 
     /**
      * @todo find any domain with that fking data
+     *
      * @dataProvider dataProviderGetBlocks
      */
     public function testGetBlocks(array $rawData, array $items, bool $partialMatch = false, bool $defBlock = false): void
     {
         $r = \get_blocks($rawData, $items, $partialMatch, $defBlock);
-        //\print_r($r);
+        // \print_r($r);
 
         self::assertIsArray($r);
     }

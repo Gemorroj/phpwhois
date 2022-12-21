@@ -4,7 +4,7 @@
     "description": "This package contains a Whois (RFC954) library for PHP. It allows a PHP program to create a Whois object, and obtain the output of a whois query with the Lookup function.",
     "license": "GPL-2.0-only",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "algo26-matthias/idna-convert": "^3.0.5"
     },
     "require-dev": {
@@ -15,7 +15,8 @@
         "files": [
             "src/whois.main.php",
             "src/whois.utils.php",
-            "src/whois.parser.php"
+            "src/whois.parser.php",
+            "src/whois.handler.php"
         ]
     },
     "autoload-dev": {

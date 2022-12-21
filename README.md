@@ -173,7 +173,7 @@ UTF-8
 
 PHPWhois will assume that all whois servers return UTF-8 encoded output,
 if some whois server does not return UTF-8 data, you can include it in
-the NON_UTF8 array in whois.servers.php
+the NON_UTF8 array in whois.client.php
 
 Notes 
 -----

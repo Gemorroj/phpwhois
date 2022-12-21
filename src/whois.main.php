@@ -25,37 +25,17 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-require_once 'whois.client.php';
+require_once __DIR__.'/whois.client.php';
 
 class Whois extends WhoisClient
 {
-    // Deep whois ?
-    public $deep_whois = true;
-
-    // Windows based ?
-    public $windows = false;
-
-    // Recursion allowed ?
-    public $gtld_recurse = true;
-
     // Support for non-ICANN tld's
-    public $non_icann = false;
+    public bool $non_icann = false;
 
     // Network Solutions registry server
-    public $NSI_REGISTRY = 'whois.nsiregistry.net';
+    public string $NSI_REGISTRY = 'whois.nsiregistry.net';
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->windows = '\\' === \DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * @param string $tld
-     * @param string $server
-     */
-    public function UseServer($tld, $server): void
+    public function UseServer(string $tld, string $server): void
     {
         $this->WHOIS_SPECIAL[$tld] = $server;
     }
@@ -258,7 +238,7 @@ class Whois extends WhoisClient
     }
 
     // Get nameservers if missing
-    protected function Checkdns(&$result): void
+    protected function Checkdns(array &$result): void
     {
         if ($this->deep_whois && empty($result['regrinfo']['domain']['nserver'])) {
             $ns = @\dns_get_record($this->Query['query'], \DNS_NS);
@@ -276,7 +256,7 @@ class Whois extends WhoisClient
     }
 
     // Fix and/or add name server information
-    protected function FixResult(&$result, $domain): void
+    protected function FixResult(array &$result, string $domain): void
     {
         // Add usual fields
         $result['regrinfo']['domain']['name'] = $domain;

@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function generic_parser_a(array $rawData, array $translate, array $contacts, string $main = 'domain', string $dateFormat = 'dmy'): array
 {
@@ -69,7 +69,7 @@ function generic_parser_a(array $rawData, array $translate, array $contacts, str
     return \format_dates($ret, $dateFormat);
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function generic_parser_a_blocks(array $rawData, array $translate, array &$disclaimer): array
 {
@@ -149,7 +149,7 @@ function generic_parser_a_blocks(array $rawData, array $translate, array &$discl
     return $blocks;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function generic_parser_b(array $rawData, array $items = [], string $dateFormat = 'mdy', bool $hasReg = true, bool $scanAll = false): array
 {
@@ -396,7 +396,7 @@ function generic_parser_b(array $rawData, array $items = [], string $dateFormat 
     return $r;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function getvarname(string $vdef): string
 {
@@ -414,7 +414,7 @@ function getvarname(string $vdef): string
     return $var;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function get_blocks(array $rawData, array $items, bool $partialMatch = false, bool $defBlock = false): array
 {
@@ -490,7 +490,7 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
 
             $last = $valData[\strlen($valData) - 1];
             if ('' === $endTag || $partialMatch || $last === $endTag) {
-                //Check if this line starts another block
+                // Check if this line starts another block
                 $et = false;
 
                 foreach ($items as $match) {
@@ -533,7 +533,7 @@ function get_blocks(array $rawData, array $items, bool $partialMatch = false, bo
     return $r;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function easy_parser(
     array $data_raw,
@@ -550,7 +550,7 @@ function easy_parser(
     return \format_dates($r, $date_format);
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function get_contacts(array $array, array $extra_items = [], bool $has_org = false): array
 {
@@ -581,7 +581,7 @@ function get_contacts(array $array, array $extra_items = [], bool $has_org = fal
     return $array;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function get_contact(array $array, array $extra_items = [], bool $has_org = false): array
 {
@@ -659,7 +659,7 @@ function get_contact(array $array, array $extra_items = [], bool $has_org = fals
                 $array[$key] = $val;
                 $ok = true;
 
-                //break;
+                // break;
             }
 
             if (\preg_match('/([+]*[-\\(\\)\\. x0-9]){7,}/', $val, $matches)) {
@@ -733,7 +733,7 @@ function get_contact(array $array, array $extra_items = [], bool $has_org = fals
     return $r;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function format_dates(array $res, string $format = 'mdy'): array
 {
@@ -764,7 +764,7 @@ function format_dates(array $res, string $format = 'mdy'): array
     return $res;
 }
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 function get_date(string $date, string $format): string
 {
