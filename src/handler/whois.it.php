@@ -35,9 +35,9 @@ if (!\defined('__IT_HANDLER__')) {
     \define('__IT_HANDLER__', 1);
 }
 
-class it_handler extends WhoisHandler
+class it_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -60,7 +60,7 @@ class it_handler extends WhoisHandler
             'web:' => 'web',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         if (isset($r['regrinfo']['registrar'])) {
             $r['regrinfo']['domain']['registrar'] = $r['regrinfo']['registrar'];

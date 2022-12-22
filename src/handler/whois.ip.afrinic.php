@@ -29,9 +29,9 @@ if (!\defined('__AFRINIC_HANDLER__')) {
     \define('__AFRINIC_HANDLER__', 1);
 }
 
-class afrinic_handler extends WhoisHandler
+class afrinic_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $translate = [
             'fax-no' => 'fax',
@@ -50,7 +50,7 @@ class afrinic_handler extends WhoisHandler
             'org' => 'owner',
         ];
 
-        $r = \generic_parser_a($data_str, $translate, $contacts, 'network', 'Ymd');
+        $r = WhoisParser::generic_parser_a($data_str, $translate, $contacts, 'network', 'Ymd');
 
         if (isset($r['network']['descr'])) {
             $r['owner']['organization'] = $r['network']['descr'];

@@ -29,9 +29,9 @@ if (!\defined('__NAMEJUICE_HANDLER__')) {
     \define('__NAMEJUICE_HANDLER__', 1);
 }
 
-class namejuice_handler extends WhoisHandler
+class namejuice_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant Contact:',
@@ -46,6 +46,6 @@ class namejuice_handler extends WhoisHandler
             'domain.sponsor' => 'Registration Service Provided By:',
         ];
 
-        return \easy_parser($data_str, $items, 'dmy', [], true, true);
+        return WhoisParser::easy_parser($data_str, $items, 'dmy', [], true, true);
     }
 }

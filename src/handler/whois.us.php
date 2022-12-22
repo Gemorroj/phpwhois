@@ -29,12 +29,12 @@ if (!\defined('__US_HANDLER__')) {
     \define('__US_HANDLER__', 1);
 }
 
-class us_handler extends WhoisHandler
+class us_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], [], '-md--y');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], [], '-md--y');
         $r['regyinfo'] = [
             'referrer' => 'http://www.neustar.us',
             'registrar' => 'NEUSTAR INC.',

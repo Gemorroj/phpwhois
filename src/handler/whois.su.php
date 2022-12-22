@@ -29,9 +29,9 @@ if (!\defined('__SU_HANDLER__')) {
     \define('__SU_HANDLER__', 1);
 }
 
-class su_handler extends WhoisHandler
+class su_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -51,7 +51,7 @@ class su_handler extends WhoisHandler
             */
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.ripn.net',

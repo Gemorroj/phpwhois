@@ -5,6 +5,7 @@
     "license": "GPL-2.0-only",
     "require": {
         "php": ">=7.4",
+        "symfony/polyfill-iconv": "^1.27",
         "algo26-matthias/idna-convert": "^3.0.5"
     },
     "require-dev": {
@@ -13,10 +14,9 @@
     },
     "autoload": {
         "files": [
-            "src/whois.main.php",
-            "src/whois.utils.php",
-            "src/whois.parser.php",
-            "src/whois.handler.php"
+            "src/WhoisParser.php",
+            "src/WhoisHandlerAbstract.php",
+            "src/Whois.php"
         ]
     },
     "autoload-dev": {

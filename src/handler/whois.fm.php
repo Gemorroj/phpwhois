@@ -29,9 +29,9 @@ if (!\defined('__FM_HANDLER__')) {
     \define('__FM_HANDLER__', 1);
 }
 
-class fm_handler extends WhoisHandler
+class fm_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         $r = [];
         $items = [
@@ -47,7 +47,7 @@ class fm_handler extends WhoisHandler
             'domain.sponsor' => 'Registrar Name:',
         ];
 
-        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
 
         $items = [
             'phone number:' => 'phone',
@@ -57,14 +57,14 @@ class fm_handler extends WhoisHandler
         ];
 
         if (!empty($r['regrinfo']['domain']['created'])) {
-            $r['regrinfo'] = \get_contacts($r['regrinfo'], $items);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo'], $items);
 
             if (\count($r['regrinfo']['billing']['address']) > 4) {
                 $r['regrinfo']['billing']['address'] = \array_slice($r['regrinfo']['billing']['address'], 0, 4);
             }
 
             $r['regrinfo']['registered'] = 'yes';
-            $r['regrinfo']['domain'] = \format_dates($r['regrinfo']['domain'], 'dmY');
+            $r['regrinfo']['domain'] = WhoisParser::format_dates($r['regrinfo']['domain'], 'dmY');
         } else {
             $r = [];
             $r['regrinfo']['registered'] = 'no';

@@ -29,9 +29,9 @@ if (!\defined('__FI_HANDLER__')) {
     \define('__FI_HANDLER__', 1);
 }
 
-class fi_handler extends WhoisHandler
+class fi_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,7 +45,7 @@ class fi_handler extends WhoisHandler
             'phone:' => 'owner.phone',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items);
 
         $r['regyinfo'] = [
             'referrer' => 'https://domain.ficora.fi/',

@@ -29,9 +29,9 @@ if (!\defined('__BR_HANDLER__')) {
     \define('__BR_HANDLER__', 1);
 }
 
-class br_handler extends WhoisHandler
+class br_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $a = [];
         $translate = [
@@ -51,7 +51,7 @@ class br_handler extends WhoisHandler
             'billing-c' => 'billing',
         ];
 
-        $r = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $r = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (\in_array('Permission denied.', $r['disclaimer'])) {
             $r['registered'] = 'unknown';

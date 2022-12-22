@@ -29,9 +29,9 @@ if (!\defined('__MARKMONITOR_HANDLER__')) {
     \define('__MARKMONITOR_HANDLER__', 1);
 }
 
-class markmonitor_handler extends WhoisHandler
+class markmonitor_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -45,7 +45,7 @@ class markmonitor_handler extends WhoisHandler
             'domain.changed' => 'Record last updated on..:',
         ];
 
-        $r = \easy_parser($data_str, $items, 'dmy', [], false, true);
+        $r = WhoisParser::easy_parser($data_str, $items, 'dmy', [], false, true);
 
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];

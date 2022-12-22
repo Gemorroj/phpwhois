@@ -29,9 +29,9 @@ if (!\defined('__FJ_HANDLER__')) {
     \define('__FJ_HANDLER__', 1);
 }
 
-class fj_handler extends WhoisHandler
+class fj_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -41,10 +41,10 @@ class fj_handler extends WhoisHandler
             'domain.nserver' => 'Domain servers:',
         ];
 
-        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
-            $r['regrinfo'] = \get_contacts($r['regrinfo']);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo']);
 
             \date_default_timezone_set('Pacific/Fiji');
 

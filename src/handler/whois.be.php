@@ -29,9 +29,9 @@ if (!\defined('__BE_HANDLER__')) {
     \define('__BE_HANDLER__', 1);
 }
 
-class be_handler extends WhoisHandler
+class be_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         $r = [];
         $items = [
@@ -50,19 +50,19 @@ class be_handler extends WhoisHandler
             'company name2:' => '',
         ];
 
-        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
 
         if ('AVAILABLE' !== $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'yes';
-            $r['regrinfo'] = \get_contacts($r['regrinfo'], $trans);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo'], $trans);
 
             if (isset($r['regrinfo']['agent'])) {
-                $sponsor = \get_contact($r['regrinfo']['agent'], $trans);
+                $sponsor = WhoisParser::get_contact($r['regrinfo']['agent'], $trans);
                 unset($r['regrinfo']['agent']);
                 $r['regrinfo']['domain']['sponsor'] = $sponsor;
             }
 
-            $r = \format_dates($r, '-mdy');
+            $r = WhoisParser::format_dates($r, '-mdy');
         } else {
             $r['regrinfo']['registered'] = 'no';
         }

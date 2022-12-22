@@ -29,9 +29,9 @@ if (!\defined('__OVH_HANDLER__')) {
     \define('__OVH_HANDLER__', 1);
 }
 
-class ovh_handler extends WhoisHandler
+class ovh_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -44,6 +44,6 @@ class ovh_handler extends WhoisHandler
             'domain.created' => 'Record created on',
         ];
 
-        return \easy_parser($data_str, $items, 'mdy', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'mdy', [], false, true);
     }
 }

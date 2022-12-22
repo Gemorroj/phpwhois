@@ -29,9 +29,9 @@ if (!\defined('__HU_HANDLER__')) {
     \define('__HU_HANDLER__', 1);
 }
 
-class hu_handler extends WhoisHandler
+class hu_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -39,7 +39,7 @@ class hu_handler extends WhoisHandler
             'record created:' => 'domain.created',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         if (isset($r['regrinfo']['domain'])) {
             $r['regrinfo']['registered'] = 'yes';

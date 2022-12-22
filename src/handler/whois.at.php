@@ -29,9 +29,9 @@ if (!\defined('__AT_HANDLER__')) {
     \define('__AT_HANDLER__', 1);
 }
 
-class at_handler extends WhoisHandler
+class at_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -54,7 +54,7 @@ class at_handler extends WhoisHandler
             'zone-c' => 'zone',
         ];
 
-        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['remarks'])) {
             unset($reg['domain']['remarks']);

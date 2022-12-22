@@ -29,9 +29,9 @@ if (!\defined('__ORG_ZA_HANDLER__')) {
     \define('__ORG_ZA_HANDLER__', 1);
 }
 
-class org_za_handler extends WhoisHandler
+class org_za_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,12 +45,12 @@ class org_za_handler extends WhoisHandler
             '#' => 'Search Again',
         ];
 
-        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
 
         if (isset($r['regrinfo']['domain']['status'])) {
             $r['regrinfo']['registered'] = 'yes';
             $r['regrinfo']['domain']['handler'] = \strtok(\array_shift($r['regrinfo']['owner']), ' ');
-            $r['regrinfo'] = \get_contacts($r['regrinfo']);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo']);
         } else {
             $r['regrinfo']['registered'] = 'no';
         }

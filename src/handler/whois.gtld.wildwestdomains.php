@@ -29,9 +29,9 @@ if (!\defined('__WILDWESTDOMAINS_HANDLER__')) {
     \define('__WILDWESTDOMAINS_HANDLER__', 1);
 }
 
-class wildwestdomains_handler extends WhoisHandler
+class wildwestdomains_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -45,6 +45,6 @@ class wildwestdomains_handler extends WhoisHandler
             'domain.changed' => 'Last Updated on:',
         ];
 
-        return \easy_parser($data_str, $items, 'mdy');
+        return WhoisParser::easy_parser($data_str, $items, 'mdy');
     }
 }

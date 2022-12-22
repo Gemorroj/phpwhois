@@ -29,9 +29,9 @@ if (!\defined('__LU_HANDLER__')) {
     \define('__LU_HANDLER__', 1);
 }
 
-class lu_handler extends WhoisHandler
+class lu_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -66,7 +66,7 @@ class lu_handler extends WhoisHandler
             'bil-email:' => 'billing.email',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.dns.lu',

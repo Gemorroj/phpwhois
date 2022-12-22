@@ -29,9 +29,9 @@ if (!\defined('__FABULOUS_HANDLER__')) {
     \define('__FABULOUS_HANDLER__', 1);
 }
 
-class fabulous_handler extends WhoisHandler
+class fabulous_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Domain '.$query.':',
@@ -41,7 +41,7 @@ class fabulous_handler extends WhoisHandler
             '' => 'Record dates:',
         ];
 
-        $r = \easy_parser($data_str, $items, 'mdy', [], false, true);
+        $r = WhoisParser::easy_parser($data_str, $items, 'mdy', [], false, true);
 
         if (!isset($r['tech'])) {
             $r['tech'] = $r['billing'];

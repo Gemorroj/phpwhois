@@ -29,9 +29,9 @@ if (!\defined('__RIPE_HANDLER__')) {
     \define('__RIPE_HANDLER__', 1);
 }
 
-class ripe_handler extends WhoisHandler
+class ripe_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $translate = [
             'fax-no' => 'fax',
@@ -51,7 +51,7 @@ class ripe_handler extends WhoisHandler
             $data_str = $data_str['rawdata'];
         }
 
-        $r = \generic_parser_a($data_str, $translate, $contacts, 'network');
+        $r = WhoisParser::generic_parser_a($data_str, $translate, $contacts, 'network');
 
         if (isset($r['network']['desc'])) {
             $r['owner']['organization'] = $r['network']['desc'];

@@ -29,9 +29,9 @@ if (!\defined('__RRPPROXY_HANDLER__')) {
     \define('__RRPPROXY_HANDLER__', 1);
 }
 
-class rrpproxy_handler extends WhoisHandler
+class rrpproxy_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'created-date:' => 'domain.created',
@@ -85,6 +85,6 @@ class rrpproxy_handler extends WhoisHandler
             'billing-email:' => 'billing.email',
         ];
 
-        return \generic_parser_b($data_str, $items);
+        return WhoisParser::generic_parser_b($data_str, $items);
     }
 }

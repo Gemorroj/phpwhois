@@ -29,9 +29,9 @@ if (!\defined('__CN_HANDLER__')) {
     \define('__CN_HANDLER__', 1);
 }
 
-class cn_handler extends WhoisHandler
+class cn_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -80,7 +80,7 @@ class cn_handler extends WhoisHandler
             'Billing Fax:' => 'billing.fax',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.cnnic.net.cn',
             'registrar' => 'China NIC',

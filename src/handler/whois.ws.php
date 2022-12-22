@@ -29,9 +29,9 @@ if (!\defined('__WS_HANDLER__')) {
     \define('__WS_HANDLER__', 1);
 }
 
-class ws_handler extends WhoisHandler
+class ws_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -47,7 +47,7 @@ class ws_handler extends WhoisHandler
             'Registrar Whois:' => 'rwhois',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo']['referrer'] = 'http://www.samoanic.ws';
         $r['regyinfo']['registrar'] = 'Samoa Nic';
@@ -56,7 +56,7 @@ class ws_handler extends WhoisHandler
             $r['regrinfo']['registered'] = 'yes';
 
             if (isset($r['regrinfo']['rwhois'])) {
-                if ($whoisClient->deep_whois) {
+                if ($whoisClient->deepWhois) {
                     $r['regyinfo']['whois'] = $r['regrinfo']['rwhois'];
                     $r = $whoisClient->DeepWhois($query, $r);
                 }

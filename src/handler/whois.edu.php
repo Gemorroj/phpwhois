@@ -29,9 +29,9 @@ if (!\defined('__EDU_HANDLER__')) {
     \define('__EDU_HANDLER__', 1);
 }
 
-class edu_handler extends WhoisHandler
+class edu_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -46,7 +46,7 @@ class edu_handler extends WhoisHandler
             'billing' => 'Billing Contact:',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'dmy');
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'dmy');
 
         if (isset($b['tech'])) {
             if ('Same as above' === $r['regrinfo']['tech']['name']) {

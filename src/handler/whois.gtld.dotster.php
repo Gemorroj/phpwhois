@@ -29,9 +29,9 @@ if (!\defined('__DOTSTER_HANDLER__')) {
     \define('__DOTSTER_HANDLER__', 1);
 }
 
-class dotster_handler extends WhoisHandler
+class dotster_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -45,6 +45,6 @@ class dotster_handler extends WhoisHandler
             'domain.sponsor' => 'Registrar:',
         ];
 
-        return \easy_parser($data_str, $items, 'dmy');
+        return WhoisParser::easy_parser($data_str, $items, 'dmy');
     }
 }

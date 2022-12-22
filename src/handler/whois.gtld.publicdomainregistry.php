@@ -29,9 +29,9 @@ if (!\defined('__PUBLICDOMAINREGISTRY_HANDLER__')) {
     \define('__PUBLICDOMAINREGISTRY_HANDLER__', 1);
 }
 
-class publicdomainregistry_handler extends WhoisHandler
+class publicdomainregistry_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -50,6 +50,6 @@ class publicdomainregistry_handler extends WhoisHandler
             'domain.status' => 'Status:',
         ];
 
-        return \easy_parser($data_str, $items, 'mdy', [], true, true);
+        return WhoisParser::easy_parser($data_str, $items, 'mdy', [], true, true);
     }
 }

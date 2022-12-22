@@ -29,9 +29,9 @@ if (!\defined('__MELBOURNEIT_HANDLER__')) {
     \define('__MELBOURNEIT_HANDLER__', 1);
 }
 
-class melbourneit_handler extends WhoisHandler
+class melbourneit_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'Domain Name..........' => 'domain.name',
@@ -52,6 +52,6 @@ class melbourneit_handler extends WhoisHandler
             'Name Server..........' => 'domain.nserver.',
         ];
 
-        return \generic_parser_b($data_str, $items, 'ymd');
+        return WhoisParser::generic_parser_b($data_str, $items, 'ymd');
     }
 }

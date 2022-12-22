@@ -29,9 +29,9 @@ if (!\defined('__DOMAINDISCOVER_HANDLER__')) {
     \define('__DOMAINDISCOVER_HANDLER__', 1);
 }
 
-class domaindiscover_handler extends WhoisHandler
+class domaindiscover_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -44,6 +44,6 @@ class domaindiscover_handler extends WhoisHandler
             'domain.expires' => 'Domain expires on',
         ];
 
-        return \easy_parser($data_str, $items, 'dmy', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__SE_HANDLER__')) {
     \define('__SE_HANDLER__', 1);
 }
 
-class se_handler extends WhoisHandler
+class se_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -44,7 +44,7 @@ class se_handler extends WhoisHandler
             'holder:' => 'owner.handle',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd', false);
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'ymd', false);
 
         $r['regrinfo']['registered'] = isset($r['regrinfo']['domain']['name']) ? 'yes' : 'no';
 

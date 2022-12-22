@@ -29,9 +29,9 @@ if (!\defined('__NAME_HANDLER__')) {
     \define('__NAME_HANDLER__', 1);
 }
 
-class name_handler extends WhoisHandler
+class name_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'REGISTRANT CONTACT INFO',
@@ -49,6 +49,6 @@ class name_handler extends WhoisHandler
             'email address:' => 'email',
         ];
 
-        return \easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
     }
 }

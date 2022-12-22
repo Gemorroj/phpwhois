@@ -29,9 +29,9 @@ if (!\defined('__JP_HANDLER__')) {
     \define('__JP_HANDLER__', 1);
 }
 
-class jp_handler extends WhoisHandler
+class jp_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -54,14 +54,14 @@ class jp_handler extends WhoisHandler
             '[Name Server]' => 'domain.nserver.',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.jprs.jp',
             'registrar' => 'Japan Registry Services',
         ];
 
-        if (!$whoisClient->deep_whois) {
+        if (!$whoisClient->deepWhois) {
             return $r;
         }
 
@@ -83,8 +83,8 @@ class jp_handler extends WhoisHandler
             $rwdata = $whoisClient->GetRawData('CONTACT '.$r['regrinfo']['admin']['handle'].'/e');
             $r['rawdata'][] = '';
             $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
-            $r['regrinfo']['admin'] = \generic_parser_b($rwdata, $items, 'ymd', false);
-            $whoisClient->set_whois_info($r);
+            $r['regrinfo']['admin'] = WhoisParser::generic_parser_b($rwdata, $items, 'ymd', false);
+            $whoisClient->setWhoisInfo($r);
         }
 
         if (!empty($r['regrinfo']['tech']['handle'])) {
@@ -97,8 +97,8 @@ class jp_handler extends WhoisHandler
                 $rwdata = $whoisClient->GetRawData('CONTACT '.$r['regrinfo']['tech']['handle'].'/e');
                 $r['rawdata'][] = '';
                 $r['rawdata'] = \array_merge($r['rawdata'], $rwdata);
-                $r['regrinfo']['tech'] = \generic_parser_b($rwdata, $items, 'ymd', false);
-                $whoisClient->set_whois_info($r);
+                $r['regrinfo']['tech'] = WhoisParser::generic_parser_b($rwdata, $items, 'ymd', false);
+                $whoisClient->setWhoisInfo($r);
             }
         }
 

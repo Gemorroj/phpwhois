@@ -29,9 +29,9 @@ if (!\defined('__RE_HANDLER__')) {
     \define('__RE_HANDLER__', 1);
 }
 
-class re_handler extends WhoisHandler
+class re_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -59,7 +59,7 @@ class re_handler extends WhoisHandler
             'nsl-id' => 'nserver',
         ];
 
-        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmY');
+        $reg = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmY');
 
         if (isset($reg['nserver'])) {
             $reg['domain'] = \array_merge($reg['domain'], $reg['nserver']);

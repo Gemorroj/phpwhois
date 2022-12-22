@@ -29,9 +29,9 @@ if (!\defined('__NAMEKING_HANDLER__')) {
     \define('__NAMEKING_HANDLER__', 1);
 }
 
-class nameking_handler extends WhoisHandler
+class nameking_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant',
@@ -63,6 +63,6 @@ class nameking_handler extends WhoisHandler
             'city, province, post code:' => 'address.city',
         ];
 
-        return \easy_parser($data_str, $items, 'mdy', $extra, false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'mdy', $extra, false, true);
     }
 }

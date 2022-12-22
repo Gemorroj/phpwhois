@@ -29,9 +29,9 @@ if (!\defined('__ZANET_HANDLER__')) {
     \define('__ZANET_HANDLER__', 1);
 }
 
-class zanet_handler extends WhoisHandler
+class zanet_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -64,23 +64,23 @@ class zanet_handler extends WhoisHandler
             $rawdata[] = $line;
         }
 
-        $r['regrinfo'] = \get_blocks($rawdata, $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($rawdata, $items);
 
         if (isset($r['regrinfo']['registered'])) {
             $r['regrinfo']['registered'] = 'no';
         } else {
             if (isset($r['regrinfo']['admin'])) {
-                $r['regrinfo']['admin'] = \get_contact($r['regrinfo']['admin']);
+                $r['regrinfo']['admin'] = WhoisParser::get_contact($r['regrinfo']['admin']);
             }
 
             if (isset($r['regrinfo']['tech'])) {
-                $r['regrinfo']['tech'] = \get_contact($r['regrinfo']['tech']);
+                $r['regrinfo']['tech'] = WhoisParser::get_contact($r['regrinfo']['tech']);
             }
         }
 
         $r['regyinfo']['referrer'] = 'http://www.za.net/'; // or http://www.za.org
         $r['regyinfo']['registrar'] = 'ZA NiC';
 
-        return \format_dates($r, 'xmdxxy');
+        return WhoisParser::format_dates($r, 'xmdxxy');
     }
 }

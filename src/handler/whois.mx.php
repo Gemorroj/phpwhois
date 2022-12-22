@@ -29,9 +29,9 @@ if (!\defined('__MX_HANDLER__')) {
     \define('__MX_HANDLER__', 1);
 }
 
-class mx_handler extends WhoisHandler
+class mx_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -52,7 +52,7 @@ class mx_handler extends WhoisHandler
             'dns:' => '0',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'dmy', $extra);
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'dmy', $extra);
 
         $r['regyinfo'] = [
             'registrar' => 'NIC Mexico',

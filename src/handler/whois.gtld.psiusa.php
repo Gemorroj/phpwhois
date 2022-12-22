@@ -29,9 +29,9 @@ if (!\defined('__PSIUSA_HANDLER__')) {
     \define('__PSIUSA_HANDLER__', 1);
 }
 
-class psiusa_handler extends WhoisHandler
+class psiusa_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'created:' => 'domain.created',
@@ -83,6 +83,6 @@ class psiusa_handler extends WhoisHandler
             '[zone-c] email:' => 'zone.email',
         ];
 
-        return \generic_parser_b($data_str, $items);
+        return WhoisParser::generic_parser_b($data_str, $items);
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__IANA_HANDLER__')) {
     \define('__IANA_HANDLER__', 1);
 }
 
-class iana_handler extends WhoisHandler
+class iana_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'admin' => 'contact:      administrative',
@@ -44,6 +44,6 @@ class iana_handler extends WhoisHandler
             'disclaimer.' => '% ',
         ];
 
-        return \easy_parser($data_str, $items, 'Ymd', [], false, false, 'owner');
+        return WhoisParser::easy_parser($data_str, $items, 'Ymd', [], false, false, 'owner');
     }
 }

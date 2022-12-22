@@ -36,9 +36,9 @@ if (!\defined('__RO_HANDLER__')) {
     \define('__RO_HANDLER__', 1);
 }
 
-class ro_handler extends WhoisHandler
+class ro_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -65,17 +65,17 @@ class ro_handler extends WhoisHandler
             'postal code:' => 'address.pcode',
         ];
 
-        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['description'])) {
-            $reg['owner'] = \get_contact($reg['domain']['description'], $extra);
+            $reg['owner'] = WhoisParser::get_contact($reg['domain']['description'], $extra);
             unset($reg['domain']['description']);
 
             foreach ($reg as $key => $item) {
                 if (isset($item['address'])) {
                     $data = $item['address'];
                     unset($reg[$key]['address']);
-                    $reg[$key] = \array_merge($reg[$key], \get_contact($data, $extra));
+                    $reg[$key] = \array_merge($reg[$key], WhoisParser::get_contact($data, $extra));
                 }
             }
 

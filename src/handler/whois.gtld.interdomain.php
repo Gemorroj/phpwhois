@@ -29,9 +29,9 @@ if (!\defined('__INTERDOMAIN_HANDLER__')) {
     \define('__INTERDOMAIN_HANDLER__', 1);
 }
 
-class interdomain_handler extends WhoisHandler
+class interdomain_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'Domain Name................' => 'domain.name',
@@ -73,6 +73,6 @@ class interdomain_handler extends WhoisHandler
             'Technical Fax............' => 'tech.fax',
         ];
 
-        return \generic_parser_b($data_str, $items, 'dmy');
+        return WhoisParser::generic_parser_b($data_str, $items, 'dmy');
     }
 }

@@ -29,12 +29,12 @@ if (!\defined('__CO_HANDLER__')) {
     \define('__CO_HANDLER__', 1);
 }
 
-class co_handler extends WhoisHandler
+class co_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], [], '-md--y');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], [], '-md--y');
         $r['regyinfo']['referrer'] = 'http://www.cointernet.com.co/';
         $r['regyinfo']['registrar'] = '.CO Internet, S.A.S.';
 

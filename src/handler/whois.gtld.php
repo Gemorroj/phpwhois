@@ -29,7 +29,7 @@ if (!\defined('__GTLD_HANDLER__')) {
     \define('__GTLD_HANDLER__', 1);
 }
 
-class gtld_handler extends WhoisHandler
+class gtld_handler extends WhoisHandlerAbstract
 {
     public string $HANDLER_VERSION = '1.1';
     public string $SUBVERSION;
@@ -51,12 +51,12 @@ class gtld_handler extends WhoisHandler
         'No match for ' => 'nodomain',
     ];
 
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         if (\is_array($query) && \array_key_exists('handler', $query)) {
             $this->SUBVERSION = \sprintf('%s-%s', $query['handler'], $this->HANDLER_VERSION);
         }
-        $this->result = \generic_parser_b($data['rawdata'], $this->REG_FIELDS, 'dmy');
+        $this->result = WhoisParser::generic_parser_b($data['rawdata'], $this->REG_FIELDS, 'dmy');
 
         unset($this->result['registered']);
 
@@ -67,7 +67,7 @@ class gtld_handler extends WhoisHandler
             return $this->result;
         }
 
-        if ($whoisClient->deep_whois) {
+        if ($whoisClient->deepWhois) {
             $this->result = $whoisClient->DeepWhois($query, $this->result);
         }
 

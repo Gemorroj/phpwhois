@@ -29,12 +29,12 @@ if (!\defined('__CAT_HANDLER__')) {
     \define('__CAT_HANDLER__', 1);
 }
 
-class cat_handler extends WhoisHandler
+class cat_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata']);
 
         if (!isset($r['regrinfo']['domain']['name'])) {
             $r['regrinfo']['registered'] = 'no';

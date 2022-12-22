@@ -29,9 +29,9 @@ if (!\defined('__CZ_HANDLER__')) {
     \define('__CZ_HANDLER__', 1);
 }
 
-class cz_handler extends WhoisHandler
+class cz_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -55,7 +55,7 @@ class cz_handler extends WhoisHandler
             'registrant' => 'owner',
         ];
 
-        $r['regrinfo'] = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmy');
+        $r['regrinfo'] = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'dmy');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.cz',

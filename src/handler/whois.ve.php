@@ -30,9 +30,9 @@ if (!\defined('__VE_HANDLER__')) {
     \define('__VE_HANDLER__', 1);
 }
 
-class ve_handler extends WhoisHandler
+class ve_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -48,7 +48,7 @@ class ve_handler extends WhoisHandler
             'domain.nserver' => 'Servidor(es) de Nombres de Dominio',
         ];
 
-        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (!isset($r['regrinfo']['domain']['created']) || \is_array($r['regrinfo']['domain']['created'])) {
             $r['regrinfo'] = ['registered' => 'no'];
@@ -65,7 +65,7 @@ class ve_handler extends WhoisHandler
         }
 
         $r['regrinfo']['domain']['nserver'] = $dns;
-        $r['regrinfo'] = \get_contacts($r['regrinfo']);
+        $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo']);
         $r['regyinfo'] = [
             'referrer' => 'http://registro.nic.ve',
             'registrar' => 'NIC-Venezuela - CNTI',

@@ -29,9 +29,9 @@ if (!\defined('__TMAGNIC_HANDLER__')) {
     \define('__TMAGNIC_HANDLER__', 1);
 }
 
-class tmagnic_handler extends WhoisHandler
+class tmagnic_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Owner Contact:',
@@ -45,6 +45,6 @@ class tmagnic_handler extends WhoisHandler
             '#' => 'Punycode Name:',
         ];
 
-        return \easy_parser($data_str, $items, 'ymd', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'ymd', [], false, true);
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__LT_HANDLER__')) {
     \define('__LT_HANDLER__', 1);
 }
 
-class lt_handler extends WhoisHandler
+class lt_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -52,7 +52,7 @@ class lt_handler extends WhoisHandler
             '' => '%',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $translate);
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'ymd', $translate);
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.domreg.lt',

@@ -29,7 +29,7 @@ if (!\defined('__IP_HANDLER__')) {
     \define('__IP_HANDLER__', 1);
 }
 
-class ip_handler extends WhoisHandler
+class ip_handler extends WhoisHandlerAbstract
 {
     public string $HANDLER_VERSION = '1.0';
 
@@ -54,7 +54,7 @@ class ip_handler extends WhoisHandler
     public array $more_data = [];    // More queries to get more accurated data
     public array $done = [];
 
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         $result = [];
         $result['regrinfo'] = [];
@@ -68,7 +68,7 @@ class ip_handler extends WhoisHandler
             $result['regyinfo']['type'] = 'ip';
         }
 
-        if (!$whoisClient->deep_whois) {
+        if (!$whoisClient->deepWhois) {
             return null;
         }
 
@@ -153,7 +153,7 @@ class ip_handler extends WhoisHandler
                 }
 
                 $result = $this->parse_results($whoisClient, $result, $rwdata, $query, $srv_data['reset']);
-                $whoisClient->set_whois_info($result);
+                $whoisClient->setWhoisInfo($result);
             }
         }
 
@@ -172,7 +172,7 @@ class ip_handler extends WhoisHandler
 
     // -----------------------------------------------------------------
 
-    protected function handle_rwhois(string $server, string $query): void
+    private function handle_rwhois(string $server, string $query): void
     {
         // Avoid querying the same server twice
 
@@ -209,7 +209,7 @@ class ip_handler extends WhoisHandler
 
     // -----------------------------------------------------------------
 
-    private function parse_results(WhoisClient $whoisClient, array $result, array $rwdata, string $query, bool $reset): array
+    private function parse_results(Whois $whoisClient, array $result, array $rwdata, string $query, bool $reset): array
     {
         $rwres = $whoisClient->Process($rwdata);
 
@@ -233,7 +233,7 @@ class ip_handler extends WhoisHandler
             }
         }
 
-        if ($whoisClient->deep_whois) {
+        if ($whoisClient->deepWhois) {
             if (isset($rwres['regrinfo']['rwhois'])) {
                 $this->handle_rwhois($rwres['regrinfo']['rwhois'], $query);
                 unset($result['regrinfo']['rwhois']);
@@ -261,7 +261,7 @@ class ip_handler extends WhoisHandler
 
     // -----------------------------------------------------------------
 
-    protected function join_result(array $result, string $key, array $newres): array
+    private function join_result(array $result, string $key, array $newres): array
     {
         if (isset($result['regrinfo'][$key]) && !\array_key_exists(0, $result['regrinfo'][$key])) {
             $r = $result['regrinfo'][$key];

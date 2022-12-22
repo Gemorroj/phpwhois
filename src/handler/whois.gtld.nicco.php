@@ -29,9 +29,9 @@ if (!\defined('__NICCO_HANDLER__')) {
     \define('__NICCO_HANDLER__', 1);
 }
 
-class nicco_handler extends WhoisHandler
+class nicco_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Holder Contact',
@@ -51,11 +51,11 @@ class nicco_handler extends WhoisHandler
             'postal code:' => 'address.zip',
         ];
 
-        $r = \get_blocks($data_str, $items, true);
-        $r['owner'] = \get_contact($r['owner'], $translate);
-        $r['admin'] = \get_contact($r['admin'], $translate, true);
-        $r['tech'] = \get_contact($r['tech'], $translate, true);
+        $r = WhoisParser::get_blocks($data_str, $items, true);
+        $r['owner'] = WhoisParser::get_contact($r['owner'], $translate);
+        $r['admin'] = WhoisParser::get_contact($r['admin'], $translate, true);
+        $r['tech'] = WhoisParser::get_contact($r['tech'], $translate, true);
 
-        return \format_dates($r, 'dmy');
+        return WhoisParser::format_dates($r, 'dmy');
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__CL_HANDLER__')) {
     \define('__CL_HANDLER__', 1);
 }
 
-class cl_handler extends WhoisHandler
+class cl_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,7 +45,7 @@ class cl_handler extends WhoisHandler
             'organización:' => 'organization',
             'nombre      :' => 'name', ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'd-m-y', $trans);
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'd-m-y', $trans);
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.cl',
             'registrar' => 'NIC Chile',

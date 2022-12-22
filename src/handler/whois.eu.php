@@ -29,9 +29,9 @@ if (!\defined('__EU_HANDLER__')) {
     \define('__EU_HANDLER__', 1);
 }
 
-class eu_handler extends WhoisHandler
+class eu_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         $r = [];
         $items = [
@@ -50,7 +50,7 @@ class eu_handler extends WhoisHandler
             'website:' => 'url',
         ];
 
-        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
             switch ($r['regrinfo']['domain']['status']) {
@@ -73,11 +73,11 @@ class eu_handler extends WhoisHandler
         }
 
         if (isset($r['regrinfo']['tech'])) {
-            $r['regrinfo']['tech'] = \get_contact($r['regrinfo']['tech'], $extra);
+            $r['regrinfo']['tech'] = WhoisParser::get_contact($r['regrinfo']['tech'], $extra);
         }
 
         if (isset($r['regrinfo']['domain']['registrar'])) {
-            $r['regrinfo']['domain']['registrar'] = \get_contact($r['regrinfo']['domain']['registrar'], $extra);
+            $r['regrinfo']['domain']['registrar'] = WhoisParser::get_contact($r['regrinfo']['domain']['registrar'], $extra);
         }
 
         $r['regyinfo']['referrer'] = 'http://www.eurid.eu';

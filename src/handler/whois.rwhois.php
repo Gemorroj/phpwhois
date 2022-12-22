@@ -29,9 +29,9 @@ if (!\defined('__RWHOIS_HANDLER__')) {
     \define('__RWHOIS_HANDLER__', 1);
 }
 
-class rwhois_handler extends WhoisHandler
+class rwhois_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'network:Organization-Name:' => 'owner.name',
@@ -49,7 +49,7 @@ class rwhois_handler extends WhoisHandler
             'network:Admin-Contact;I:' => 'admin.email',
         ];
 
-        $res = \generic_parser_b($data_str, $items, 'Ymd', false);
+        $res = WhoisParser::generic_parser_b($data_str, $items, 'Ymd', false);
         if (isset($res['disclaimer'])) {
             unset($res['disclaimer']);
         }

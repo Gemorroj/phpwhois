@@ -29,9 +29,9 @@ if (!\defined('__CA_HANDLER__')) {
     \define('__CA_HANDLER__', 1);
 }
 
-class ca_handler extends WhoisHandler
+class ca_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -53,7 +53,7 @@ class ca_handler extends WhoisHandler
             'description:' => 'organization',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         if (!empty($r['regrinfo']['domain']['sponsor'])) {
             [$v, $reg] = \explode(':', $r['regrinfo']['domain']['sponsor'][0]);

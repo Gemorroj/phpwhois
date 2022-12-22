@@ -29,9 +29,9 @@ if (!\defined('__CH_HANDLER__')) {
     \define('__CH_HANDLER__', 1);
 }
 
-class ch_handler extends WhoisHandler
+class ch_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -48,19 +48,19 @@ class ch_handler extends WhoisHandler
             'contractual language:' => 'language',
         ];
 
-        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['name'])) {
-            $r['regrinfo'] = \get_contacts($r['regrinfo'], $trans);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo'], $trans);
 
             $r['regrinfo']['domain']['name'] = $r['regrinfo']['domain']['name'][0];
 
             if (isset($r['regrinfo']['domain']['changed'][0])) {
-                $r['regrinfo']['domain']['changed'] = \get_date($r['regrinfo']['domain']['changed'][0], 'dmy');
+                $r['regrinfo']['domain']['changed'] = WhoisParser::get_date($r['regrinfo']['domain']['changed'][0], 'dmy');
             }
 
             if (isset($r['regrinfo']['domain']['created'][0])) {
-                $r['regrinfo']['domain']['created'] = \get_date($r['regrinfo']['domain']['created'][0], 'dmy');
+                $r['regrinfo']['domain']['created'] = WhoisParser::get_date($r['regrinfo']['domain']['created'][0], 'dmy');
             }
 
             $r['regrinfo']['registered'] = 'yes';

@@ -29,10 +29,10 @@ if (!\defined('__GENERICB_HANDLER__')) {
     \define('__GENERICB_HANDLER__', 1);
 }
 
-class genericb_handler extends WhoisHandler
+class genericb_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
-        return \generic_parser_b($data_str);
+        return WhoisParser::generic_parser_b($data_str);
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__UK_HANDLER__')) {
     \define('__UK_HANDLER__', 1);
 }
 
-class uk_handler extends WhoisHandler
+class uk_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -49,14 +49,14 @@ class uk_handler extends WhoisHandler
             'disclaimer' => '--',
         ];
 
-        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (isset($r['regrinfo']['owner'])) {
             $r['regrinfo']['owner']['organization'] = $r['regrinfo']['owner']['organization'][0];
             $r['regrinfo']['domain']['sponsor'] = $r['regrinfo']['domain']['sponsor'][0];
             $r['regrinfo']['registered'] = 'yes';
 
-            $r = \format_dates($r, 'dmy');
+            $r = WhoisParser::format_dates($r, 'dmy');
         } else {
             if (\strpos($data_str['rawdata'][1], 'Error for ')) {
                 $r['regrinfo']['registered'] = 'yes';

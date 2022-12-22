@@ -29,9 +29,9 @@ if (!\defined('__JOKER_HANDLER__')) {
     \define('__JOKER_HANDLER__', 1);
 }
 
-class joker_handler extends WhoisHandler
+class joker_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $translate = [
             'contact-hdl' => 'handle',
@@ -60,7 +60,7 @@ class joker_handler extends WhoisHandler
             'address' => 'address',
         ];
 
-        $r = \generic_parser_a($data_str, $translate, $contacts, 'domain', 'Ymd');
+        $r = WhoisParser::generic_parser_a($data_str, $translate, $contacts, 'domain', 'Ymd');
 
         foreach ($items as $tag => $convert) {
             if (isset($r['domain'][$tag])) {

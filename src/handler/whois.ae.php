@@ -29,9 +29,9 @@ if (!\defined('__AE_HANDLER__')) {
     \define('__AE_HANDLER__', 1);
 }
 
-class ae_handler extends WhoisHandler
+class ae_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,7 +45,7 @@ class ae_handler extends WhoisHandler
             'Name Server:' => 'domain.nserver.',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.ae',

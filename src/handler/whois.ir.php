@@ -23,9 +23,9 @@ if (!\defined('__IR_HANDLER__')) {
     \define('__IR_HANDLER__', 1);
 }
 
-class ir_handler extends WhoisHandler
+class ir_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -43,7 +43,7 @@ class ir_handler extends WhoisHandler
             'holder-c' => 'owner',
         ];
 
-        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [

@@ -29,9 +29,9 @@ if (!\defined('__NZ_HANDLER__')) {
     \define('__NZ_HANDLER__', 1);
 }
 
-class nz_handler extends WhoisHandler
+class nz_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -77,7 +77,7 @@ class nz_handler extends WhoisHandler
             'technical_contact_email:' => 'tech.email',
         ];
 
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
             $domain_status = \substr($r['regrinfo']['domain']['status'], 0, 3);

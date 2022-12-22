@@ -29,9 +29,9 @@ if (!\defined('__SI_HANDLER__')) {
     \define('__SI_HANDLER__', 1);
 }
 
-class si_handler extends WhoisHandler
+class si_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -44,7 +44,7 @@ class si_handler extends WhoisHandler
             'tech-c' => 'tech',
         ];
 
-        $r['regrinfo'] = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.arnes.si',
             'registrar' => 'ARNES',

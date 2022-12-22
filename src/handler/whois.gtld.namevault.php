@@ -29,9 +29,9 @@ if (!\defined('__NAMEVAULT_HANDLER__')) {
     \define('__NAMEVAULT_HANDLER__', 1);
 }
 
-class namevault_handler extends WhoisHandler
+class namevault_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant',
@@ -45,6 +45,6 @@ class namevault_handler extends WhoisHandler
             'domain.status' => 'Status:',
         ];
 
-        return \easy_parser($data_str, $items, 'dmy', [], true, true);
+        return WhoisParser::easy_parser($data_str, $items, 'dmy', [], true, true);
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__DE_HANDLER__')) {
     \define('__DE_HANDLER__', 1);
 }
 
-class de_handler extends WhoisHandler
+class de_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -56,7 +56,7 @@ class de_handler extends WhoisHandler
             'type:' => '',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'ymd', $extra);
 
         $r['regyinfo'] = [
             'registrar' => 'DENIC eG',

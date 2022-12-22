@@ -4,9 +4,9 @@ if (!\defined('__AM_HANDLER__')) {
     \define('__AM_HANDLER__', 1);
 }
 
-class am_handler extends WhoisHandler
+class am_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -20,10 +20,10 @@ class am_handler extends WhoisHandler
             'admin' => 'Administrative contact:',
         ];
 
-        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['name'])) {
-            $r['regrinfo'] = \get_contacts($r['regrinfo']);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
         } else {
             $r = [];

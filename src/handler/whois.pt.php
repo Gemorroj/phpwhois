@@ -34,9 +34,9 @@ if (!\defined('__PT_HANDLER__')) {
     \define('__PT_HANDLER__', 1);
 }
 
-class pt_handler extends WhoisHandler
+class pt_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -51,7 +51,7 @@ class pt_handler extends WhoisHandler
             '#' => 'Nameserver Information',
         ];
 
-        $r['regrinfo'] = \get_blocks($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (empty($r['regrinfo']['domain']['name'])) {
             $r['regrinfo']['registered'] = 'no';
@@ -59,10 +59,10 @@ class pt_handler extends WhoisHandler
             return $r;
         }
 
-        $r['regrinfo']['domain']['created'] = \get_date($r['regrinfo']['domain']['created'], 'dmy');
+        $r['regrinfo']['domain']['created'] = WhoisParser::get_date($r['regrinfo']['domain']['created'], 'dmy');
 
         if ('ACTIVE' === $r['regrinfo']['domain']['status']) {
-            $r['regrinfo'] = \get_contacts($r['regrinfo']);
+            $r['regrinfo'] = WhoisParser::get_contacts($r['regrinfo']);
             $r['regrinfo']['registered'] = 'yes';
         } else {
             $r['regrinfo']['registered'] = 'no';

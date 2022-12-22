@@ -29,9 +29,9 @@ if (!\defined('__ENOM_HANDLER__')) {
     \define('__ENOM_HANDLER__', 1);
 }
 
-class enom_handler extends WhoisHandler
+class enom_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner#0' => 'Registrant Contact',
@@ -55,6 +55,6 @@ class enom_handler extends WhoisHandler
             'domain.expires#2' => 'Registered through-',
         ];
 
-        return \easy_parser($data_str, $items, 'dmy', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

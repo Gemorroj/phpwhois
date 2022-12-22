@@ -29,9 +29,9 @@ if (!\defined('__APNIC_HANDLER__')) {
     \define('__APNIC_HANDLER__', 1);
 }
 
-class apnic_handler extends WhoisHandler
+class apnic_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $translate = [
             'fax-no' => 'fax',
@@ -51,7 +51,7 @@ class apnic_handler extends WhoisHandler
         ];
 
         $disclaimer = [];
-        $blocks = \generic_parser_a_blocks($data_str, $translate, $disclaimer);
+        $blocks = WhoisParser::generic_parser_a_blocks($data_str, $translate, $disclaimer);
 
         if (isset($disclaimer) && \is_array($disclaimer)) {
             $r['disclaimer'] = $disclaimer;
@@ -87,7 +87,7 @@ class apnic_handler extends WhoisHandler
             }
 
             $r['network'] = $rb;
-            $r = \format_dates($r, 'Ymd');
+            $r = WhoisParser::format_dates($r, 'Ymd');
 
             if (isset($r['network']['desc'])) {
                 if (\is_array($r['network']['desc'])) {

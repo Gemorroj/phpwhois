@@ -29,9 +29,9 @@ if (!\defined('__GODADDY_HANDLER__')) {
     \define('__GODADDY_HANDLER__', 1);
 }
 
-class godaddy_handler extends WhoisHandler
+class godaddy_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -45,11 +45,11 @@ class godaddy_handler extends WhoisHandler
             'domain.sponsor' => 'Registered through:',
         ];
 
-        $r = \get_blocks($data_str, $items);
-        $r['owner'] = \get_contact($r['owner']);
-        $r['admin'] = \get_contact($r['admin'], [], true);
-        $r['tech'] = \get_contact($r['tech'], [], true);
+        $r = WhoisParser::get_blocks($data_str, $items);
+        $r['owner'] = WhoisParser::get_contact($r['owner']);
+        $r['admin'] = WhoisParser::get_contact($r['admin'], [], true);
+        $r['tech'] = WhoisParser::get_contact($r['tech'], [], true);
 
-        return \format_dates($r, 'dmy');
+        return WhoisParser::format_dates($r, 'dmy');
     }
 }

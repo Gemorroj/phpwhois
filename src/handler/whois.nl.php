@@ -29,9 +29,9 @@ if (!\defined('__NL_HANDLER__')) {
     \define('__NL_HANDLER__', 1);
 }
 
-class nl_handler extends WhoisHandler
+class nl_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,7 +45,7 @@ class nl_handler extends WhoisHandler
             'tech' => 'Technical contact(s):',
         ];
 
-        $r['regrinfo'] = \get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
         $r['regyinfo']['referrer'] = 'http://www.domain-registry.nl';
         $r['regyinfo']['registrar'] = 'Stichting Internet Domeinregistratie NL';
 
@@ -73,12 +73,12 @@ class nl_handler extends WhoisHandler
 
         $r['regrinfo']['registered'] = 'yes';
 
-        return \format_dates($r, 'dmy');
+        return WhoisParser::format_dates($r, 'dmy');
     }
 
-    protected function get_contact(array $data): array
+    private function get_contact(array $data): array
     {
-        $r = \get_contact($data);
+        $r = WhoisParser::get_contact($data);
 
         if (isset($r['name']) && \preg_match('/^[A-Z0-9]+-[A-Z0-9]+$/', $r['name'])) {
             $r['handle'] = $r['name'];

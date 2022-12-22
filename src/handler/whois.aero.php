@@ -29,12 +29,12 @@ if (!\defined('__AERO_HANDLER__')) {
     \define('__AERO_HANDLER__', 1);
 }
 
-class aero_handler extends WhoisHandler
+class aero_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], [], 'ymd');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], [], 'ymd');
         $r['regyinfo'] = [
             'referrer' => 'http://www.nic.aero',
             'registrar' => 'Societe Internationale de Telecommunications Aeronautiques SC',

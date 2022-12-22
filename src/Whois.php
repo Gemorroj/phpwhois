@@ -23,12 +23,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
+ */
 
-abstract class WhoisClient
+class Whois
 {
     // Recursion allowed ?
-    public bool $gtld_recurse = true;
+    public bool $gtldRecurse = true;
 
     // Default WHOIS port
     public int $PORT = 43;
@@ -72,7 +72,6 @@ abstract class WhoisClient
 
     // This release of the package
     public string $CODE_VERSION = '4.2.2';
-
     public string $DATA_VERSION = '19';
 
     // handled gTLD whois servers
@@ -101,7 +100,7 @@ abstract class WhoisClient
         'whois.nicline.com' => 1,
         'whois.ripe.net' => 1,
     ];
-    public bool $deep_whois = true;
+    public bool $deepWhois = true;
     // Non ICANN TLD's
     public array $WHOIS_NON_ICANN = [
         'agent' => 'http://www.new.net/search_whois.tp?domain={domain}&tld={tld}',
@@ -278,25 +277,31 @@ abstract class WhoisClient
     // Full code and data version string (e.g. 'Whois2.php v3.01:16')
     public string $VERSION;
 
-    // Constructor function
+    // Support for non-ICANN tld's
+    public bool $nonIcann = true;
+
+    // Network Solutions registry server
+    public string $NSI_REGISTRY = 'whois.nsiregistry.net';
+
     public function __construct()
     {
-        // Set version
         $this->VERSION = \sprintf('phpWhois v%s-%s', $this->CODE_VERSION, $this->DATA_VERSION);
     }
 
-    // Perform lookup
-    protected function GetData(string $query = '', bool $deep_whois = true): array
+    /**
+     * Perform lookup.
+     */
+    private function GetData(bool $deepWhois = true): array
     {
-        $this->deep_whois = $deep_whois;
+        $this->deepWhois = $deepWhois;
         // If domain to query passed in, use it, otherwise use domain from initialisation
-        $query = !empty($query) ? $query : $this->Query['query'];
+        $query = $this->Query['query'];
 
         $output = $this->GetRawData($query);
 
         // Create result and set 'rawdata'
         $result = ['rawdata' => $output];
-        $this->set_whois_info($result);
+        $this->setWhoisInfo($result);
 
         // Return now on error
         if (empty($output)) {
@@ -310,7 +315,7 @@ abstract class WhoisClient
             unset($result['regyinfo']['servers']);
 
             // Process data
-            $result = $this->Process($result, $deep_whois);
+            $result = $this->Process($result, $deepWhois);
 
             // Add new servers to the server list
             if (isset($result['regyinfo']['servers'])) {
@@ -343,9 +348,7 @@ abstract class WhoisClient
         return $result;
     }
 
-    abstract protected function FixResult(array &$result, string $domain): void;
-
-    /*
+    /**
      * Perform lookup. Returns an array. The 'rawdata' element contains an
      * array of lines gathered from the whois query. If a top level domain
      * handler class was found for the domain, other elements will have been
@@ -379,13 +382,13 @@ abstract class WhoisClient
                 return [];
             }
 
-            $this->Query['args'] = \substr(\strchr($this->Query['server'], '?'), 1);
+            $this->Query['args'] = \substr(\strstr($this->Query['server'], '?'), 1);
             $this->Query['server'] = \strtok($this->Query['server'], '?');
 
             if (0 === \strpos($this->Query['server'], 'http://')) {
                 $this->Query['server_port'] = 80;
             } else {
-                $this->Query['server_port'] = 483;
+                $this->Query['server_port'] = 443;
             }
         } else {
             // Get args
@@ -471,7 +474,7 @@ abstract class WhoisClient
             }
 
             if (\array_key_exists($this->Query['server'], $this->NON_UTF8)) {
-                $raw = \utf8_encode($raw);
+                $raw = \iconv('ISO-8859-1', 'UTF-8', $raw);
             }
 
             $output = \explode("\n", $raw);
@@ -485,7 +488,7 @@ abstract class WhoisClient
         return $output;
     }
 
-    protected function httpQuery(): ?array
+    private function httpQuery(): ?array
     {
         $lines = @\file($this->Query['server']);
 
@@ -554,7 +557,7 @@ abstract class WhoisClient
      *
      * @return int|resource
      */
-    protected function Connect()
+    private function Connect()
     {
         $server = $this->Query['server'];
 
@@ -608,8 +611,10 @@ abstract class WhoisClient
         return -1;
     }
 
-    // Adds whois server query information to result
-    public function set_whois_info(array &$result): void
+    /**
+     * Adds whois server query information to result.
+     */
+    public function setWhoisInfo(array &$result): void
     {
         $info = [
             'server' => $this->Query['server'],
@@ -638,13 +643,13 @@ abstract class WhoisClient
         $result['regyinfo']['servers'][] = $info;
     }
 
-    /*
+    /**
      * Post-process result with handler class. On success, returns the result
      * from the handler. On failure, returns passed result unaltered.
      */
-    public function Process(array &$result, bool $deep_whois = true): ?array
+    public function Process(array &$result, bool $deepWhois = true): ?array
     {
-        $this->deep_whois = $deep_whois;
+        $this->deepWhois = $deepWhois;
         $handler_name = \str_replace('.', '_', $this->Query['handler']);
 
         // If the handler has not already been included somehow, include it now
@@ -661,21 +666,21 @@ abstract class WhoisClient
             return $result;
         }
 
-        if (!$this->gtld_recurse && 'whois.gtld.php' === $this->Query['file']) {
+        if (!$this->gtldRecurse && 'whois.gtld.php' === $this->Query['file']) {
             return $result;
         }
 
         // Pass result to handler
         $className = $handler_name.'_handler';
 
-        /** @var WhoisHandler $handler */
+        /** @var WhoisHandlerAbstract $handler */
         $handler = new $className();
 
         // Process
         return $handler->parse($this, $result, $this->Query['query']);
     }
 
-    // Does more (deeper) whois ...
+    /** Does more (deeper) whois ... */
     public function DeepWhois(string $query, array $result): array
     {
         if (!isset($result['regyinfo']['whois'])) {
@@ -687,7 +692,7 @@ abstract class WhoisClient
         $subresult = $this->GetRawData($query);
 
         if (!empty($subresult)) {
-            $this->set_whois_info($result);
+            $this->setWhoisInfo($result);
             $result['rawdata'] = $subresult;
 
             if (isset($this->WHOIS_GTLD_HANDLER[$wserver])) {
@@ -712,8 +717,7 @@ abstract class WhoisClient
         return $result;
     }
 
-    // Merge results
-    protected function merge_results(array $a1, array $a2): array
+    private function merge_results(array $a1, array $a2): array
     {
         foreach ($a2 as $key => $val) {
             if (isset($a1[$key])) {
@@ -788,7 +792,7 @@ abstract class WhoisClient
         return $dns;
     }
 
-    public function isValidIp(string $ip): bool
+    private function isValidIp(string $ip): bool
     {
         if (empty($ip)) {
             return false;
@@ -826,7 +830,7 @@ abstract class WhoisClient
     /**
      * Get real client ip address.
      */
-    public function getClientIp(): string
+    private function getClientIp(): string
     {
         if (isset($_SERVER['HTTP_CLIENT_IP']) && $this->isValidIp($_SERVER['HTTP_CLIENT_IP'])) {
             return $_SERVER['HTTP_CLIENT_IP'];
@@ -859,37 +863,250 @@ abstract class WhoisClient
         return $_SERVER['REMOTE_ADDR'];
     }
 
-    /**
-     * Convert from CIDR to net range.
-     */
-    public function cidrToNetRange(string $net): string
+    public function UseServer(string $tld, string $server): void
     {
-        $start = \strtok($net, '/');
-        $n = 3 - \substr_count($net, '.');
+        $this->WHOIS_SPECIAL[$tld] = $server;
+    }
 
-        if ($n > 0) {
-            for ($i = $n; $i > 0; --$i) {
-                $start .= '.0';
+    /**
+     * @throws \Algo26\IdnaConvert\Exception\AlreadyPunycodeException
+     * @throws \Algo26\IdnaConvert\Exception\InvalidCharacterException
+     */
+    public function Lookup(string $query): ?array
+    {
+        // start clean
+        $this->Query = ['status' => ''];
+        $query = \trim($query);
+
+        // If domain to query was not set
+        if ('' === $query) {
+            // Configure to use default whois server
+            $this->Query['server'] = $this->NSI_REGISTRY;
+
+            return null;
+        }
+
+        $IDN = new \Algo26\IdnaConvert\ToIdn();
+        $query = $IDN->convert($query);
+
+        // Set domain to query in query array
+        $this->Query['query'] = $domain = \strtolower($query);
+
+        // If query is an ip address do ip lookup
+        if ($query === \long2ip(\ip2long($query))) {
+            // IPv4 Prepare to do lookup via the 'ip' handler
+            $ip = @\gethostbyname($query);
+
+            if (isset($this->WHOIS_SPECIAL['ip'])) {
+                $this->Query['server'] = $this->WHOIS_SPECIAL['ip'];
+                $this->Query['args'] = $ip;
+            } else {
+                $this->Query['server'] = 'whois.arin.net';
+                $this->Query['args'] = "n {$ip}";
+                $this->Query['file'] = 'whois.ip.php';
+                $this->Query['handler'] = 'ip';
+            }
+            $this->Query['host_ip'] = $ip;
+            $this->Query['query'] = $ip;
+            $this->Query['tld'] = 'ip';
+            $this->Query['host_name'] = @\gethostbyaddr($ip);
+
+            return $this->GetData($this->deepWhois);
+        }
+
+        if (\strpos($query, ':')) {
+            // IPv6 AS Prepare to do lookup via the 'ip' handler
+            $ip = @\gethostbyname($query);
+
+            if (isset($this->WHOIS_SPECIAL['ip'])) {
+                $this->Query['server'] = $this->WHOIS_SPECIAL['ip'];
+            } else {
+                $this->Query['server'] = 'whois.ripe.net';
+                $this->Query['file'] = 'whois.ip.ripe.php';
+                $this->Query['handler'] = 'ripe';
+            }
+            $this->Query['query'] = $ip;
+            $this->Query['tld'] = 'ip';
+
+            return $this->GetData($this->deepWhois);
+        }
+
+        if (!\strpos($query, '.')) {
+            // AS Prepare to do lookup via the 'ip' handler
+            $ip = @\gethostbyname($query);
+            $this->Query['server'] = 'whois.arin.net';
+            if (0 === \stripos($ip, 'as')) {
+                $as = \substr($ip, 2);
+            } else {
+                $as = $ip;
+            }
+            $this->Query['args'] = "a {$as}";
+            $this->Query['file'] = 'whois.ip.php';
+            $this->Query['handler'] = 'ip';
+            $this->Query['query'] = $ip;
+            $this->Query['tld'] = 'as';
+
+            return $this->GetData($this->deepWhois);
+        }
+
+        // Build array of all possible tld's for that domain
+
+        $tld = '';
+        $server = '';
+        $dp = \explode('.', $domain);
+        $np = \count($dp) - 1;
+        $tldtests = [];
+
+        for ($i = 0; $i < $np; ++$i) {
+            \array_shift($dp);
+            $tldtests[] = \implode('.', $dp);
+        }
+
+        // Search the correct whois server
+
+        if ($this->nonIcann) {
+            $special_tlds = \array_merge($this->WHOIS_SPECIAL, $this->WHOIS_NON_ICANN);
+        } else {
+            $special_tlds = $this->WHOIS_SPECIAL;
+        }
+
+        foreach ($tldtests as $tld) {
+            // Test if we know in advance that no whois server is
+            // available for this domain and that we can get the
+            // data via http or whois request
+
+            if (isset($special_tlds[$tld])) {
+                $val = $special_tlds[$tld];
+
+                if (!$val) {
+                    return $this->Unknown();
+                }
+
+                $domain = \substr($query, 0, -\strlen($tld) - 1);
+                $val = \str_replace('{domain}', $domain, $val);
+                $server = \str_replace('{tld}', $tld, $val);
+
+                break;
             }
         }
 
-        $bits1 = \str_pad(\decbin(\ip2long($start)), 32, '0', 'STR_PAD_LEFT');
-        $net = 2 ** (32 - \substr(\strstr($net, '/'), 1)) - 1;
-        $bits2 = \str_pad(\decbin($net), 32, '0', 'STR_PAD_LEFT');
-        $final = '';
+        if (!$server) {
+            foreach ($tldtests as $tld) {
+                // Determine the top level domain, and it's whois server using
+                // DNS lookups on 'whois-servers.net'.
+                // Assumes a valid DNS response indicates a recognised tld (!?)
 
-        for ($i = 0; $i < 32; ++$i) {
-            if ($bits1[$i] == $bits2[$i]) {
-                $final .= $bits1[$i];
-            }
-            if (1 == $bits1[$i] && 0 == $bits2[$i]) {
-                $final .= $bits1[$i];
-            }
-            if (0 == $bits1[$i] && 1 == $bits2[$i]) {
-                $final .= $bits2[$i];
+                $cname = $tld.'.whois-servers.net';
+
+                if (\gethostbyname($cname) === $cname) {
+                    continue;
+                }
+                $server = $tld.'.whois-servers.net';
+
+                break;
             }
         }
 
-        return $start.' - '.\long2ip(\bindec($final));
+        if ($tld && $server) {
+            // If found, set tld and whois server in query array
+            $this->Query['server'] = $server;
+            $this->Query['tld'] = $tld;
+            $handler = null;
+
+            foreach ($tldtests as $htld) {
+                // special handler exists for the tld ?
+
+                if (isset($this->DATA[$htld])) {
+                    $handler = $this->DATA[$htld];
+
+                    break;
+                }
+
+                // Regular handler exists for the tld ?
+                if (($fp = @\fopen('whois.'.$htld.'.php', 'r', 1)) && \fclose($fp)) {
+                    $handler = $htld;
+
+                    break;
+                }
+            }
+
+            // If there is a handler set it
+
+            if ($handler) {
+                $this->Query['file'] = "whois.{$handler}.php";
+                $this->Query['handler'] = $handler;
+            }
+
+            // Special parameters ?
+
+            if (isset($this->WHOIS_PARAM[$server])) {
+                $this->Query['server'] .= '?'.\str_replace('$', $domain, $this->WHOIS_PARAM[$server]);
+            }
+
+            $result = $this->GetData($this->deepWhois);
+            $this->Checkdns($result);
+
+            return $result;
+        }
+
+        // If tld not known, and domain not in DNS, return error
+        return $this->Unknown();
+    }
+
+    // Unsupported domains
+    private function Unknown(): array
+    {
+        unset($this->Query['server']);
+        $this->Query['status'] = 'error';
+        $result['rawdata'][] = $this->Query['errstr'][] = $this->Query['query'].' domain is not supported';
+        $this->Checkdns($result);
+        $this->FixResult($result, $this->Query['query']);
+
+        return $result;
+    }
+
+    // Get nameservers if missing
+    private function Checkdns(array &$result): void
+    {
+        if ($this->deepWhois && empty($result['regrinfo']['domain']['nserver'])) {
+            $ns = @\dns_get_record($this->Query['query'], \DNS_NS);
+            if (!\is_array($ns)) {
+                return;
+            }
+            $nserver = [];
+            foreach ($ns as $row) {
+                $nserver[] = $row['target'];
+            }
+            if (\count($nserver) > 0) {
+                $result['regrinfo']['domain']['nserver'] = $this->FixNameServer($nserver);
+            }
+        }
+    }
+
+    // Fix and/or add name server information
+    private function FixResult(array &$result, string $domain): void
+    {
+        // Add usual fields
+        $result['regrinfo']['domain']['name'] = $domain;
+
+        // Check if nameservers exist
+
+        if (!isset($result['regrinfo']['registered'])) {
+            if (\checkdnsrr($domain, 'NS')) {
+                $result['regrinfo']['registered'] = 'yes';
+            } else {
+                $result['regrinfo']['registered'] = 'unknown';
+            }
+        }
+
+        // Normalize nameserver fields
+
+        if (isset($result['regrinfo']['domain']['nserver'])) {
+            if (!\is_array($result['regrinfo']['domain']['nserver'])) {
+                unset($result['regrinfo']['domain']['nserver']);
+            } else {
+                $result['regrinfo']['domain']['nserver'] = $this->FixNameServer($result['regrinfo']['domain']['nserver']);
+            }
+        }
     }
 }

@@ -29,9 +29,9 @@ if (!\defined('__KRNIC_HANDLER__')) {
     \define('__KRNIC_HANDLER__', 1);
 }
 
-class krnic_handler extends WhoisHandler
+class krnic_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $blocks = [
             'owner1' => '[ Organization Information ]',
@@ -70,7 +70,7 @@ class krnic_handler extends WhoisHandler
             'E-Mail             :' => 'email',
         ];
 
-        $b = \get_blocks($data_str, $blocks);
+        $b = WhoisParser::get_blocks($data_str, $blocks);
         $r = [];
 
         if (isset($b['network'])) {
@@ -78,30 +78,30 @@ class krnic_handler extends WhoisHandler
         }
 
         if (isset($b['owner1'])) {
-            $r['owner'] = \generic_parser_b($b['owner1'], $items, 'Ymd', false);
+            $r['owner'] = WhoisParser::generic_parser_b($b['owner1'], $items, 'Ymd', false);
         } elseif (isset($b['owner2'])) {
-            $r['owner'] = \generic_parser_b($b['owner2'], $items, 'Ymd', false);
+            $r['owner'] = WhoisParser::generic_parser_b($b['owner2'], $items, 'Ymd', false);
         }
 
         if (isset($b['admin2'])) {
-            $r['admin'] = \generic_parser_b($b['admin2'], $items, 'Ymd', false);
+            $r['admin'] = WhoisParser::generic_parser_b($b['admin2'], $items, 'Ymd', false);
         } elseif (isset($b['admin3'])) {
-            $r['admin'] = \generic_parser_b($b['admin3'], $items, 'Ymd', false);
+            $r['admin'] = WhoisParser::generic_parser_b($b['admin3'], $items, 'Ymd', false);
         }
 
         if (isset($b['tech1'])) {
-            $r['tech'] = \generic_parser_b($b['tech1'], $items, 'Ymd', false);
+            $r['tech'] = WhoisParser::generic_parser_b($b['tech1'], $items, 'Ymd', false);
         } elseif (isset($b['tech2'])) {
-            $r['tech'] = \generic_parser_b($b['tech2'], $items, 'Ymd', false);
+            $r['tech'] = WhoisParser::generic_parser_b($b['tech2'], $items, 'Ymd', false);
         } elseif (isset($b['tech3'])) {
-            $r['tech'] = \generic_parser_b($b['tech3'], $items, 'Ymd', false);
+            $r['tech'] = WhoisParser::generic_parser_b($b['tech3'], $items, 'Ymd', false);
         }
 
         if (isset($b['abuse'])) {
-            $r['abuse'] = \generic_parser_b($b['abuse'], $items, 'Ymd', false);
+            $r['abuse'] = WhoisParser::generic_parser_b($b['abuse'], $items, 'Ymd', false);
         }
 
-        $r = \format_dates($r, 'Ymd');
+        $r = WhoisParser::format_dates($r, 'Ymd');
 
         $r = ['regrinfo' => $r];
         $r['regyinfo']['type'] = 'ip';

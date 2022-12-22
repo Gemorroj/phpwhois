@@ -29,12 +29,12 @@ if (!\defined('__TEL_HANDLER__')) {
     \define('__TEL_HANDLER__', 1);
 }
 
-class tel_handler extends WhoisHandler
+class tel_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], [], '-md--y');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], [], '-md--y');
         $r['regyinfo'] = [
             'referrer' => 'http://www.telnic.org',
             'registrar' => 'Telnic',

@@ -29,9 +29,9 @@ if (!\defined('__PL_HANDLER__')) {
     \define('__PL_HANDLER__', 1);
 }
 
-class pl_handler extends WhoisHandler
+class pl_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -41,7 +41,7 @@ class pl_handler extends WhoisHandler
             '#' => 'WHOIS displays data with a delay not exceeding 15 minutes in relation to the .pl Registry system',
         ];
 
-        $r['regrinfo'] = \easy_parser($data_str['rawdata'], $items, 'ymd');
+        $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'ymd');
 
         $r['regyinfo'] = [
             'referrer' => 'http://www.dns.pl/english/index.html',

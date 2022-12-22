@@ -29,9 +29,9 @@ if (!\defined('__DIRECTNIC_HANDLER__')) {
     \define('__DIRECTNIC_HANDLER__', 1);
 }
 
-class directnic_handler extends WhoisHandler
+class directnic_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -46,6 +46,6 @@ class directnic_handler extends WhoisHandler
             '' => 'By submitting a WHOIS query',
         ];
 
-        return \easy_parser($data_str, $items, 'mdy', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'mdy', [], false, true);
     }
 }

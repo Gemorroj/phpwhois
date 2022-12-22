@@ -29,9 +29,9 @@ if (!\defined('__ASCIO_HANDLER__')) {
     \define('__ASCIO_HANDLER__', 1);
 }
 
-class ascio_handler extends WhoisHandler
+class ascio_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -44,6 +44,6 @@ class ascio_handler extends WhoisHandler
             'domain.changed' => 'Record last updated:',
         ];
 
-        return \easy_parser($data_str, $items, 'ymd', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'ymd', [], false, true);
     }
 }

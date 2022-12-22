@@ -29,9 +29,9 @@ if (!\defined('__LACNIC_HANDLER__')) {
     \define('__LACNIC_HANDLER__', 1);
 }
 
-class lacnic_handler extends WhoisHandler
+class lacnic_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $translate = [
             'fax-no' => 'fax',
@@ -51,7 +51,7 @@ class lacnic_handler extends WhoisHandler
             'admin-c' => 'admin',
         ];
 
-        $r = \generic_parser_a($data_str, $translate, $contacts, 'network');
+        $r = WhoisParser::generic_parser_a($data_str, $translate, $contacts, 'network');
 
         unset($r['network']['owner'], $r['network']['ownerid'], $r['network']['responsible'], $r['network']['address'], $r['network']['phone'], $r['network']['aut-num'], $r['network']['nsstat'], $r['network']['nslastaa'], $r['network']['inetrev']);
 

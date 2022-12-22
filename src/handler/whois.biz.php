@@ -29,12 +29,12 @@ if (!\defined('__BIZ_HANDLER__')) {
     \define('__BIZ_HANDLER__', 1);
 }
 
-class biz_handler extends WhoisHandler
+class biz_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata'], [], '-md--y');
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata'], [], '-md--y');
         $r['regyinfo'] = [
             'referrer' => 'http://www.neulevel.biz',
             'registrar' => 'NEULEVEL',

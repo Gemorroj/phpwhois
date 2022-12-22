@@ -29,9 +29,9 @@ if (!\defined('__DOMAINPEOPLE_HANDLER__')) {
     \define('__DOMAINPEOPLE_HANDLER__', 1);
 }
 
-class domainpeople_handler extends WhoisHandler
+class domainpeople_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant Contact:',
@@ -47,7 +47,7 @@ class domainpeople_handler extends WhoisHandler
             'domain.status' => 'Status:',
         ];
 
-        $r = \easy_parser($data_str, $items, 'dmy', [], false, true);
+        $r = WhoisParser::easy_parser($data_str, $items, 'dmy', [], false, true);
         if (isset($r['domain']['sponsor']) && \is_array($r['domain']['sponsor'])) {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];
         }

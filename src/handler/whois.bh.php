@@ -29,9 +29,9 @@ if (!\defined('__BH_HANDLER__')) {
     \define('__BH_HANDLER__', 1);
 }
 
-class bh_handler extends WhoisHandler
+class bh_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -40,8 +40,8 @@ class bh_handler extends WhoisHandler
             'Sponsoring Registrar Uri:' => 'domain.sponsor.uri',
             'Sponsoring Registrar Phone:' => 'domain.sponsor.phone',
         ];
-        $i = \generic_parser_b($data_str['rawdata'], $items);
-        $r['regrinfo'] = \generic_parser_b($data_str['rawdata']);
+        $i = WhoisParser::generic_parser_b($data_str['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::generic_parser_b($data_str['rawdata']);
         if (isset($r['regrinfo']['domain'])
             && \is_array($r['regrinfo']['domain'])) {
             $r['regrinfo']['domain']['sponsor'] = $i['domain']['sponsor'];

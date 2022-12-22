@@ -29,9 +29,9 @@ if (!\defined('__IL_HANDLER__')) {
     \define('__IL_HANDLER__', 1);
 }
 
-class il_handler extends WhoisHandler
+class il_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $translate = [
@@ -57,7 +57,7 @@ class il_handler extends WhoisHandler
         \array_splice($data_str['rawdata'], 16, 1);
         \array_splice($data_str['rawdata'], 18, 1);
 
-        $reg = \generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
+        $reg = WhoisParser::generic_parser_a($data_str['rawdata'], $translate, $contacts, 'domain', 'Ymd');
 
         if (isset($reg['domain']['remarks'])) {
             unset($reg['domain']['remarks']);

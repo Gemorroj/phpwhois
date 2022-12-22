@@ -29,9 +29,9 @@ if (!\defined('__CORPORATEDOMAINS_HANDLER__')) {
     \define('__CORPORATEDOMAINS_HANDLER__', 1);
 }
 
-class corporatedomains_handler extends WhoisHandler
+class corporatedomains_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -46,6 +46,6 @@ class corporatedomains_handler extends WhoisHandler
             'domain.nserver' => 'DNS Servers:',
         ];
 
-        return \easy_parser($data_str, $items, 'dmy', [], false, true);
+        return WhoisParser::easy_parser($data_str, $items, 'dmy', [], false, true);
     }
 }

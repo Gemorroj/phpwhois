@@ -29,9 +29,9 @@ if (!\defined('__ARIN_HANDLER__')) {
     \define('__ARIN_HANDLER__', 1);
 }
 
-class arin_handler extends WhoisHandler
+class arin_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'OrgName:' => 'owner.organization',
@@ -63,7 +63,7 @@ class arin_handler extends WhoisHandler
             'ReferralServer:' => 'rwhois',
         ];
 
-        $r = \generic_parser_b($data_str, $items, 'ymd', false, true);
+        $r = WhoisParser::generic_parser_b($data_str, $items, 'ymd', false, true);
 
         if (isset($r['abuse']['email'])) {
             $r['abuse']['email'] = \implode(',', $r['abuse']['email']);

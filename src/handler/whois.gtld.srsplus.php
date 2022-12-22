@@ -29,9 +29,9 @@ if (!\defined('__SRSPLUS_HANDLER__')) {
     \define('__SRSPLUS_HANDLER__', 1);
 }
 
-class srsplus_handler extends WhoisHandler
+class srsplus_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant:',
@@ -44,6 +44,6 @@ class srsplus_handler extends WhoisHandler
             'domain.expires' => 'Record expires on',
         ];
 
-        return \easy_parser($data_str, $items, 'ymd', [], true, true);
+        return WhoisParser::easy_parser($data_str, $items, 'ymd', [], true, true);
     }
 }

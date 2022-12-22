@@ -29,9 +29,9 @@ if (!\defined('__TVCORP_HANDLER__')) {
     \define('__TVCORP_HANDLER__', 1);
 }
 
-class tvcorp_handler extends WhoisHandler
+class tvcorp_handler extends WhoisHandlerAbstract
 {
-    public function parse(WhoisClient $whoisClient, array $data_str, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $items = [
             'owner' => 'Registrant',
@@ -43,6 +43,6 @@ class tvcorp_handler extends WhoisHandler
             'domain.expires' => 'Record expires on',
         ];
 
-        return \easy_parser($data_str, $items, 'mdy');
+        return WhoisParser::easy_parser($data_str, $items, 'mdy');
     }
 }
