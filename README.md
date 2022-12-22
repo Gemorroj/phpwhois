@@ -177,7 +177,7 @@ The latest version of the package and a demo script resides at
 Credits
 -------
 
-Mark Jeftovic <markjr@easydns.com>
-David Saez Padros <david@ols.es>
-Ross Golder <ross@golder.org>
-Gemorroj <wapinet@mail.ru>
+- Mark Jeftovic <markjr@easydns.com>
+- David Saez Padros <david@ols.es>
+- Ross Golder <ross@golder.org>
+- Gemorroj <wapinet@mail.ru>
