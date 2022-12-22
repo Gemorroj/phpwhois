@@ -46,15 +46,7 @@ $result = $whois->Lookup('example.com');
 print_r($result);
 ```
 
-If you provide the domain name to query not in UTF8, then you
-must use:
-```php
-<?php
-$result = $whois->Lookup('example.com', false);
-```
-
-If the query string is not in UTF8 then it must be in
-ISO-8859-1 or IDNA support will not work.
+If the query string is not in UTF8 or IDNA support will not work.
 
 What you can query
 ------------------
@@ -160,12 +152,12 @@ If you just want to know if a domain is registered or not but do not
 care about getting the real owner information you can set:
 ```php
 <?php
-$whois->deep_whois = false;
+$whois->deepWhois = false;
 ```
 
 this will tell phpWhois to just query one whois server. For .com, .net
 and .tv domains and ip addresses this will prevent phpWhois to ask more
-than one whois server, you will just know if the donmain is registered
+than one whois server, you will just know if the domain is registered
 or not and which is the registrar but not the owner information.
 
 UTF-8
@@ -173,31 +165,13 @@ UTF-8
 
 PHPWhois will assume that all whois servers return UTF-8 encoded output,
 if some whois server does not return UTF-8 data, you can include it in
-the NON_UTF8 array in whois.client.php
+the NON_UTF8 array in Whois.php
 
 Notes 
 -----
 
-There is an extended class called "whois.utils.php" which contains a
-debugging function called showObject(), if you showObject($result)
-it will output the total layout of the returned object to the 
-web browser.
-
 The latest version of the package and a demo script resides at 
-<http://phpwhois.sourceforge.net/>
-
-There is also be an article describing the package on devshed.com
-at <http://www.devshed.com/Server_Side/PHP/whois/>
-
-
-Support/Patches
----------------
-
-If you're really stuck and can't figure something out, or you want
-to contribute an extended class for one of the TLD's, file a patch
-or support request in the SourceForge tracker. One of the developers
-will get around to applying or responding.
-<http://sourceforge.net/projects/phpwhois>
+<https://github.com/Gemorroj/phpwhois>
 
 
 Credits
