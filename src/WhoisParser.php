@@ -120,7 +120,7 @@ class WhoisParser
                     continue;
                 }
                 if (false !== \strpos($k, '.')) {
-                    ${'block'.self::getvarname($k)} = $v;
+                    ${'block'.self::getVarName($k)} = $v;
 
                     continue;
                 }
@@ -375,7 +375,7 @@ class WhoisParser
                             $itm = \trim(\substr($val, $pos + \strlen($match)));
 
                             if ('' != $itm) {
-                                ${'r'.self::getvarname($field)} = '="'.\str_replace('"', '\"', $itm).'";';
+                                ${'r'.self::getVarName($field)} = '="'.\str_replace('"', '\"', $itm).'";';
                             }
                         }
 
@@ -402,7 +402,7 @@ class WhoisParser
         return $r;
     }
 
-    private static function getvarname(string $vdef): string
+    private static function getVarName(string $vdef): string
     {
         $parts = \explode('.', $vdef);
         $var = '';
@@ -456,7 +456,7 @@ class WhoisParser
                         $endTag = $last;
                         $line = $valBlock;
                     } else {
-                        $var = self::getvarname(\strtok($field, '#'));
+                        $var = self::getVarName(\strtok($field, '#'));
                         $itm = \trim(\substr($valBlock, $pos + \strlen($match)));
 
                         ${'r'.$var} = $itm;
@@ -524,7 +524,7 @@ class WhoisParser
                 $pos = \strpos($line, $match);
 
                 if (false !== $pos) {
-                    $var = self::getvarname(\strtok($field, '#'));
+                    $var = self::getVarName(\strtok($field, '#'));
                     if ('[]' !== $var) {
                         ${'r'.$var} = $block;
                     }
@@ -642,7 +642,7 @@ class WhoisParser
                     $itm = \trim(\substr($val, $pos + \strlen($match)));
 
                     if ('' != $field && '' !== $itm) {
-                        ${'r'.self::getvarname($field)} = $itm;
+                        ${'r'.self::getVarName($field)} = $itm;
                     }
 
                     $val = \trim(\substr($val, 0, $pos));
