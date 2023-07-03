@@ -372,7 +372,7 @@ class Whois
 
         // Check if protocol is http
 
-        if (0 === \strpos($this->Query['server'], 'http://') || 0 === \strpos($this->Query['server'], 'https://')) {
+        if (\str_starts_with($this->Query['server'], 'http://') || \str_starts_with($this->Query['server'], 'https://')) {
             $output = $this->httpQuery();
 
             if (!$output) {
@@ -385,7 +385,7 @@ class Whois
             $this->Query['args'] = \substr(\strstr($this->Query['server'], '?'), 1);
             $this->Query['server'] = \strtok($this->Query['server'], '?');
 
-            if (0 === \strpos($this->Query['server'], 'http://')) {
+            if (\str_starts_with($this->Query['server'], 'http://')) {
                 $this->Query['server_port'] = 80;
             } else {
                 $this->Query['server_port'] = 443;
@@ -402,11 +402,11 @@ class Whois
                 $query_args = \str_replace('{query}', $query, $query_args);
                 $query_args = \str_replace('{version}', 'phpWhois'.$this->CODE_VERSION, $query_args);
 
-                if (false !== \strpos($query_args, '{ip}')) {
+                if (\str_contains($query_args, '{ip}')) {
                     $query_args = \str_replace('{ip}', $this->getClientIp(), $query_args);
                 }
 
-                if (false !== \strpos($query_args, '{hname}')) {
+                if (\str_contains($query_args, '{hname}')) {
                     $query_args = \str_replace('{hname}', \gethostbyaddr($this->getClientIp()), $query_args);
                 }
             } else {
@@ -419,11 +419,11 @@ class Whois
 
             $this->Query['args'] = $query_args;
 
-            if (0 === \strpos($this->Query['server'], 'rwhois://')) {
+            if (\str_starts_with($this->Query['server'], 'rwhois://')) {
                 $this->Query['server'] = \substr($this->Query['server'], 9);
             }
 
-            if (0 === \strpos($this->Query['server'], 'whois://')) {
+            if (\str_starts_with($this->Query['server'], 'whois://')) {
                 $this->Query['server'] = \substr($this->Query['server'], 8);
             }
 
@@ -751,7 +751,7 @@ class Whois
             $ip = '';
 
             foreach ($parts as $p) {
-                if ('.' === \substr($p, -1)) {
+                if (\str_ends_with($p, '.')) {
                     $p = \substr($p, 0, -1);
                 }
 
@@ -1113,7 +1113,7 @@ class Whois
     /**
      * get nice HTML output.
      */
-    public static function showHTML(array $result, ?string $useLink = null, string $params = 'query=$0'): string
+    public static function showHTML(array $result, string $useLink = null, string $params = 'query=$0'): string
     {
         // adds links fort HTML output
 
@@ -1151,7 +1151,7 @@ class Whois
         $out = \strip_tags($out);
         $out = \preg_replace($email_regex, '<a href="mailto:$0">$0</a>', $out);
         $out = \preg_replace_callback($html_regex, static function (array $matches): string {
-            if (0 === \strpos($matches[0], 'www.')) {
+            if (\str_starts_with($matches[0], 'www.')) {
                 $web = $matches[0];
                 $url = 'http://'.$web;
             } else {

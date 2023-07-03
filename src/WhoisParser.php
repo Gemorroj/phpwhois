@@ -119,7 +119,7 @@ class WhoisParser
                 if ('' == $k) {
                     continue;
                 }
-                if (false !== \strpos($k, '.')) {
+                if (\str_contains($k, '.')) {
                     ${'block'.self::getVarName($k)} = $v;
 
                     continue;
@@ -786,7 +786,7 @@ class WhoisParser
 
         $parts = \explode(' ', $date);
 
-        if (false !== \strpos($parts[0], '@')) {
+        if (\str_contains($parts[0], '@')) {
             unset($parts[0]);
             $date = \implode(' ', $parts);
         }

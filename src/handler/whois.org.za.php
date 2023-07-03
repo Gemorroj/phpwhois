@@ -31,7 +31,7 @@ if (!\defined('__ORG_ZA_HANDLER__')) {
 
 class org_za_handler extends WhoisHandlerAbstract
 {
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,7 +45,7 @@ class org_za_handler extends WhoisHandlerAbstract
             '#' => 'Search Again',
         ];
 
-        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (isset($r['regrinfo']['domain']['status'])) {
             $r['regrinfo']['registered'] = 'yes';

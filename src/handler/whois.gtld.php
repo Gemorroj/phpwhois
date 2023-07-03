@@ -51,12 +51,12 @@ class gtld_handler extends WhoisHandlerAbstract
         'No match for ' => 'nodomain',
     ];
 
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         if (\is_array($query) && \array_key_exists('handler', $query)) {
             $this->SUBVERSION = \sprintf('%s-%s', $query['handler'], $this->HANDLER_VERSION);
         }
-        $this->result = WhoisParser::generic_parser_b($data['rawdata'], $this->REG_FIELDS, 'dmy');
+        $this->result = WhoisParser::generic_parser_b($data_str['rawdata'], $this->REG_FIELDS, 'dmy');
 
         unset($this->result['registered']);
 
@@ -73,7 +73,7 @@ class gtld_handler extends WhoisHandlerAbstract
 
         // Next server could fail to return data
         if (empty($this->result['rawdata']) || \count($this->result['rawdata']) < 3) {
-            $this->result['rawdata'] = $data['rawdata'];
+            $this->result['rawdata'] = $data_str['rawdata'];
         }
 
         // Domain is registered no matter what next server says

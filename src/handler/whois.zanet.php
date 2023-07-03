@@ -51,7 +51,7 @@ class zanet_handler extends WhoisHandlerAbstract
         $rawdata = [];
 
         foreach ($data_str['rawdata'] as $line) {
-            if (false !== \strpos($line, ' Contact ')) {
+            if (\str_contains($line, ' Contact ')) {
                 $pos = \strpos($line, ':');
 
                 if (false !== $pos) {

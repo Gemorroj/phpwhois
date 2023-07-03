@@ -31,7 +31,7 @@ if (!\defined('__EU_HANDLER__')) {
 
 class eu_handler extends WhoisHandlerAbstract
 {
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -50,7 +50,7 @@ class eu_handler extends WhoisHandlerAbstract
             'website:' => 'url',
         ];
 
-        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if (!empty($r['regrinfo']['domain']['status'])) {
             switch ($r['regrinfo']['domain']['status']) {

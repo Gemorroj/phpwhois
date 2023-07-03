@@ -31,7 +31,7 @@ if (!\defined('__BE_HANDLER__')) {
 
 class be_handler extends WhoisHandlerAbstract
 {
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -50,7 +50,7 @@ class be_handler extends WhoisHandlerAbstract
             'company name2:' => '',
         ];
 
-        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         if ('AVAILABLE' !== $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'yes';

@@ -223,7 +223,7 @@ Please visit www.eurid.eu for more info.'),
     /**
      * @dataProvider dataProviderShowHTML
      */
-    public function testShowHTML(array $data, string $expectedResult, ?string $useLink = null): void
+    public function testShowHTML(array $data, string $expectedResult, string $useLink = null): void
     {
         $resultHtml = \Whois::showHTML($data, $useLink);
 

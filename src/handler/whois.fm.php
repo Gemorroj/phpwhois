@@ -31,7 +31,7 @@ if (!\defined('__FM_HANDLER__')) {
 
 class fm_handler extends WhoisHandlerAbstract
 {
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -47,7 +47,7 @@ class fm_handler extends WhoisHandlerAbstract
             'domain.sponsor' => 'Registrar Name:',
         ];
 
-        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
 
         $items = [
             'phone number:' => 'phone',

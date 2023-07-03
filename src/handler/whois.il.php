@@ -66,22 +66,22 @@ class il_handler extends WhoisHandlerAbstract
         if (isset($reg['domain']['descr:'])) {
             foreach ($reg['domain']['descr:'] as $key => $val) {
                 $v = \trim(\substr(\strstr($val, ':'), 1));
-                if (false !== \strpos($val, '[organization]:')) {
+                if (\str_contains($val, '[organization]:')) {
                     $reg['owner']['organization'] = $v;
 
                     continue;
                 }
-                if (false !== \strpos($val, '[phone]:')) {
+                if (\str_contains($val, '[phone]:')) {
                     $reg['owner']['phone'] = $v;
 
                     continue;
                 }
-                if (false !== \strpos($val, '[fax-no]:')) {
+                if (\str_contains($val, '[fax-no]:')) {
                     $reg['owner']['fax'] = $v;
 
                     continue;
                 }
-                if (false !== \strpos($val, '[e-mail]:')) {
+                if (\str_contains($val, '[e-mail]:')) {
                     $reg['owner']['email'] = $v;
 
                     continue;

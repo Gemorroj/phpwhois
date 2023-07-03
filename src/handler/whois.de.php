@@ -63,7 +63,7 @@ class de_handler extends WhoisHandlerAbstract
             'referrer' => 'http://www.denic.de/',
         ];
 
-        if (!isset($r['regrinfo']['domain']['status']) || 'free' == $r['regrinfo']['domain']['status']) {
+        if (!isset($r['regrinfo']['domain']['status']) || 'free' === $r['regrinfo']['domain']['status']) {
             $r['regrinfo']['registered'] = 'no';
         } else {
             $r['regrinfo']['domain']['changed'] = \substr($r['regrinfo']['domain']['changed'], 0, 10);

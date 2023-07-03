@@ -54,7 +54,7 @@ class ip_handler extends WhoisHandlerAbstract
     public array $more_data = [];    // More queries to get more accurated data
     public array $done = [];
 
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $result = [];
         $result['regrinfo'] = [];
@@ -62,7 +62,7 @@ class ip_handler extends WhoisHandlerAbstract
         $result['regyinfo']['registrar'] = 'American Registry for Internet Numbers (ARIN)';
         $result['rawdata'] = [];
 
-        if (false === \strpos($query, '.')) {
+        if (!\str_contains($query, '.')) {
             $result['regyinfo']['type'] = 'AS';
         } else {
             $result['regyinfo']['type'] = 'ip';
@@ -76,12 +76,13 @@ class ip_handler extends WhoisHandlerAbstract
         $whoisClient->Query['server'] = 'whois.arin.net';
         $whoisClient->Query['query'] = $query;
 
-        $rawdata = $data['rawdata'];
+        $rawdata = $data_str['rawdata'];
 
         if (empty($rawdata)) {
             return $result;
         }
 
+        $presults = [];
         $presults[] = $rawdata;
         $ip = \ip2long($query);
         $done = [];

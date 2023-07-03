@@ -60,7 +60,7 @@ class nu_handler extends WhoisHandlerAbstract
                 }
 
                 foreach ($items as $field => $match) {
-                    if (false !== \strpos($val, $match)) {
+                    if (\str_contains($val, $match)) {
                         $r['regrinfo']['domain'][$field] = \trim(\substr($val, \strlen($match)));
 
                         break;

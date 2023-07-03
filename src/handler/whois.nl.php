@@ -31,7 +31,7 @@ if (!\defined('__NL_HANDLER__')) {
 
 class nl_handler extends WhoisHandlerAbstract
 {
-    public function parse(Whois $whoisClient, array $data, $query): ?array
+    public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
         $r = [];
         $items = [
@@ -45,7 +45,7 @@ class nl_handler extends WhoisHandlerAbstract
             'tech' => 'Technical contact(s):',
         ];
 
-        $r['regrinfo'] = WhoisParser::get_blocks($data['rawdata'], $items);
+        $r['regrinfo'] = WhoisParser::get_blocks($data_str['rawdata'], $items);
         $r['regyinfo']['referrer'] = 'http://www.domain-registry.nl';
         $r['regyinfo']['registrar'] = 'Stichting Internet Domeinregistratie NL';
 
