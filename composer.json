@@ -5,7 +5,7 @@
     "license": "GPL-2.0-only",
     "require": {
         "php": ">=8.0.2",
-        "symfony/polyfill-iconv": "^1.27",
+        "symfony/polyfill-iconv": "^1.28",
         "algo26-matthias/idna-convert": "^3.1||^4.0"
     },
     "require-dev": {
