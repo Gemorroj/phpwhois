@@ -1113,7 +1113,7 @@ class Whois
     /**
      * get nice HTML output.
      */
-    public static function showHTML(array $result, string $useLink = null, string $params = 'query=$0'): string
+    public static function showHTML(array $result, ?string $useLink = null, string $params = 'query=$0'): string
     {
         // adds links fort HTML output
 
