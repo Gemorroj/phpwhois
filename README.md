@@ -25,7 +25,7 @@ provided.
 Requirements
 ------------
 
-phpWhois requires PHP 8.0.2 or higher with OpenSSL support to
+phpWhois requires PHP 8.1 or higher with OpenSSL support to
 work properly. Without SSL support you will not be able to
 query domains which do not have a whois server but that have
 a https based whois.

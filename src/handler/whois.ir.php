@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPWhois IR Lookup Extension - http://github.com/sepehr/phpwhois-ir.
  *
