@@ -7,7 +7,7 @@ $finder = PhpCsFixer\Finder::create()
 return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
-        '@PHP80Migration' => true,
+        '@PHP81Migration' => true,
 
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
