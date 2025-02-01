@@ -870,8 +870,8 @@ class Whois
     }
 
     /**
-     * @throws Algo26\IdnaConvert\Exception\AlreadyPunycodeException
-     * @throws Algo26\IdnaConvert\Exception\InvalidCharacterException
+     * @throws \Algo26\IdnaConvert\Exception\AlreadyPunycodeException
+     * @throws \Algo26\IdnaConvert\Exception\InvalidCharacterException
      */
     public function Lookup(string $query): ?array
     {
@@ -887,7 +887,7 @@ class Whois
             return null;
         }
 
-        $IDN = new Algo26\IdnaConvert\ToIdn();
+        $IDN = new \Algo26\IdnaConvert\ToIdn();
         $query = $IDN->convert($query);
 
         // Set domain to query in query array
