@@ -2,13 +2,9 @@
 
 namespace PHPWhois\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class PHPWhoisTest extends TestCase
 {
     public function testLookupDomain(): void
@@ -67,7 +63,7 @@ class PHPWhoisTest extends TestCase
         self::assertIsArray($result['regyinfo']);
     }
 
-    public function dataProviderGetBlocks(): \Generator
+    public static function dataProviderGetBlocks(): \Generator
     {
         yield [
             [
@@ -163,9 +159,8 @@ Please visit www.eurid.eu for more info.'),
 
     /**
      * @todo find any domain with that fking data
-     *
-     * @dataProvider dataProviderGetBlocks
      */
+    #[DataProvider('dataProviderGetBlocks')]
     public function testGetBlocks(array $rawData, array $items, bool $partialMatch = false, bool $defBlock = false): void
     {
         $r = \WhoisParser::get_blocks($rawData, $items, $partialMatch, $defBlock);
@@ -174,7 +169,7 @@ Please visit www.eurid.eu for more info.'),
         self::assertIsArray($r);
     }
 
-    public function dataProviderShowHTML(): \Generator
+    public static function dataProviderShowHTML(): \Generator
     {
         yield [
             [
@@ -220,9 +215,7 @@ Please visit www.eurid.eu for more info.'),
         ];
     }
 
-    /**
-     * @dataProvider dataProviderShowHTML
-     */
+    #[DataProvider('dataProviderShowHTML')]
     public function testShowHTML(array $data, string $expectedResult, ?string $useLink = null): void
     {
         $resultHtml = \Whois::showHTML($data, $useLink);
