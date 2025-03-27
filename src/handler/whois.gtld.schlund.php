@@ -30,7 +30,7 @@ if (!\defined('__SCHLUND_HANDLER__')) {
     \define('__SCHLUND_HANDLER__', 1);
 }
 
-class schlund_handler extends WhoisHandlerAbstract
+final class schlund_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

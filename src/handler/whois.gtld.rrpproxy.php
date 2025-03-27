@@ -30,7 +30,7 @@ if (!\defined('__RRPPROXY_HANDLER__')) {
     \define('__RRPPROXY_HANDLER__', 1);
 }
 
-class rrpproxy_handler extends WhoisHandlerAbstract
+final class rrpproxy_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

@@ -5,7 +5,7 @@ namespace PHPWhois\Tests;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class PHPWhoisTest extends TestCase
+final class PHPWhoisTest extends TestCase
 {
     public function testLookupDomain(): void
     {

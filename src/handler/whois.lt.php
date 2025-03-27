@@ -30,7 +30,7 @@ if (!\defined('__LT_HANDLER__')) {
     \define('__LT_HANDLER__', 1);
 }
 
-class lt_handler extends WhoisHandlerAbstract
+final class lt_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

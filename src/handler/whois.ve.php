@@ -31,7 +31,7 @@ if (!\defined('__VE_HANDLER__')) {
     \define('__VE_HANDLER__', 1);
 }
 
-class ve_handler extends WhoisHandlerAbstract
+final class ve_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

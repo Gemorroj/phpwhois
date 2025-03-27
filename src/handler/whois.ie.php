@@ -30,7 +30,7 @@ if (!\defined('__IE_HANDLER__')) {
     \define('__IE_HANDLER__', 1);
 }
 
-class ie_handler extends WhoisHandlerAbstract
+final class ie_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

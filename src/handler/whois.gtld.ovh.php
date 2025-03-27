@@ -30,7 +30,7 @@ if (!\defined('__OVH_HANDLER__')) {
     \define('__OVH_HANDLER__', 1);
 }
 
-class ovh_handler extends WhoisHandlerAbstract
+final class ovh_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

@@ -30,7 +30,7 @@ if (!\defined('__ZANET_HANDLER__')) {
     \define('__ZANET_HANDLER__', 1);
 }
 
-class zanet_handler extends WhoisHandlerAbstract
+final class zanet_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

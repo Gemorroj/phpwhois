@@ -32,7 +32,7 @@ if (!\defined('__INT_HANDLER__')) {
 
 require_once __DIR__.'/whois.gtld.iana.php';
 
-class int_handler extends WhoisHandlerAbstract
+final class int_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

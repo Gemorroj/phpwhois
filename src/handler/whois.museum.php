@@ -30,7 +30,7 @@ if (!\defined('__MUSEUM_HANDLER__')) {
     \define('__MUSEUM_HANDLER__', 1);
 }
 
-class museum_handler extends WhoisHandlerAbstract
+final class museum_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

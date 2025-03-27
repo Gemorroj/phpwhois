@@ -30,7 +30,7 @@ if (!\defined('__INTERDOMAIN_HANDLER__')) {
     \define('__INTERDOMAIN_HANDLER__', 1);
 }
 
-class interdomain_handler extends WhoisHandlerAbstract
+final class interdomain_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

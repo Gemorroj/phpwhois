@@ -30,7 +30,7 @@ if (!\defined('__UK_HANDLER__')) {
     \define('__UK_HANDLER__', 1);
 }
 
-class uk_handler extends WhoisHandlerAbstract
+final class uk_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

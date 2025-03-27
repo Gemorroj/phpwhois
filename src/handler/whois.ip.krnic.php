@@ -30,7 +30,7 @@ if (!\defined('__KRNIC_HANDLER__')) {
     \define('__KRNIC_HANDLER__', 1);
 }
 
-class krnic_handler extends WhoisHandlerAbstract
+final class krnic_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

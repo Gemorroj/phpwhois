@@ -30,7 +30,7 @@ if (!\defined('__IANA_HANDLER__')) {
     \define('__IANA_HANDLER__', 1);
 }
 
-class iana_handler extends WhoisHandlerAbstract
+final class iana_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

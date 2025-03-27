@@ -30,7 +30,7 @@ if (!\defined('__AFRINIC_HANDLER__')) {
     \define('__AFRINIC_HANDLER__', 1);
 }
 
-class afrinic_handler extends WhoisHandlerAbstract
+final class afrinic_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

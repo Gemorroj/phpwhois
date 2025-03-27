@@ -30,7 +30,7 @@ if (!\defined('__APNIC_HANDLER__')) {
     \define('__APNIC_HANDLER__', 1);
 }
 
-class apnic_handler extends WhoisHandlerAbstract
+final class apnic_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

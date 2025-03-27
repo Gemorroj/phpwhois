@@ -30,7 +30,7 @@ if (!\defined('__NAMEVAULT_HANDLER__')) {
     \define('__NAMEVAULT_HANDLER__', 1);
 }
 
-class namevault_handler extends WhoisHandlerAbstract
+final class namevault_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

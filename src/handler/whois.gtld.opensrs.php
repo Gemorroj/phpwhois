@@ -30,7 +30,7 @@ if (!\defined('__OPENSRS_HANDLER__')) {
     \define('__OPENSRS_HANDLER__', 1);
 }
 
-class opensrs_handler extends WhoisHandlerAbstract
+final class opensrs_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

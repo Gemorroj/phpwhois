@@ -30,7 +30,7 @@ if (!\defined('__NICLINE_HANDLER__')) {
     \define('__NICLINE_HANDLER__', 1);
 }
 
-class nicline_handler extends WhoisHandlerAbstract
+final class nicline_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

@@ -30,7 +30,7 @@ if (!\defined('__ASSORTED_HANDLER__')) {
     \define('__ASSORTED_HANDLER__', 1);
 }
 
-class assorted_handler extends WhoisHandlerAbstract
+final class assorted_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

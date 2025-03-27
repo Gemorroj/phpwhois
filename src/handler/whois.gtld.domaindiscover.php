@@ -30,7 +30,7 @@ if (!\defined('__DOMAINDISCOVER_HANDLER__')) {
     \define('__DOMAINDISCOVER_HANDLER__', 1);
 }
 
-class domaindiscover_handler extends WhoisHandlerAbstract
+final class domaindiscover_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

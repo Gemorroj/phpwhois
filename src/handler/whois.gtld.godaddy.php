@@ -30,7 +30,7 @@ if (!\defined('__GODADDY_HANDLER__')) {
     \define('__GODADDY_HANDLER__', 1);
 }
 
-class godaddy_handler extends WhoisHandlerAbstract
+final class godaddy_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

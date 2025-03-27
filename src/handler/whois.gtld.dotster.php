@@ -30,7 +30,7 @@ if (!\defined('__DOTSTER_HANDLER__')) {
     \define('__DOTSTER_HANDLER__', 1);
 }
 
-class dotster_handler extends WhoisHandlerAbstract
+final class dotster_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

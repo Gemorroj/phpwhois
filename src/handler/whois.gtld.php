@@ -30,7 +30,7 @@ if (!\defined('__GTLD_HANDLER__')) {
     \define('__GTLD_HANDLER__', 1);
 }
 
-class gtld_handler extends WhoisHandlerAbstract
+final class gtld_handler extends WhoisHandlerAbstract
 {
     public string $HANDLER_VERSION = '1.1';
     public string $SUBVERSION;

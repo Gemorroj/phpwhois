@@ -30,7 +30,7 @@ if (!\defined('__IP_HANDLER__')) {
     \define('__IP_HANDLER__', 1);
 }
 
-class ip_handler extends WhoisHandlerAbstract
+final class ip_handler extends WhoisHandlerAbstract
 {
     public string $HANDLER_VERSION = '1.0';
 

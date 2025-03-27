@@ -30,7 +30,7 @@ if (!\defined('__REGISTER_HANDLER__')) {
     \define('__REGISTER_HANDLER__', 1);
 }
 
-class register_handler extends WhoisHandlerAbstract
+final class register_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {

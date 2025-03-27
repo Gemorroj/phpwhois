@@ -30,7 +30,7 @@ if (!\defined('__LACNIC_HANDLER__')) {
     \define('__LACNIC_HANDLER__', 1);
 }
 
-class lacnic_handler extends WhoisHandlerAbstract
+final class lacnic_handler extends WhoisHandlerAbstract
 {
     public function parse(Whois $whoisClient, array $data_str, $query): ?array
     {
