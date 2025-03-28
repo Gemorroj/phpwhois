@@ -57,10 +57,10 @@ final class ws_handler extends WhoisHandlerAbstract
             $r['regrinfo']['registered'] = 'yes';
 
             if (isset($r['regrinfo']['rwhois'])) {
-                if ($whoisClient->deepWhois) {
+                /*if ($whoisClient->deepWhois) {
                     $r['regyinfo']['whois'] = $r['regrinfo']['rwhois'];
                     $r = $whoisClient->DeepWhois($query, $r);
-                }
+                }*/
 
                 unset($r['regrinfo']['rwhois']);
             }
