@@ -60,7 +60,7 @@ final class is_handler extends WhoisHandlerAbstract
 
         $r['regrinfo'] = $reg;
         $r['regyinfo'] = [
-            'referrer' => 'http://www.isnic.is',
+            'referrer' => 'https://www.isnic.is',
             'registrar' => 'ISNIC',
         ];
 
