@@ -49,12 +49,6 @@ final class edu_handler extends WhoisHandlerAbstract
 
         $r['regrinfo'] = WhoisParser::easy_parser($data_str['rawdata'], $items, 'dmy');
 
-        if (isset($b['tech'])) {
-            if ('Same as above' === $r['regrinfo']['tech']['name']) {
-                $r['regrinfo']['tech'] = $r['regrinfo']['admin'];
-            }
-        }
-
         $r['regyinfo']['referrer'] = 'http://whois.educause.net';
         $r['regyinfo']['registrar'] = 'EDUCASE';
 
