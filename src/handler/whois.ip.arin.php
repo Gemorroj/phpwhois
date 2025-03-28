@@ -44,8 +44,6 @@ final class arin_handler extends WhoisHandlerAbstract
             'PostalCode:' => 'owner.address.pcode',
             'Country:' => 'owner.address.country',
             'NetRange:' => 'network.inetnum',
-            'NetName:' => 'network.name',
-            'NetHandle:' => 'network.handle',
             'NetType:' => 'network.status',
             'NameServer:' => 'network.nserver.',
             'Comment:' => 'network.desc.',
