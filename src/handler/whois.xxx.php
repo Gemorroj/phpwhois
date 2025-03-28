@@ -41,7 +41,7 @@ final class xxx_handler extends WhoisHandlerAbstract
             $r['regrinfo']['registered'] = 'unknown';
         }
 
-        $r['regyinfo']['referrer'] = 'http://www.pir.org/';
+        $r['regyinfo']['referrer'] = 'https://thenew.org/org-people/';
         $r['regyinfo']['registrar'] = 'Public Interest Registry';
 
         return $r;
