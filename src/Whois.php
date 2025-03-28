@@ -1166,7 +1166,9 @@ final class Whois
         if ($useLink) {
             $link = $useLink.'?'.$params;
 
-            $out = \preg_replace($ip_regex, '<a href="'.$link.'">$0</a>', $out);
+            if (!\str_contains($out, '<a href=')) {
+                $out = \preg_replace($ip_regex, '<a href="'.$link.'">$0</a>', $out);
+            }
 
             if (isset($result['regrinfo']['domain']['nserver'])) {
                 $nserver = $result['regrinfo']['domain']['nserver'];
