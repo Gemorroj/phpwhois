@@ -111,7 +111,6 @@ final class ip_handler extends WhoisHandlerAbstract
                         [$low, $high] = \explode('-', \str_replace(' ', '', $postNet));
 
                         if (!isset($done[$net]) && $ip >= \ip2long($low) && $ip <= \ip2long($high)) {
-                            // $owner = \substr($line, 0, $p - 1);
 
                             if (!empty($this->REGISTRARS['owner'])) {
                                 $this->handle_rwhois($this->REGISTRARS['owner'], $query);

@@ -601,7 +601,7 @@ final class Whois
 
             // Failed this attempt
             $this->Query['status'] = 'error';
-            $this->Query['error'][] = $errstr;
+            $this->query['error'][] = "[$errno] $errstr";
             ++$retry;
 
             // Sleep before retrying
