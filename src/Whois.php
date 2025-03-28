@@ -870,7 +870,6 @@ final class Whois
     }
 
     /**
-     * @throws \Algo26\IdnaConvert\Exception\AlreadyPunycodeException
      * @throws \Algo26\IdnaConvert\Exception\InvalidCharacterException
      */
     public function Lookup(string $query): ?array
@@ -887,8 +886,12 @@ final class Whois
             return null;
         }
 
-        $IDN = new \Algo26\IdnaConvert\ToIdn();
-        $query = $IDN->convert($query);
+        $idn = new \Algo26\IdnaConvert\ToIdn();
+        try {
+            $query = $idn->convert($query);
+        } catch (\Algo26\IdnaConvert\Exception\AlreadyPunycodeException $e) {
+            // $query is already a Punycode
+        }
 
         // Set domain to query in query array
         $this->Query['query'] = $domain = \strtolower($query);
